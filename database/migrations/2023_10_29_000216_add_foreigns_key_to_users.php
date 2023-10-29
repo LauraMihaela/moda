@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cliente', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            // Añadir fk
+            $table->foreign("role_id")->references("id")->on("roles")
+            ->onDelete("cascade")->onUpdate("cascade");
         });
     }
 
@@ -22,6 +23,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('cliente');
+        Schema::table('users', function (Blueprint $table) {
+            // Eliminar fk
+            $table->dropForeign(['role_id']);
+        });
     }
 };
