@@ -12,6 +12,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        // Se llamarán a las clases en las que están todos los seeders
+        $this->call([
+            StatusSeeder::class,
+            RoleSeeder::class,
+            SizeSeeder::class,
+        ]);
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([
