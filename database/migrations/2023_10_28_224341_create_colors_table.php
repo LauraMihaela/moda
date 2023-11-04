@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('colors', function (Blueprint $table) {
             $table->id();
             //$table->bigIncrements('id')->unsigned();
-            $table->string('color_nam')->comment("Color name");
+            $table->string('color_name')->comment("Color name");
             $table->timestamps();
         });
     }

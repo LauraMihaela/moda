@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('name')->nullable()->comment("User real name");
             $table->string('lastname')->nullable()->comment("User real lastname");
             $table->string('email',100)->unique()->index()->comment("User email");
+            $table->string('remember_token', 500)->comment('Remember password token');
             $table->unsignedBigInteger("role_id")->comment("Role of the current user (Relationship between the user and the role)");
             // El id de laravel por defecto se crea con el tipo "unsignedBigInteger"
             // Para que sean compatibles, el campo que será fk, debe ser también unsignedBigInteger

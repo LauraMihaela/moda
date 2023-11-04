@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class User extends Authenticatable
 {
@@ -18,9 +20,13 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'email',
+        'username',
         'password',
+        'name',
+        'lastname',
+        'email',
+        'remember_token',
+        'role_id'
     ];
 
     /**
@@ -30,7 +36,7 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
-        'remember_token',
+        'remember_token'
     ];
 
     /**
@@ -39,7 +45,39 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        // 'email_verified_at' => 'datetime',
+        'username' => 'string',
         'password' => 'hashed',
+        'name' => 'string',
+        'lastname' => 'string',
+        'email' => 'string',
+        'remember_token' => 'string',
+        'role_id' => 'string',
     ];
+
+    public static $rules = [
+        'username' => 'required|unique:users,username',
+        'password' => 'required',
+        'name' => 'required',
+        'lastname' => 'required',
+        'email' => 'required|unique:users,email|email:rfc,dns',
+        // Se valida que el email sea tipo email mediante protocolos rfc y dns
+        'role_id' => 'required',
+    ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     **/
+    public function roles(): HasMany
+    {
+        return $this->hasMany(\App\Models\Role::class, 'role_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     **/
+    public function clients(): BelongsTo
+    {
+        return $this->belongsTo(\App\Models\Client::class, 'user_id');
+    }
 }
