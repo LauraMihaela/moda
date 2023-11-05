@@ -1,0 +1,144 @@
+@import url('https://fonts.googleapis.com/css2?family=Della+Respira&display=swap');
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+*{
+    font-family: 'Della Respira', serif;
+}
+
+body {
+  min-height: 100vh;
+}
+
+.field-icon {
+  float: right;
+  margin-left: -1.6rem;
+  margin-top: -2.5rem;
+  position: relative;
+  z-index: 2;
+}
+
+.logo img{
+  width: 20vh;
+  height: auto;
+}
+
+.logo{
+  margin-top:5vh;
+}
+
+.container-fluid-fluid {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.container-fluid:hover .top:before, .container-fluid:active .top:before, .container-fluid:hover .bottom:before, 
+.container-fluid:active .bottom:before, .container-fluid:hover .top:after, .container-fluid:active .top:after, 
+.container-fluid:hover .bottom:after, .container-fluid:active .bottom:after {
+  margin-left: 12.5em;
+  transform-origin: -12.5em 50%;
+  transition-delay: 0s;
+}
+
+.container-fluid:hover .center, .container-fluid:active .center {
+  opacity: 1;
+  transition-delay: 0.2s;
+}
+
+.top:before, .bottom:before, .top:after, .bottom:after, .center{
+    transition: all 0.5s cubic-bezier(0.445, 0.05, 0, 1);
+}
+
+.top:before, .bottom:before, .top:after, .bottom:after {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 200vmax;
+  height: 200vmax;
+  top: 50%;
+  left: 50%;
+  margin-top: -100vmax;
+  transform-origin: 0 50%;
+  z-index: 10;
+  opacity: 0.65;
+  transition-delay: 0.2s;
+}
+
+.top:before {
+  transform: rotate(45deg);
+  background: #e46569;
+}
+
+.top:after {
+  transform: rotate(135deg);
+  background: #ecaf81;
+}
+.bottom:before {
+  transform: rotate(-45deg);
+  background: #60b8d4;
+}
+.bottom:after {
+  transform: rotate(-135deg);
+  background: #3745b5;
+}
+
+.center, .icon{
+    position: absolute;
+    width: 25em;
+    height: 25em;
+    top: 50%;
+    left: 50%;
+    margin-left: -12.5em;
+    margin-top: -12.5em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.center {
+  padding: 1.875em;
+  opacity: 0;
+  transition-delay: 0s;
+  color: #333;
+}
+
+.icon {
+  pointer-events: none;
+  opacity: 1;
+  z-index: 20;
+}
+
+.form-element {
+  width: 100%;
+  padding: 0.938em;
+  margin: 0.313em;
+  border-radius: 0.063em;
+  border: 0.063em solid #ccc;
+}
+
+.icon:hover, .icon:active {
+  opacity: 0;
+}
+
+@media
+    only screen 
+    and (max-width: 760px), (min-device-width: 768px) 
+    and (max-device-width: 1024px)  
+{
+    .logo img{
+    width: 14vh;
+    }
+    .field-icon {
+    float: right;
+    margin-left: -1.6rem;
+    margin-top: -2.5rem;
+    position: relative;
+    z-index: 2;
+    white-space: nowrap !important;
+    display: inline;
+    }     
+}
