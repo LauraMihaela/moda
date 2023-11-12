@@ -20,3 +20,11 @@ Route::get('/', function () {
 Route::get('/register', function () {
     return view('register');
 });
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+});
+
+Route::post('/user/createClient', 'App\Http\Controllers\UserController@createClient');
+Route::post('/login', 'App\Http\Controllers\LoginController@login');
+

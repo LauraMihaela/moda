@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             // $table->bigIncrements('id')->unsigned();
             // Se crea el campo id, que es autoincremental, y no tiene signo (solo es positivo)
-            $table->string("address")->index()->comment("Client address");
+            $table->string("address")->nullable()->comment("Client address");
             // Con el index creamos el campo como indexable (se puede buscar)
             $table->unsignedBigInteger("user_id")->comment("Relationship with the user id of the current client");
             // Un cliente es también un usuario

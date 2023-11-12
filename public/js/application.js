@@ -56,3 +56,41 @@ callbackClose=function(){})
     // Se muestra el modal
     $(mainId).modal('show');
 }
+
+function showInlineError (message, timeout=0, modal=false){
+    let containerNameError = '#error-container';
+    if (modal){
+        containerNameError = '#error-container-modal';
+    }
+    $(containerNameError).show().text(message);
+    $(containerNameError).removeClass("dNone");
+    if (timeout>0){
+        // Después de que pase el tiempo, se oculta el mensaje
+        setTimeout(function() {
+            $(containerNameError).hide(500);
+            $(containerNameError).addClass("dNone");
+            // Se oculta después de medio segundo
+        }, timeout*1000);
+        // timeout está en ms
+    }
+}
+
+function showInlineMessage (message, timeout=0, modal=false){
+    let containerNameError = '#message-container';
+    if (modal){
+        containerNameError = '#message-container-modal';
+    }
+    
+    $(containerNameError).show().text(message);
+    $(containerNameError).removeClass("dNone");
+
+    if (timeout>0){
+        // Después de que pase el tiempo, se oculta el mensaje
+        setTimeout(function() {
+            $(containerNameError).hide(500);
+            $(containerNameError).addClass("dNone");
+            // Se oculta después de medio segundo
+        }, timeout*1000);
+        // timeout está en ms
+    }
+}

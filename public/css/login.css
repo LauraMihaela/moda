@@ -11,6 +11,10 @@ body {
   min-height: 100vh;
 }
 
+.dNone{
+  display: none;
+}
+
 .field-icon {
   float: right;
   margin-left: -1.6rem;

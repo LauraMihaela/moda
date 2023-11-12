@@ -14,59 +14,66 @@
                 <article class="card-body mx-auto">
                     <h4 class="card-title mt-3 text-center">Creación de nuevo usuario</h4>
 
-                    {{ Form::open(array('url' => 'user/create', 'method' => 'POST', 'class' => 'form-horizontal')) }}          
+                    @include ('incl.alertsContainters')
+
+                    {{ Form::open(array('url' => 'user/createClient', 'method' => 'POST', 'class' => 'form-horizontal')) }}          
 
                         <div class="form-group input-group m-2">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"> <i class="fa fa-user-pen"></i> </span>
                             </div>
-                            <input type="text" class="form-control" placeholder="Nombre de usuario">
+                            <input required type="text" id="username" name="username" class="form-control" placeholder="Nombre de usuario">
                         </div>
 
                         <div class="form-group input-group m-2">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
                             </div>
-                            <input type="email" name="" class="form-control" placeholder="Email">
+                            <input required type="email" id="email" name="email" class="form-control" placeholder="Email">
                         </div>
 
                         <div class="form-group input-group m-2">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"> <i class="fa fa-user"></i> </span>
                             </div>
-                            <input type="text" name="" class="form-control" placeholder="Nombre">
+                            <input required type="text" id="name" name="name" class="form-control" placeholder="Nombre">
                         </div>
 
                         <div class="form-group input-group m-2">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"> <i class="fa fa-user"></i> </span>
                             </div>
-                            <input type="text" name="" class="form-control" placeholder="Apellidos">
+                            <input required type="text" id="lastname" name="lastname" class="form-control" placeholder="Apellidos">
                         </div>
 
                         <div class="form-group input-group m-2">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"> <i class="fa fa-address-card"></i> </span>
                             </div>
-                            <textarea name="address" class="form-control" placeholder="Direccion"></textarea>
+                            <textarea id="address" name="address" class="form-control" placeholder="Direccion"></textarea>
                         </div> 
                 
                         <div class="form-group input-group m-2">
                             <div class="input-group-prepend mr-2 pr-2">
                                 <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
                             </div>
-                            <input class="form-control input-lg input-ml" placeholder="Crear contraseña" type="password">
+                            <input required id="password" name="password" class="form-control input-lg input-ml" 
+                            placeholder="Crear contraseña" type="password" autocomplete="off">
                         </div> 
 
                         <div class="form-group input-group m-2">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
                             </div>
-                            <input class="form-control" placeholder="Repetir contraseña" type="password">
+                            {{-- El nombre debe ser password_confirmation para que laravel realice la
+                                validación de que ambas contraseñas son iguales --}}
+                            <input required id="password_confirmation" name="password_confirmation" class="form-control"
+                             placeholder="Repetir contraseña" type="password" 
+                             autocomplete="off" aria-describedby="inputGroupPrepend">
                         </div>
 
                         <div class="form-group">
-                            <button type="submit" class="btn btn-primary btn-block">Crear cuenta</button>
+                            <button type="submit" id="register-submit" class="btn btn-primary btn-block">Crear cuenta</button>
                         </div>    
                     {{ Form::close() }} 
                 </article>
