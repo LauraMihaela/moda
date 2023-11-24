@@ -10,5 +10,7 @@
     @else
         <p>Hola {{ auth()->user()->username }} </p>
     @endif
+    {{-- {{ dd(config('constants.roles.client_role'))}} --}}
+
 
 @endsection

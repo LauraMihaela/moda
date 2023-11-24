@@ -1,0 +1,221 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+}
+
+.container {
+  max-width: 65.625rem;
+  width: 90%;
+  margin: auto;
+}
+
+.navbar {
+  width: 100%;
+  box-shadow: 0 1px 4px rgb(146 161 176 / 15%);
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 62px;
+}
+
+.navbar .nav-container li {
+  list-style: none;
+}
+
+.navbar .nav-container a {
+  text-decoration: none;
+  color: #0e2431;
+  font-weight: 500;
+  font-size: 1.2rem;
+  padding: 0.7rem;
+}
+
+.navbar .nav-container a:hover{
+    /* Al pasar el ratón por encima se pone en negrita */
+    font-weight: bolder;
+}
+
+.nav-container {
+  display: block;
+  position: relative;
+  height: 60px;
+}
+
+.nav-container .checkbox {
+  position: absolute;
+  display: block;
+  height: 2rem;
+  width: 2rem;
+  top: 1.25rem;
+  left: 1.25rem;
+  z-index: 5;
+  /* Con opacidad 0 no es visible */
+  opacity: 0;
+  cursor: pointer;
+}
+
+.nav-container .hamburger-lines {
+  display: block;
+  height: 1.625rem;
+  width: 2rem;
+  position: absolute;
+  top: 1.063rem;
+  left: 1.25rem;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.nav-container .hamburger-lines .line {
+  display: block;
+  height: 0.25rem;
+  width: 100%;
+  border-radius: 0.625rem;
+  background: #0e2431;
+}
+
+.nav-container .hamburger-lines .line1 {
+  transform-origin: 0% 0%;
+  transition: transform 0.4s ease-in-out;
+}
+
+.nav-container .hamburger-lines .line2 {
+  transition: transform 0.2s ease-in-out;
+}
+
+.nav-container .hamburger-lines .line3 {
+  transform-origin: 0% 100%;
+  transition: transform 0.4s ease-in-out;
+}
+
+.navbar .menu-items {
+  padding-top: 120px;
+  box-shadow: inset 0 0 2000px rgba(255, 255, 255, .5);
+  height: 100vh;
+  width: 100%;
+  /* Transifición para que se mueva el menú hacia la derecha */
+  transform: translate(-150%);
+  display: flex;
+  flex-direction: column;
+  margin-left: -2.5rem;
+  padding-left: 3.125rem;
+  transition: transform 0.5s ease-in-out;
+  text-align: center;
+}
+
+.navbar .menu-items li {
+  margin-bottom: 1.2rem;
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.logo {
+    /* Absolute con respecto a la pantalla */
+  position: absolute;
+  top: 0.313rem;
+  /* right: 0.938rem; */
+  right: 2rem;
+  font-size: 1.2rem;
+  /* Color de la fuente gris */
+  color: #0e2431;
+  /* color:black; */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.logo h1{
+    display: none;
+}
+
+a{
+  display: inline-block;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.logo .nav-icon{
+  width: min-content;
+  margin-top: 0.5rem;
+  /* top | right | bottom | left */
+  padding: 0 1rem 1rem 1rem;
+}
+
+.nav-cart{
+    display: flex !important;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 0 1rem 1rem 1rem;
+    margin-top: 0.5rem;
+}
+
+.elements-cart{
+    padding: 0 0.3rem 0 0.3rem;
+}
+
+.logo .nav-icon:hover, .logo .nav-cart:hover{
+    cursor: pointer;
+}
+
+.nav-container input[type="checkbox"]:checked ~ .menu-items {
+  transform: translateX(0);
+}
+
+.nav-container input[type="checkbox"]:checked ~ .hamburger-lines .line1 {
+  transform: rotate(45deg);
+}
+
+.nav-container input[type="checkbox"]:checked ~ .hamburger-lines .line2 {
+  transform: scaleY(0);
+}
+
+.nav-container input[type="checkbox"]:checked ~ .hamburger-lines .line3 {
+  transform: rotate(-45deg);
+}
+
+.nav-container input[type="checkbox"]:checked ~ .logo{
+  /* display: none; */
+}
+
+/* Media Query para dispositivos no móviles */
+@media (min-width: 640px) { 
+    .navbar .menu-items {
+        /* En dispositivos no móviles, el menú se muestra de forma horizontal */
+        flex-direction: row;
+    }
+
+    .navbar .nav-container a {
+        /* Aumentamos distancia entre elementos del menú */
+        padding: 2rem;
+    }
+
+    .logo {
+      right: 0.2rem;
+    }
+
+    .logo h1{
+        display: block;
+    }
+
+    .logo .nav-icon{
+        width: min-content;
+        margin-top: 0.8rem;
+        /* top | right | bottom | left */
+        padding: 0 2rem 2rem 2rem;
+    }
+
+    .nav-cart{
+        margin-top: 0.8rem;
+    }
+}

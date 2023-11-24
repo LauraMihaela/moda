@@ -10,7 +10,13 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    //
+    public function index(){
+        return view('users.index');
+    }
+
+    public function profileIndex(){
+        return view('profile.index');
+    }
 
     public function createClient(Request $request){
         // dd($request->all());

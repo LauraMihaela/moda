@@ -3,6 +3,7 @@
 <html>
     @include('incl.headLogged')
     <body>
+        {{-- Menú de navegación --}}
         @include('incl.navLogged')
         @include('incl.alertsContainters')
 
