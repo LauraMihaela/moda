@@ -61,4 +61,9 @@ class LoginController extends Controller
             return redirect()->intended('dashboard');
         }
     }
+
+    public function logout(Request $request){
+        Auth::logout();
+        return redirect('/')->withErrors('Se ha cerrado la sesión.');
+    }
 }

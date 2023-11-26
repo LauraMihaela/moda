@@ -1,3 +1,16 @@
 .dNone{
     display: none;
 }
+
+/* No se muestra el file input original, en su lugar se hace con un label */
+/* #picture {
+    display: none;
+}
+
+#product-picture-label{
+    font-size: 1em;
+    padding: 0.2em 0.4em;
+    border: 1px solid black;
+    border-radius: 3%;
+} */
+

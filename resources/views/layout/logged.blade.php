@@ -13,5 +13,8 @@
         @include('incl.footerLogged')
         @include('incl.modals')
         @include('incl.javaScriptDeclarationLogged')
+
+        {{-- Al final se encuentran los JS de cada vista --}}
+        @yield('customScripts')
     </body>
 </html>

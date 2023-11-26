@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             //$table->bigIncrements('id')->unsigned();
             $table->string('product_name')->comment("Product name");
-            $table->binary("picture")->nullable()->comment("Product picture");
+            // $table->binary("picture")->nullable()->comment("Product picture");
+            $table->string("picture")->nullable()->comment("Product picture file name");
             $table->longText("description")->nullable()->comment("Product description");
             $table->integer("units")->default(1)->comment("Product units (number of products)");
             // Unidades del producto: por defecto 1

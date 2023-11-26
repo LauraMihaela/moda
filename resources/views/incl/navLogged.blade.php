@@ -10,18 +10,20 @@
             </div>  
           <div class="logo">
             <h1>Moda</h1>
-            <div onclick="window.location='{{url('/cart')}}'" class="nav-cart" title="Carrito de compra">
-              <div>
-                <i class="fa-solid fa-cart-shopping"></i>
+            @if(auth()->user()->role_id == config('constants.roles.client_role'))
+              <div onclick="window.location='{{url('/cart')}}'" class="nav-cart" title="Carrito de compra">
+                <div>
+                  <i class="fa-solid fa-cart-shopping"></i>
+                </div>
+                <div class="elements-cart">
+                    <span>0</span>
+                </div>
               </div>
-              <div class="elements-cart">
-                  <span>0</span>
-              </div>
-            </div>
+            @endif
             <div onclick="window.location='{{url('/profile')}}'" class="nav-icon" title="Perfil de usuario">
               <i class="fa-solid fa-user"></i>
             </div>
-            <div href="#" class="nav-icon" title="Hacer logout">
+            <div onclick="window.location='{{url('/logout')}}'" class="nav-icon" title="Cerrar sesión">
               <i class="fa-solid fa-right-from-bracket"></i>
             </div>
 

@@ -27,11 +27,15 @@ Route::post('/login', 'App\Http\Controllers\LoginController@login');
 
 Route::group(['middleware'=>['isLogged']], function(){
     Route::get('/dashboard', function () {
-        return view('dashboard');
+        return view('dashboard.index');
     });
 
+    // Products
+    Route::get('/products/create', 'App\Http\Controllers\ProductsController@create');
+    Route::post('/products', 'App\Http\Controllers\ProductsController@store');
+
     // Envíos
-    Route::get('/shipments', 'App\Http\Controllers\ShipmentController@index');
+    Route::name('shipments')->get('/shipments', 'App\Http\Controllers\ShipmentController@index');
 
     // Categorías
     Route::get('/categories', 'App\Http\Controllers\CategoriesController@index');
@@ -40,9 +44,12 @@ Route::group(['middleware'=>['isLogged']], function(){
     Route::get('/cart', 'App\Http\Controllers\ProductsController@cartIndex');
 
     // Usuarios
-    Route::post('/user/createClient', 'App\Http\Controllers\UserController@createClient');
+    Route::get('/users/clients/create', 'App\Http\Controllers\UserController@createClient');
     Route::get('/users', 'App\Http\Controllers\UserController@index');
+    
     // Perfil de usuarios
     Route::get('/profile', 'App\Http\Controllers\UserController@profileIndex');
 
+    // Logout
+    Route::get('/logout', 'App\Http\Controllers\LoginController@logout');
 });
