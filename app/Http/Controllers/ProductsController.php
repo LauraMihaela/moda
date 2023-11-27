@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
+use App\Models\FashionDesigner;
 
 class ProductsController extends Controller
 {
@@ -14,7 +15,16 @@ class ProductsController extends Controller
     }
 
     public function create(){
-        return view('products.create');
+        // Se obtienen todos los elementos de la tabla fashion designers
+        $fashionDesigners= FashionDesigner::get();
+        // Se convierte el resultado a array para luego comprobar si es vacío
+        $fashionDesignersArray = $fashionDesigners->toArray();
+        if (!$fashionDesignersArray){
+            // Si no hay elementos, se asigna un null
+            $fashionDesigners = null;
+        }
+           // 'fashionDesigners' es el nombre de la variable que se va a utilizar en view
+        return view('products.create')->with('fashionDesigners',$fashionDesigners);
     }
 
     public function store(Request $request){

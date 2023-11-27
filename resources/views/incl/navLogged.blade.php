@@ -41,6 +41,7 @@
             @elseif(auth()->user()->role_id == config('constants.roles.admin_role'))
               <li><a href="{{ url('/categories') }}">Categorías</a></li>
               <li><a href="{{ url('/shipments') }}">Pedidos</a></li>
+              <li><a href="{{ url('/fashionDesigners') }}">Diseñadores de moda</a></li>
               <li><a href="{{ url('/users') }}">Usuarios</a></li>
             @endif
           </div>

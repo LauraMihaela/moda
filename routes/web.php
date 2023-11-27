@@ -34,6 +34,13 @@ Route::group(['middleware'=>['isLogged']], function(){
     Route::get('/products/create', 'App\Http\Controllers\ProductsController@create');
     Route::post('/products', 'App\Http\Controllers\ProductsController@store');
 
+    // Fashion designers
+    Route::get('/fashionDesigners', 'App\Http\Controllers\FashionDesignersController@index');
+    Route::get('/fashionDesigners/create', 'App\Http\Controllers\FashionDesignersController@create');
+    Route::post('/fashionDesigners', 'App\Http\Controllers\FashionDesignersController@store');
+    Route::post('/fashionDesigner/viewDT', 'App\Http\Controllers\FashionDesignersController@ajaxViewDatatable');
+
+    
     // Envíos
     Route::name('shipments')->get('/shipments', 'App\Http\Controllers\ShipmentController@index');
 

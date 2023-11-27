@@ -45,14 +45,24 @@
                     </div>
 
                     {{-- Fashion designer --}}
+                    @if(!is_null($fashionDesigners))
+                        {{-- Select del fashion designer --}}
+                    @endif
 
                     <div class="form-group">
                         <button type="submit" id="register-submit" class="btn btn-primary btn-block">Crear producto</button>
                     </div>    
                 {{-- {{ Form::close() }}  --}}
                 </form>
+                
             </article>
         </div> <!-- card.// -->
+        @if(is_null($fashionDesigners))
+            <div>
+                <p>No hay ningún fashion designer. Si quiere puede crearlo.</p>
+                <button type="button" id="create-fashion-designer" class="btn btn-primary">Crear diseñador de moda</button>
+            </div>
+        @endif
     </div> 
 
     @section('customScripts')
