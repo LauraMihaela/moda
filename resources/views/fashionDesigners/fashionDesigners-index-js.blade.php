@@ -11,9 +11,14 @@
     $(function() {
  
         let _mainTableFashionDesigners = $('#mainTableFashionDesigner').DataTable({
-            serverSide: true,
-            "responsive": true,
-            
+            // serverSide: true,
+            responsive: true,
+            paging: true,
+            language:{
+                url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
+            },
+            pageLength: 5,
+            /*
             ajax: {
                 // Para que no se produca el error 419 de Laravel
                 headers: {
@@ -28,14 +33,16 @@
                     withCredentials: true
                 }
             },
+            */
             // Definición (clase) de las columnas
-            columnDefs: [
-                {
-                    targets: 0,
-                    className: 'dt-body-left'
-                }
-            ],
+            // columnDefs: [
+            //     {
+            //         targets: 0,
+            //         className: 'dt-body-left'
+            //     }
+            // ],
             // Datos de cada columna
+            /*
             columns : [
                 {
                     data: 'name'
@@ -44,7 +51,10 @@
                     data: 'country'
                 }
             ],
+            */
         });
+
+        // $(".dataTables_paginate").css({"display":"flex", "flex-direction":"row"});
     });
     
 </script>

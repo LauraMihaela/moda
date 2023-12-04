@@ -11,7 +11,17 @@ use function PHPUnit\Framework\isNull;
 class FashionDesignersController extends Controller
 {
     public function index(){
-        return view('fashionDesigners.index');
+        $data = FashionDesigner::select('name','country')->get();
+        $fashionDesigners = $data->map(function ($designer){
+            return [
+                'name' => $designer->name,
+                // A partir de la libería, con el nombre del país en la BD, se otiene el nombre largo del país
+                'country' => CountryListFacade::getOne($designer->country,'es')
+            ];
+        })->toArray();
+        // dd($fashionDesigners);
+        // dd($fashionDesigners->toArray());
+        return view('fashionDesigners.index')->with('fashionDesigners',$fashionDesigners);
     }
 
     public function create(){

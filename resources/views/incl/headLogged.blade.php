@@ -17,7 +17,7 @@
     {{-- DataTables CSS --}}
     <link href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" rel="stylesheet">
     {{-- DataTables Buttons CSS --}}
-    <link href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css" rel="stylesheet">
+    {{-- <link href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css" rel="stylesheet"> --}}
     <link rel="stylesheet" href="{{ asset('css/application.css') }}">
     <link rel="stylesheet" href="{{ asset('css/menu.css') }}">
 </head>

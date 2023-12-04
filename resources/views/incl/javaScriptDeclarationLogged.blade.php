@@ -7,6 +7,6 @@
         {{-- DataTables JavaScript CDN. Obtenido de: https://cdn.datatables.net/--}}
         <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
         {{-- DataTables JavaScript CDN for buttons--}}
-        <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+        {{-- <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script> --}}
         <script type="text/javascript" src="{{ asset('js/application.js') }}"></script>
         @include('incl.javaScriptGlobals')

@@ -14,13 +14,29 @@
 
     <div class="card-body" id="mainCardBody">
       <div class="table-responsive">
-      <table class="table table-bordered changableTable" id="mainTableFashionDesigner" width="100%" cellspacing="0">
-          <thead>
-            <tr class="text-center">
-                <th class="bg-primary">Nombre</th>
-                <th class="bg-primary">País</th>
-            </tr>
-          </thead>
+      <table class="table table-bordered changableTable" id="mainTableFashionDesigner">
+            <thead class="text-center">
+                <tr class="text-center">
+                    <th class="bg-primary">Nombre</th>
+                    <th class="bg-primary">País</th>
+                </tr>
+            </thead>
+            <tbody class="text-center">
+                @if (count($fashionDesigners)>0)
+                  @foreach ($fashionDesigners as $designer)
+                    <tr>
+                      <td>{{ $designer['name'] }}</td>
+                      <td>{{ $designer['country'] }}</td>
+                    </tr>
+                  @endforeach
+
+                @else
+                  <tr>
+                    <td colspan="4">No existe ningún diseñador de moda
+                    </td>
+                  </tr>
+                @endif
+            </tbody>
         </table>
       </div>
     </div>
