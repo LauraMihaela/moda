@@ -5,15 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Monarobase\CountryList\CountryListFacade;
 use App\Models\FashionDesigner;
-
+use Illuminate\Http\JsonResponse;
 use function PHPUnit\Framework\isNull;
 
 class FashionDesignersController extends Controller
 {
     public function index(){
-        $data = FashionDesigner::select('name','country')->get();
+        $data = FashionDesigner::select('id','name','country')->get();
         $fashionDesigners = $data->map(function ($designer){
             return [
+                'id' => $designer->id,
                 'name' => $designer->name,
                 // A partir de la libería, con el nombre del país en la BD, se otiene el nombre largo del país
                 'country' => CountryListFacade::getOne($designer->country,'es')
@@ -28,6 +29,25 @@ class FashionDesignersController extends Controller
         // Créditos a https://github.com/Monarobase/country-list
         $countries = CountryListFacade::getList(config('constants.languages.Spanish'));
         return view('fashionDesigners.create')->with('countries',$countries);
+    }
+
+    public function show(int $id){
+        dd($id);
+    }
+
+    public function destroy(int $id){
+        $designerToDelete = FashionDesigner::find($id);
+        // dd($designerToDelete);
+        $designerName = $designerToDelete->name;
+        if(empty($designerToDelete)){
+            // La función destroy devuelve un json; así se ha definido en la llamada ajax
+            // El json tiene un campo estado (1: error o 0:ok) y un campo mensaje (con un texto)
+            // return $this->jsonResponse(1, "El diseñador de moda no se ha encontrado");
+            return response()->json(['status' => 1, 'message' => "El diseñador de moda no se ha encontrado"]);
+        }
+        $designerToDelete->delete($id);
+        // return $this->jsonResponse(0, "El diseñador de moda ".$designerName. " ha sido eliminado");
+        return response()->json(['status' => 0, 'message' => "El disenador de moda ".$designerName. " ha sido eliminado"]);
     }
 
     public function store(Request $request){

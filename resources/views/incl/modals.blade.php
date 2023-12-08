@@ -10,7 +10,8 @@
                 <span aria-hidden="true">&times;</span>
               </button>
               <button class="close modalCollapse" style="display:none"> 
-                <span aria-hidden="true"><i class="fa fa-caret-square-down"></i></span>
+                {{-- <span aria-hidden="true"><i id="modal-icon-collapse" class="fa fa-caret-square-down"></i></span> --}}
+                <span aria-hidden="true"><i id="modal-icon-collapse" class="fa-solid fa-caret-down"></i></span>
               </button>
               {{-- <button class="close modalMinimize"> 
                 <span aria-hidden="true"><i class='fa fa-minus'></i> </span>

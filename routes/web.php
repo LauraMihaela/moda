@@ -39,8 +39,15 @@ Route::group(['middleware'=>['isLogged']], function(){
     Route::get('/fashionDesigners/create', 'App\Http\Controllers\FashionDesignersController@create');
     Route::post('/fashionDesigners', 'App\Http\Controllers\FashionDesignersController@store');
     Route::post('/fashionDesigner/viewDT', 'App\Http\Controllers\FashionDesignersController@ajaxViewDatatable');
+    Route::get('/fashionDesigners/{id}', [
+        'as' => 'fashionDesigners.show',
+        'uses' => 'App\Http\Controllers\FashionDesignersController@show'
+    ]);
+    Route::delete('/fashionDesigners/{id}', [
+        'as' => 'fashionDesigners.destroy',
+        'uses' => 'App\Http\Controllers\FashionDesignersController@destroy'
+    ]);
 
-    
     // Envíos
     Route::name('shipments')->get('/shipments', 'App\Http\Controllers\ShipmentController@index');
 

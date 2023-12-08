@@ -14,13 +14,4 @@
     border-radius: 3%;
 } */
 
-/* .dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
-    font-size: 20px;
-    height: 20px;
-} */
-
-.dataTables_paginate{
-    display: flex !important;
-    flex-direction: row !important;
-}
 

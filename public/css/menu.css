@@ -185,10 +185,6 @@ body {
   transform: rotate(-45deg);
 }
 
-.nav-container input[type="checkbox"]:checked ~ .logo{
-  /* display: none; */
-}
-
 /* Media Query para dispositivos no móviles */
 @media (min-width: 640px) { 
     .navbar .menu-items {

@@ -19,14 +19,24 @@
                 <tr class="text-center">
                     <th class="bg-primary">Nombre</th>
                     <th class="bg-primary">País</th>
+                    <th class="bg-primary">Acciones</th>
                 </tr>
             </thead>
-            <tbody class="text-center">
+            <tbody>
                 @if (count($fashionDesigners)>0)
                   @foreach ($fashionDesigners as $designer)
                     <tr>
                       <td>{{ $designer['name'] }}</td>
                       <td>{{ $designer['country'] }}</td>
+                      <td>
+                        <div class="btn-group">
+                          <a href="{{route('fashionDesigners.show',$designer['id'] )}}" class='btn btn-default btn-xs' title="Visualizar diseñador de moda {{ $designer['name'] }}"><i class="fa-solid fa-eye"></i></a>
+                          {{-- <a href="{{route('fashionDesigners.edit',$designer['id'] )}}" class='btn btn-default btn-xs' title="Editar diseñador de moda {{ $designer['name'] }}"><i class="fa-solid fa-pen-to-square"></i></a> --}}
+                          <a class='btn btn-default btn-xs delete-designer' data-id-designer={{$designer['id']}} 
+                          data-name-designer="{{$designer['name']}}"
+                          title="Eliminar diseñador de moda {{ $designer['name'] }}"><i class="fa-solid fa-trash-can"></i></a>
+                        </div>
+                      </td>
                     </tr>
                   @endforeach
 
