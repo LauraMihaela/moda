@@ -43,10 +43,19 @@ Route::group(['middleware'=>['isLogged']], function(){
         'as' => 'fashionDesigners.show',
         'uses' => 'App\Http\Controllers\FashionDesignersController@show'
     ]);
+    Route::get('/fashionDesigners/{id}/edit', [
+        'as' => 'fashionDesigners.edit',
+        'uses' => 'App\Http\Controllers\FashionDesignersController@edit'
+    ]);
+    Route::put('/fashionDesigners/{id}', [
+        'as' => 'fashionDesigners.update',
+        'uses' => 'App\Http\Controllers\FashionDesignersController@update'
+    ]);
     Route::delete('/fashionDesigners/{id}', [
         'as' => 'fashionDesigners.destroy',
         'uses' => 'App\Http\Controllers\FashionDesignersController@destroy'
     ]);
+    // Route::resource('fashionDesigners','App\Http\Controllers\FashionDesignersController');
 
     // Envíos
     Route::name('shipments')->get('/shipments', 'App\Http\Controllers\ShipmentController@index');

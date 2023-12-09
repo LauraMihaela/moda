@@ -20,6 +20,9 @@ class FashionDesignersController extends Controller
                 'country' => CountryListFacade::getOne($designer->country,'es')
             ];
         })->toArray();
+        if(!$fashionDesigners){
+            // dd($fashionDesigners);
+        }
         // dd($fashionDesigners);
         // dd($fashionDesigners->toArray());
         return view('fashionDesigners.index')->with('fashionDesigners',$fashionDesigners);
@@ -32,7 +35,38 @@ class FashionDesignersController extends Controller
     }
 
     public function show(int $id){
-        dd($id);
+        $fashionDesigner = FashionDesigner::find($id);
+        // dd($fashionDesigner->country);
+        // Créditos a https://github.com/Monarobase/country-list
+        $countries = CountryListFacade::getList(config('constants.languages.Spanish'));
+        return view('fashionDesigners.show')->with('countries',$countries)
+        ->with('fashionDesigner',$fashionDesigner);    
+    }
+
+    public function edit(int $id){
+        $fashionDesigner = FashionDesigner::find($id);
+        // Créditos a https://github.com/Monarobase/country-list
+        $countries = CountryListFacade::getList(config('constants.languages.Spanish'));
+        return view('fashionDesigners.edit')->with('countries',$countries)
+        ->with('fashionDesigner',$fashionDesigner);
+    }
+
+    public function update(Request $request, int $id){
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:250',
+            'country' => 'required|string',
+        ]);
+        $fashionDesigner = FashionDesigner::find($id);
+        if(empty($fashionDesigner)){
+            return redirect()->back()->withErrors("No se ha encontrado el diseñador de moda");
+        }
+
+        $fashionDesigner->name = $request->name;
+        $fashionDesigner->country = $request->country;
+        $fashionDesigner->save();
+
+        return redirect()->to('/fashionDesigners')->with('message', 'El diseñador de moda con nombre '.$request->name. ' ha sido actualizado');
+
     }
 
     public function destroy(int $id){
@@ -62,7 +96,7 @@ class FashionDesignersController extends Controller
             'country' => $request->country,
         ]);
         
-        return redirect()->to('/dashboard')->with('message', 'El diseñador de moda con nombre '.$request->name. ' ha sido creado');
+        return redirect()->to('/fashionDesigners')->with('message', 'El diseñador de moda con nombre '.$request->name. ' ha sido creado');
     }
 
     public function ajaxViewDatatable(Request $request){
