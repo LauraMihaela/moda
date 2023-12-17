@@ -7,6 +7,8 @@ use App\Models\Product;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use App\Models\FashionDesigner;
+use App\Models\Size;
+use App\Models\Color;
 
 class ProductsController extends Controller
 {
@@ -23,8 +25,11 @@ class ProductsController extends Controller
             // Si no hay elementos, se asigna un null
             $fashionDesigners = null;
         }
+        $sizes = Size::all();
+        $colors = Color::all();
            // 'fashionDesigners' es el nombre de la variable que se va a utilizar en view
-        return view('products.create')->with('fashionDesigners',$fashionDesigners);
+        return view('products.create')->with('fashionDesigners',$fashionDesigners)
+        ->with('sizes',$sizes)->with('colors',$colors);
     }
 
     public function store(Request $request){

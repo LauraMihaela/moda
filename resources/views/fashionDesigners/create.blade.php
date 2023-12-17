@@ -20,7 +20,7 @@
                         <input required type="text" id="name" name="name" class="form-control" placeholder="Nombre del diseñador de moda">
                     </div>
 
-                      <div class="form-group input-group m-2">
+                    <div class="form-group input-group m-2">
                         <div class="input-group-prepend">
                             <span class="input-group-text"> <i class="fa-solid fa-earth-americas"></i> </span>
                         </div>

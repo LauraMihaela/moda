@@ -44,6 +44,53 @@
                         <input type="number" id="units" name="units" class="form-control" placeholder="Unidades">
                     </div>
 
+                    <div class="form-group input-group m-2">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa-solid fa-tag"></i> </span>
+                        </div>
+                        <input type="number" step="0.01" id="price" name="price" class="form-control" placeholder="Precio">
+                    </div>
+
+                    @if (!$sizes->isEmpty())
+                        <div class="form-group input-group m-2">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"> <i class="fa-solid fa-up-right-and-down-left-from-center"></i> </span>
+                            </div>
+                            <select required id="sizes" name="sizes" data-live-search="true" multiple
+                            data-actions-box="true" data-header="Seleccione los tamaños del producto" title="Tamaños"
+                            class="selectpicker form-control mb-1">
+                                @foreach ($sizes as $size)
+                                    <option value="{{ $size->size_name }}">{{ $size->size_name }}</option>
+                                @endforeach
+                            </select>
+                        </div> 
+                    @else
+                    <div class="form-group input-group m-2">
+                        <p>No hay tamaños disponibles. Puede crear uno nuevo desde aquí</p>
+                        <button type="button" id="create-size" class="btn btn-secondary btn-sm ml-1 mr-2">Crear nuevo tamaño</button>
+                    </div> 
+                    @endif
+
+                    @if (!$colors->isEmpty())
+                        <div class="form-group input-group m-2">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"> <i class="fa-solid fa-palette"></i> </span>
+                            </div>
+                            <select required id="colors" name="colors" data-live-search="true" multiple
+                            data-actions-box="true" data-header="Seleccione los colores del producto" title="Colores"
+                            class="selectpicker form-control mb-1">
+                                @foreach ($colors as $color)
+                                    <option value="{{ $color->color_name }}">{{ $color->color_name }}</option>
+                                @endforeach
+                            </select>
+                        </div> 
+                    @else
+                    <div class="form-group input-group m-2">
+                        <p>No hay colores disponibles. Puede crear uno nuevo desde aquí</p>
+                        <button type="button" id="create-color" class="btn btn-secondary btn-sm ml-1 mr-2">Crear nuevo color</button>
+                    </div> 
+                    @endif
+
                     {{-- Fashion designer --}}
                     @if(!is_null($fashionDesigners))
                         {{-- Select del fashion designer --}}

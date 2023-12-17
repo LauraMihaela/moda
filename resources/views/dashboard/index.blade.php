@@ -13,8 +13,12 @@
     {{-- {{ dd(config('constants.roles.client_role'))}} --}}
 
     @if(auth()->user()->role_id == config('constants.roles.admin_role'))
-        <button type="button" id="create-product" class="create-product btn btn-primary btn-lg">Crear producto</button>
-    @endif
+        <div class = "btn-group">
+            <button type="button" id="create-product" class="create-product btn btn-primary btn-lg mr-2">Crear producto</button>
+            <button type="button" id="see-sizes" class="see-sizes btn btn-primary btn-lg mr-2">Ver tamaños</button>
+            <button type="button" id="see-colors" class="see-colors btn btn-primary btn-lg mr-2">Ver colores</button>
+        </div>
+    @endif  
 
     {{-- Se va a incluir al final --}}
     @section('customScripts')

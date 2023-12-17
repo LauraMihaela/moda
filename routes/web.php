@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SizesController;
+use App\Http\Controllers\ColorsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,6 +64,18 @@ Route::group(['middleware'=>['isLogged']], function(){
     // Route::post('/fashionDesigners/datatable', 'App\Http\Controllers\FashionDesignersController@datatable');
     // Route::resource('fashionDesigners','App\Http\Controllers\FashionDesignersController');
 
+    // Tamaños
+    Route::resource('sizes','App\Http\Controllers\SizesController');
+    Route::match(array('GET', 'POST'),'/sizes/datatable', [
+        'as' => 'sizes.datatable',
+        'uses' => 'App\Http\Controllers\SizesController@datatable'
+    ]);
+    // Colores
+    Route::resource('colors','App\Http\Controllers\ColorsController');
+    Route::match(array('GET', 'POST'),'/colors/datatable', [
+        'as' => 'colors.datatable',
+        'uses' => 'App\Http\Controllers\ColorsController@datatable'
+    ]);
     // Envíos
     Route::name('shipments')->get('/shipments', 'App\Http\Controllers\ShipmentController@index');
 

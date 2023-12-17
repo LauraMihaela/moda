@@ -56,7 +56,7 @@ class FashionDesignersController extends Controller
 
     public function update(Request $request, int $id){
         $validatedData = $request->validate([
-            'name' => 'required|string|max:250',
+            'name' => 'required|string|max:250|unique:fashion_designers',
             'country' => 'required|string',
         ]);
         $fashionDesigner = FashionDesigner::find($id);
@@ -90,7 +90,7 @@ class FashionDesignersController extends Controller
     public function store(Request $request){
         // dd($request->all());
         $validatedData = $request->validate([
-            'name' => 'required|string|max:250',
+            'name' => 'required|string|max:250|unique:fashion_designers',
             'country' => 'required|string',
         ]);
        
