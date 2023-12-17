@@ -1,4 +1,7 @@
 <script>
+    $(function() {
+        $('.selectpicker').selectpicker();
+    });
     $('#back-to-fashionDesigner-index').on('click', function(e){
         // Se elimina el comportamiento por defecto del click
         e.preventDefault();

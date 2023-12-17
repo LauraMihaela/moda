@@ -7,6 +7,8 @@ use Monarobase\CountryList\CountryListFacade;
 use App\Models\FashionDesigner;
 use Illuminate\Http\JsonResponse;
 use function PHPUnit\Framework\isNull;
+use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\DataTables;
 
 class FashionDesignersController extends Controller
 {
@@ -44,8 +46,9 @@ class FashionDesignersController extends Controller
     }
 
     public function edit(int $id){
-        $fashionDesigner = FashionDesigner::find($id);
         // Créditos a https://github.com/Monarobase/country-list
+        $fashionDesigner = FashionDesigner::find($id);
+        $fashionDesigner->country = CountryListFacade::getOne($fashionDesigner->country,'es');
         $countries = CountryListFacade::getList(config('constants.languages.Spanish'));
         return view('fashionDesigners.edit')->with('countries',$countries)
         ->with('fashionDesigner',$fashionDesigner);
@@ -98,6 +101,43 @@ class FashionDesignersController extends Controller
         
         return redirect()->to('/fashionDesigners')->with('message', 'El diseñador de moda con nombre '.$request->name. ' ha sido creado');
     }
+
+    public function datatable(Request $request)
+{
+    // $query = DB::table('fashion_designers')
+    //     ->select('name', 'country');
+
+    $query = FashionDesigner::select('id','name','country')->get();    
+
+    $totalData = $query->count();
+
+    $start = $request->input('start');
+    $length = $request->input('length');
+
+    $query->skip($start)->take($length);
+    // $data = $query->get();
+    // $data = $query;
+    $data = $query->map(function ($designer){
+        return [
+            'id' => $designer->id,
+            'name' => $designer->name,
+            // A partir de la libería, con el nombre del país en la BD, se otiene el nombre largo del país
+            'country' => CountryListFacade::getOne($designer->country,'es')
+        ];
+    });
+
+    return response()->json([
+        'draw' => $request->input('draw'),
+        'recordsTotal' => $totalData,
+        'recordsFiltered' => $totalData,
+        'data' => $data
+    ]);
+    // if ($request->ajax()){
+        // dd(datatables()->of(FashionDesigner::all()));
+        // return datatables()->of(FashionDesigner::all())->toJson();
+    // }
+  		//    ->make(true);
+}
 
     public function ajaxViewDatatable(Request $request){
         // La respuesta es de tipo Json

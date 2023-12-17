@@ -55,6 +55,11 @@ Route::group(['middleware'=>['isLogged']], function(){
         'as' => 'fashionDesigners.destroy',
         'uses' => 'App\Http\Controllers\FashionDesignersController@destroy'
     ]);
+    Route::match(array('GET', 'POST'),'/fashionDesigners/datatable', [
+        'as' => 'fashionDesigners.datatable',
+        'uses' => 'App\Http\Controllers\FashionDesignersController@datatable'
+    ]);
+    // Route::post('/fashionDesigners/datatable', 'App\Http\Controllers\FashionDesignersController@datatable');
     // Route::resource('fashionDesigners','App\Http\Controllers\FashionDesignersController');
 
     // Envíos

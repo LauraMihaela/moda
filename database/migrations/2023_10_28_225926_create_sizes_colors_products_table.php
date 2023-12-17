@@ -17,8 +17,6 @@ return new class extends Migration
             $table->unsignedBigInteger("product_id")->comment("Relationship with the product");
             $table->unsignedBigInteger("color_id")->nullable()->comment("Relationship with the product color");
             $table->unsignedBigInteger("size_id")->nullable()->comment("Relationship with the product size");
-            $table->float("price",12,2)->comment("Product price in euros");
-            // Con esto se indica que el precio es decimal, y solo puede tener 2 decimales
             $table->timestamps();
         });
     }

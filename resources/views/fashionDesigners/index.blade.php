@@ -11,9 +11,7 @@
     <div class="card-header py-3">
       <h4 class="m-0 font-weight-bold text-primary text-center">Lista de diseñadores de moda</h4>
     </div>
-    {{-- @if(empty($fashionDesigners))
-      {{dd($fashionDesigners)}}
-    @endif --}}
+
     <div class="card-body" id="mainCardBody">
       <div class="table-responsive">
       <table class="table table-bordered changableTable" id="mainTableFashionDesigner">
@@ -25,30 +23,6 @@
                 </tr>
             </thead>
             <tbody>
-                @if(!empty($fashionDesigners))
-                {{-- @if (count($fashionDesigners)>0) --}}
-                  @foreach ($fashionDesigners as $designer)
-                    <tr>
-                      <td>{{ $designer['name'] }}</td>
-                      <td>{{ $designer['country'] }}</td>
-                      <td>
-                        <div class="btn-group">
-                          <a href="{{route('fashionDesigners.show',$designer['id'] )}}" class='btn btn-default btn-xs' title="Visualizar diseñador de moda {{ $designer['name'] }}"><i class="fa-solid fa-eye"></i></a>
-                          <a href="{{route('fashionDesigners.edit',$designer['id'] )}}" class='btn btn-default btn-xs' title="Editar diseñador de moda {{ $designer['name'] }}"><i class="fa-solid fa-pen-to-square"></i></a>
-                          <a class='btn btn-default btn-xs delete-designer' data-id-designer={{$designer['id']}} 
-                          data-name-designer="{{$designer['name']}}"
-                          title="Eliminar diseñador de moda {{ $designer['name'] }}"><i class="fa-solid fa-trash-can"></i></a>
-                        </div>
-                      </td>
-                    </tr>
-                  @endforeach
-
-                @else
-                  {{-- <tr>
-                    <td colspan="3">No existe ningún diseñador de moda
-                    </td>
-                  </tr> --}}
-                @endif
             </tbody>
         </table>
       </div>

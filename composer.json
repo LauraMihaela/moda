@@ -12,7 +12,8 @@
         "laravel/tinker": "^2.8",
         "laravelcollective/html": "^6.4",
         "monarobase/country-list": "^3.4",
-        "spatie/laravel-html": "^3.3"
+        "spatie/laravel-html": "^3.3",
+        "yajra/laravel-datatables-oracle": "^10.11"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

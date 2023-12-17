@@ -27,8 +27,10 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text"> <i class="fa-solid fa-earth-americas"></i> </span>
                         </div>
-                        <select required id="country" name="country" class="form-control mb-1" 
-                        selected="{{$fashionDesigner->country}}">
+                        <select required id="country" name="country" data-live-search="true" 
+                        data-actions-box="true" data-header="Seleccione un pais" 
+                        title="{{$fashionDesigner->country}}" class="form-control mb-1 selectpicker" 
+                        selected="{{$fashionDesigner->country}}" >
                             {{-- <option value="">Seleccione un país</option> --}}
                             @foreach ($countries as $key => $country)
                                 <option value="{{ $key }}">{{ $country }}</option>
