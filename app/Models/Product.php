@@ -21,6 +21,7 @@ class Product extends Model
         'picture',
         'description',
         'units',
+        'price',
         'created_by_fashion_designer_id'
     ];
 
@@ -30,13 +31,15 @@ class Product extends Model
         'picture' => 'string',
         'description' => 'string',
         'units' => 'integer',
+        'price' => 'double',
         'created_by_fashion_designer_id' => 'integer'
     ];
 
     // Definimos las reglas de lo atributos (si son obligatorios o no)
     public static $rules = [
         'product_name' => 'required',
-        'units' => 'required'
+        'units' => 'required',
+        'price' => 'required'
     ];
 
 

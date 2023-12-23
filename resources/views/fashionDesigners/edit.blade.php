@@ -29,9 +29,10 @@
                         </div>
                         <select required id="country" name="country" data-live-search="true" 
                         data-actions-box="true" data-header="Seleccione un pais" 
-                        title="{{$fashionDesigner->country}}" class="form-control mb-1 selectpicker" 
-                        selected="{{$fashionDesigner->country}}" >
+                        title="{{$fashionDesigner->longCountry}}" class="form-control mb-1 selectpicker" 
+                        selected="{{$fashionDesigner->longCountry}}" >
                             {{-- <option value="">Seleccione un país</option> --}}
+                            <option selected="selected" value="{{$fashionDesigner->country}}">{{$fashionDesigner->longCountry}}</option>
                             @foreach ($countries as $key => $country)
                                 <option value="{{ $key }}">{{ $country }}</option>
                             @endforeach

@@ -9,6 +9,8 @@ use Illuminate\Http\JsonResponse;
 use function PHPUnit\Framework\isNull;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
+use Illuminate\Validation\Rule;
+
 
 class FashionDesignersController extends Controller
 {
@@ -48,7 +50,7 @@ class FashionDesignersController extends Controller
     public function edit(int $id){
         // Créditos a https://github.com/Monarobase/country-list
         $fashionDesigner = FashionDesigner::find($id);
-        $fashionDesigner->country = CountryListFacade::getOne($fashionDesigner->country,'es');
+        $fashionDesigner->longCountry = CountryListFacade::getOne($fashionDesigner->country,'es');
         $countries = CountryListFacade::getList(config('constants.languages.Spanish'));
         return view('fashionDesigners.edit')->with('countries',$countries)
         ->with('fashionDesigner',$fashionDesigner);
@@ -56,7 +58,12 @@ class FashionDesignersController extends Controller
 
     public function update(Request $request, int $id){
         $validatedData = $request->validate([
-            'name' => 'required|string|max:250|unique:fashion_designers',
+            'name' => [
+                'required',
+                'string',
+                'max:250',               
+                Rule::unique('fashion_designers')->ignore($id),
+            ],
             'country' => 'required|string',
         ]);
         $fashionDesigner = FashionDesigner::find($id);

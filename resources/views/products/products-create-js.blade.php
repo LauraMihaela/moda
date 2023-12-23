@@ -21,5 +21,10 @@
         e.preventDefault();
         window.location.href = _publicURL+"sizes/create";
     });
+    $('#create-fashion-designer').on('click', function(e){
+        // Se elimina el comportamiento por defecto del click
+        e.preventDefault();
+        window.location.href = _publicURL+"fashionDesigners/create";
+    });
     
 </script>

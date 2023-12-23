@@ -56,19 +56,19 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"> <i class="fa-solid fa-up-right-and-down-left-from-center"></i> </span>
                             </div>
-                            <select required id="sizes" name="sizes" data-live-search="true" multiple
+                            <select required id="sizes" name="sizes[]" data-live-search="true" multiple="multiple"
                             data-actions-box="true" data-header="Seleccione los tamaños del producto" title="Tamaños"
                             class="selectpicker form-control mb-1">
                                 @foreach ($sizes as $size)
-                                    <option value="{{ $size->size_name }}">{{ $size->size_name }}</option>
+                                    <option value="{{ $size->id }}">{{ $size->size_name }}</option>
                                 @endforeach
                             </select>
                         </div> 
                     @else
-                    <div class="form-group input-group m-2">
-                        <p>No hay tamaños disponibles. Puede crear uno nuevo desde aquí</p>
-                        <button type="button" id="create-size" class="btn btn-secondary btn-sm ml-1 mr-2">Crear nuevo tamaño</button>
-                    </div> 
+                        <div class="form-group input-group m-2">
+                            <p>No hay tamaños disponibles. Puede crear uno nuevo desde aquí</p>
+                            <button type="button" id="create-size" class="btn btn-secondary btn-sm ml-1 mr-2">Crear nuevo tamaño</button>
+                        </div> 
                     @endif
 
                     @if (!$colors->isEmpty())
@@ -76,24 +76,41 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"> <i class="fa-solid fa-palette"></i> </span>
                             </div>
-                            <select required id="colors" name="colors" data-live-search="true" multiple
+                            <select required id="colors" name="colors[]" data-live-search="true" multiple="multiple"
                             data-actions-box="true" data-header="Seleccione los colores del producto" title="Colores"
                             class="selectpicker form-control mb-1">
                                 @foreach ($colors as $color)
-                                    <option value="{{ $color->color_name }}">{{ $color->color_name }}</option>
+                                    <option value="{{ $color->id }}">{{ $color->color_name }}</option>
                                 @endforeach
                             </select>
                         </div> 
                     @else
-                    <div class="form-group input-group m-2">
-                        <p>No hay colores disponibles. Puede crear uno nuevo desde aquí</p>
-                        <button type="button" id="create-color" class="btn btn-secondary btn-sm ml-1 mr-2">Crear nuevo color</button>
-                    </div> 
+                        <div class="form-group input-group m-2">
+                            <p>No hay colores disponibles. Puede crear uno nuevo desde aquí</p>
+                            <button type="button" id="create-color" class="btn btn-secondary btn-sm ml-1 mr-2">Crear nuevo color</button>
+                        </div> 
                     @endif
 
                     {{-- Fashion designer --}}
                     @if(!is_null($fashionDesigners))
                         {{-- Select del fashion designer --}}
+                        <div class="form-group input-group m-2">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"> <i class="fa-solid fa-user-tie"></i> </span>
+                            </div>
+                            <select required id="fashionDesigner" name="fashionDesigner" data-live-search="true" 
+                            data-actions-box="true" data-header="Seleccione el diseñador de moda del producto" title="Diseñadores de moda"
+                            class="selectpicker form-control mb-1">
+                                @foreach ($fashionDesigners as $fashionDesigner)
+                                    <option value="{{ $fashionDesigner['id'] }}">{{ $fashionDesigner['name'] }}, {{ $fashionDesigner['longCountry'] }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    @else
+                        <div class="form-group input-group m-2">
+                            <p>No hay diseñadores de moda disponibles. Puede crear uno nuevo desde aquí</p>
+                            <button type="button" id="create-fashion-designer" class="btn btn-secondary btn-sm ml-1 mr-2">Crear nuevo diseñador de moda</button>
+                        </div> 
                     @endif
 
                     <div class="form-group">
