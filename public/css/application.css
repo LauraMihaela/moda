@@ -2,6 +2,27 @@
     display: none;
 }
 
+.main-product-image{
+    max-width: 6em;
+    height: auto;
+    margin: 0 auto;
+}
+
+.centerColumn { 
+    text-align: center; 
+    margin: 0 auto;
+    /* display:block; 
+    z-index:10;  */
+    cursor: pointer; 
+    -webkit-transition-property: all; 
+    -webkit-transition-duration: 0.3s; 
+    -webkit-transition-timing-function: ease; 
+}
+
+.centerColumn:hover{
+    transform: scale(3); 
+}
+
 /* No se muestra el file input original, en su lugar se hace con un label */
 /* #picture {
     display: none;

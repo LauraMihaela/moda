@@ -11,11 +11,18 @@ use App\Models\FashionDesigner;
 use App\Models\Size;
 use App\Models\Color;
 use Monarobase\CountryList\CountryListFacade;
+use Illuminate\Support\Arr;
+
 
 class ProductsController extends Controller
 {
     public function cartIndex(){
         return view('cart.index');
+    }
+
+    public function index(){
+        $products = Color::all();        
+        return view('dashboard.index')->with('products',$products);
     }
 
     public function create(){
@@ -48,6 +55,7 @@ class ProductsController extends Controller
     }
 
     public function store(Request $request){
+        /*
         dump($request->all());
         $sizes = $request->input('sizes');
         $sizes = implode(',', $sizes);
@@ -55,7 +63,7 @@ class ProductsController extends Controller
         $colors = $request->input('colors');
         $colors = implode(',', $colors);
         dump($colors);
-
+        */
         $validatedData = $request->validate([
             'product_name' => 'required|string|max:250',
             'picture' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
@@ -167,4 +175,78 @@ class ProductsController extends Controller
 
     }
 
+    
+    public function show(int $id){
+        $product = Product::find($id);
+        return view('colors.show')->with('color',$product);    
+    }
+
+    public function edit(int $id){
+        $sizes = Size::select('sizes.id as size_id','size_name')->get();
+        $colors = Color::select('colors.id as color_id','color_name')->get();
+        $fashionDesigners = FashionDesigner::select('fashion_designers.id as fashion_designer_id','fashion_designers.name as name','fashion_designers.country as country')->get();
+        $product = Product::find($id);
+        $sizesColorsProducts = SizeColorProduct::where('product_id',$id)->get();
+        $selectedSizes = SizeColorProduct::join('sizes','sizes_colors_products.size_id','sizes.id')
+        ->select('size_id','size_name')->where('product_id',$id)
+        ->whereNotNull('size_id')->get();
+        $selectedColors = SizeColorProduct::join('colors','sizes_colors_products.color_id','colors.id')
+        ->select('color_id','color_name')->where('product_id',$id)->whereNotNull('color_id')->get();
+        $selectedFashionDesigners = Product::join('fashion_designers','products.created_by_fashion_designer_id','fashion_designers.id')
+        ->select('created_by_fashion_designer_id as fashion_designer_id','name','country')
+        ->where('products.id',$id)->get();
+        // Se hace un flatten para pasar de una coleccion multidimensional a una de 1 dimension
+        // Despues del flatten, se hace un diff para quedarse solamente con los elementos que no estan elegidos
+        $sizes = $sizes->flatten()->diff($selectedSizes->flatten());
+        $colors = $colors->flatten()->diff($selectedColors->flatten()); 
+        $fashionDesigners = $fashionDesigners->flatten()->diff($selectedFashionDesigners->flatten());
+        return view('products.edit', compact('product', 'sizesColorsProducts', 'sizes', 'colors', 'fashionDesigners','selectedSizes','selectedColors','selectedFashionDesigners'));
+    }
+
+    public function update(Request $request, int $id){
+        $validatedData = $request->validate([
+            'color_name' => 'required|string|max:250|unique:colors',
+        ]);
+        $color = Color::find($id);
+        if(empty($color)){
+            return redirect()->back()->withErrors("No se ha encontrado el color");
+        }
+
+        $color->color_name = $request->color_name;
+        $color->save();
+
+        return redirect()->to('/colors')->with('message', 'El color '.$request->color_name. ' ha sido actualizado');
+
+    }
+
+    public function destroy(int $id){
+        $color = Color::find($id);
+        $colorName = $color->color_name;
+        if(empty($color)){
+            // La función destroy devuelve un json; así se ha definido en la llamada ajax
+            // El json tiene un campo estado (1: error o 0:ok) y un campo mensaje (con un texto)
+            return response()->json(['status' => 1, 'message' => "El color no se ha encontrado"]);
+        }
+        $color->delete($id);
+        // return $this->jsonResponse(0, "El color ".$colorName. " ha sido eliminado");
+        return response()->json(['status' => 0, 'message' => "El color ".$colorName. " ha sido eliminado"]);
+    }
+
+    public function datatable(Request $request){
+        $query = Product::select('id','product_name','picture','price')->get();    
+
+        $totalData = $query->count();
+
+        $start = $request->input('start');
+        $length = $request->input('length');
+
+        $query->skip($start)->take($length);
+
+        return response()->json([
+            'draw' => $request->input('draw'),
+            'recordsTotal' => $totalData,
+            'recordsFiltered' => $totalData,
+            'data' => $query
+        ]);
+    }
 }

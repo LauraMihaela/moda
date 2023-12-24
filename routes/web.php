@@ -28,13 +28,20 @@ Route::post('/login', 'App\Http\Controllers\LoginController@login');
 // Vistas de usuario logueado
 
 Route::group(['middleware'=>['isLogged']], function(){
-    Route::get('/dashboard', function () {
-        return view('dashboard.index');
-    });
+    // Route::get('/dashboard', function () {
+    //     return view('dashboard.index');
+    // });
+    Route::get('/dashboard', 'App\Http\Controllers\ProductsController@index');
+
 
     // Products
-    Route::get('/products/create', 'App\Http\Controllers\ProductsController@create');
-    Route::post('/products', 'App\Http\Controllers\ProductsController@store');
+    // Route::get('/products/create', 'App\Http\Controllers\ProductsController@create');
+    // Route::post('/products', 'App\Http\Controllers\ProductsController@store');
+    Route::resource('products','App\Http\Controllers\ProductsController');
+    Route::match(array('GET', 'POST'),'/products/datatable', [
+        'as' => 'products.datatable',
+        'uses' => 'App\Http\Controllers\ProductsController@datatable'
+    ]);
 
     // Fashion designers
     Route::get('/fashionDesigners', 'App\Http\Controllers\FashionDesignersController@index');
@@ -76,6 +83,7 @@ Route::group(['middleware'=>['isLogged']], function(){
         'as' => 'colors.datatable',
         'uses' => 'App\Http\Controllers\ColorsController@datatable'
     ]);
+
     // Envíos
     Route::name('shipments')->get('/shipments', 'App\Http\Controllers\ShipmentController@index');
 
