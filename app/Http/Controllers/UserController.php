@@ -18,7 +18,7 @@ class UserController extends Controller
         return view('profile.index');
     }
 
-    public function createClient(Request $request){
+    public function storeClient(Request $request){
         // dd($request->all());
         $validatedData = $request->validate([
             'username' => 'required|string|max:250|unique:users',

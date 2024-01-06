@@ -2,9 +2,9 @@
 // url: https://getbootstrap.com/docs/4.0/components/modal/
 function showModal(title, body, htmlFormat, url=null, size=null, drageable=false, collapsable=false,
      removeApp=false, secondsToCancel=null, callbackOkButton = null, 
-     nameCancelModal="Cerrar", nameSaveModal="Guardar")
+     nameCancelModal="Cerrar", nameSaveModal="Guardar", hideFooter=false)
 {
-    console.log(body);
+    // console.log(body);
     // let innerTittle = '';
     // if (title){
     //     innerTittle = title;
@@ -16,7 +16,6 @@ function showModal(title, body, htmlFormat, url=null, size=null, drageable=false
     $('#generic-modal .modal-body').text('');
     */
 
-
     let mainId = '#generic-modal';
     let buttonOkId = '#okConfirmModal';
     let buttonCloseId = '#closeConfirmModal';
@@ -24,7 +23,7 @@ function showModal(title, body, htmlFormat, url=null, size=null, drageable=false
     $(mainId + ' .modal-title').text(title);
     $(mainId + ' .modal-body').text(body);
 
-
+    $('#generic-modal .modal-footer').show();
     // Tamaño. Se agrega la clase con el tamaño definido
     if (size){
         $('.modal-dialog').addClass(size);
@@ -165,6 +164,9 @@ function showModal(title, body, htmlFormat, url=null, size=null, drageable=false
         $('#app').remove();
     }
     $(mainId).modal('show');
+    if (hideFooter){
+        $('#generic-modal .modal-footer').hide();
+    }
 }
 
 
@@ -212,11 +214,11 @@ callbackClose=function(){})
 }
 
 function saveModalActionAjax (url, data={}, method="PUT", type="json",
-    callbackOkFunction=function(){}, closeModal=true){
+    callbackOkFunction=function(){}, closeModal=true, processAjax=false){
 
     let funcName = "saveModalActionAjax";
     if (closeModal){
-        // Se realiza la función callback llamada cmo argumento en caso de existir
+        // Se realiza la función callback llamada como argumento en caso de existir
         callbackOkFunction = (function(){
             let cachedFunction = callbackOkFunction;
             // Se devuelve la función, y se cierra el modal
@@ -229,22 +231,47 @@ function saveModalActionAjax (url, data={}, method="PUT", type="json",
         })();
     }
 
-    $.ajax(url,
-        {
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            dataType: type,
-            method: method,
-            data: data
-        }
-        // Cuando la llamada ajax funcione, se llamará a la función callback
-    ).done(callbackOkFunction)
-    .fail(function(xhr, st, err){
-        showInlineError("There has been an error: "+ err);
-        console.error("Error in "+ funcName, xhr, st, err);
-        $('#generic-modal').modal('hide');
-    });
+    if(processAjax){
+        $.ajax(url,
+            {
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                dataType: type,
+                method: method,
+                data: data,
+                cache: false,
+                processData: false,
+                contentType: false,
+            }
+            // Cuando la llamada ajax funcione, se llamará a la función callback
+        ).done(callbackOkFunction)
+        .fail(function(xhr, st, err){
+            showInlineError("There has been an error: "+ err);
+            console.error("Error in "+ funcName, xhr, st, err);
+            $('#generic-modal').modal('hide');
+        });
+    }
+    else{
+        $.ajax(url,
+            {
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                dataType: type,
+                method: method,
+                data: data,
+            }
+            // Cuando la llamada ajax funcione, se llamará a la función callback
+        ).done(callbackOkFunction)
+        .fail(function(xhr, st, err){
+            showInlineError("There has been an error: "+ err);
+            console.error("Error in "+ funcName, xhr, st, err);
+            $('#generic-modal').modal('hide');
+        });
+    }
+
+    
 }
 
 function showInlineError (message, timeout=0, modal=false){

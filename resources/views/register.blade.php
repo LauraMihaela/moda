@@ -16,7 +16,7 @@
 
                     @include ('incl.alertsContainters')
 
-                    {{ Form::open(array('url' => 'user/createClient', 'method' => 'POST', 'class' => 'form-horizontal')) }}          
+                    {{ Form::open(array('url' => 'user/client/store', 'method' => 'POST', 'class' => 'form-horizontal')) }}          
 
                         <div class="form-group input-group m-2">
                             <div class="input-group-prepend">

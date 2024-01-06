@@ -25,6 +25,8 @@ Route::get('/register', function () {
 
 Route::post('/login', 'App\Http\Controllers\LoginController@login');
 
+// Usuario
+Route::post('/user/client/store', 'App\Http\Controllers\UserController@storeClient');
 // Vistas de usuario logueado
 
 Route::group(['middleware'=>['isLogged']], function(){
@@ -41,6 +43,14 @@ Route::group(['middleware'=>['isLogged']], function(){
     Route::match(array('GET', 'POST'),'/products/datatable', [
         'as' => 'products.datatable',
         'uses' => 'App\Http\Controllers\ProductsController@datatable'
+    ]);
+    Route::post('/products/{id}/addToCart', [
+        'as' => 'products.addToCart',
+        'uses' => 'App\Http\Controllers\ProductsController@addTocart'
+    ]);
+    Route::get('/products/{id}/showProductCartDetails', [
+        'as' => 'products.showProductCartDetails',
+        'uses' => 'App\Http\Controllers\ProductsController@showProductCartDetails'
     ]);
 
     // Fashion designers

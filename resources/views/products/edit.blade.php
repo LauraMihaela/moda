@@ -69,7 +69,7 @@
                                     <option selected="selected" value="{{$selectedSize->size_id}}">{{$selectedSize->size_name}}</option>
                                 @endforeach
                                 @foreach ($sizes as $size)
-                                    <option value="{{ $size->id }}">{{ $size->size_name }}</option>
+                                    <option value="{{ $size->size_id }}">{{ $size->size_name }}</option>
                                 @endforeach
                             </select>
                         </div> 
@@ -89,10 +89,10 @@
                             data-actions-box="true" data-header="Seleccione los colores del producto" title="Colores"
                             class="selectpicker form-control mb-1">
                                 @foreach ($selectedColors as $selectedColor)
-                                    <option selected="selected" value="{{$selectedColor->scolor_id}}">{{$selectedColor->color_name}}</option>
+                                    <option selected="selected" value="{{$selectedColor->color_id}}">{{$selectedColor->color_name}}</option>
                                 @endforeach
                                 @foreach ($colors as $color)
-                                    <option value="{{ $color->id }}">{{ $color->color_name }}</option>
+                                    <option value="{{ $color->color_id }}">{{ $color->color_name }}</option>
                                 @endforeach
                             </select>
                         </div> 
@@ -104,8 +104,7 @@
                     @endif
 
                     {{-- Fashion designer --}}
-                    @if (!$fashionDesigners->isEmpty())
-                        {{-- Select del fashion designer --}}
+                    @if(!is_null($fashionDesigners))
                         <div class="form-group input-group m-2">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"> <i class="fa-solid fa-user-tie"></i> </span>
@@ -113,11 +112,11 @@
                             <select required id="fashionDesigner" name="fashionDesigner" data-live-search="true" 
                             data-actions-box="true" data-header="Seleccione el diseñador de moda del producto" title="Diseñadores de moda"
                             class="selectpicker form-control mb-1">
-                                @foreach ($selectedFashionDesigners as $selectedFashionDesigner)
+                                @if(!is_null($selectedFashionDesigner))
                                     <option selected="selected" value="{{$selectedFashionDesigner->fashion_designer_id}}">{{$selectedFashionDesigner->name}} ({{$selectedFashionDesigner->country}})</option>
-                                @endforeach
+                                @endif
                                 @foreach ($fashionDesigners as $fashionDesigner)
-                                    <option value="{{ $fashionDesigner->id }}">{{ $fashionDesigner->name }} ({{ $fashionDesigner->country}})</option>
+                                    <option value="{{ $fashionDesigner['id'] }}">{{ $fashionDesigner['name'] }} ({{ $fashionDesigner['longCountry'] }})</option>
                                 @endforeach
                             </select>
                         </div>
@@ -127,7 +126,6 @@
                             <button type="button" id="create-fashion-designer" class="btn btn-secondary btn-sm ml-1 mr-2">Crear nuevo diseñador de moda</button>
                         </div> 
                     @endif
-
 
                     <div class="form-group">
                         <button type="submit" id="edit-product-submit" class="btn btn-primary btn-block">Editar producto</button>
