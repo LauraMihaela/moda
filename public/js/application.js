@@ -1,4 +1,16 @@
-
+$(function() {
+    
+    saveModalActionAjax(_publicURL+'shipments/getNumberOfProducts', null, "POST", "json", function(res){
+        if(res.status == 0){
+            // showInlineMessage(res.message, 10);
+            $("#main-number-cart .elements-cart span").html(res.numberOfShipments);
+        }
+        else{
+            // showInlineError(res.message, 10);
+        }
+    },true, true);
+    
+});
 // url: https://getbootstrap.com/docs/4.0/components/modal/
 function showModal(title, body, htmlFormat, url=null, size=null, drageable=false, collapsable=false,
      removeApp=false, secondsToCancel=null, callbackOkButton = null, 

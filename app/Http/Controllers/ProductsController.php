@@ -136,6 +136,18 @@ class ProductsController extends Controller
                 ]);
             }
         }
+        else{
+            foreach ($request->colors as $colorKey => $colorValue){
+                foreach ($request->sizes as $sizeKey => $sizeValue){
+                    SizeColorProduct::create([
+                        'product_id' => $product->id,
+                        'color_id' => $request->colors[$colorKey],
+                        'size_id' => $request->sizes[$sizeKey],
+                    ]);
+                }
+            }
+        }
+        /*
         else if ($cont_sizes > $cont_colors){
             // Hay más tamaños que colores: se insertan los tamaños y colores, 
             // hasta que se llegue al limite de colores, entonces se insertan null de colores
@@ -171,7 +183,7 @@ class ProductsController extends Controller
                 ]);
             }
         }
-
+        */
         return redirect()->to('/dashboard')->with('message', 'El producto '.$request->product_name. ' ha sido creado');
 
 
@@ -181,19 +193,19 @@ class ProductsController extends Controller
     
     public function show(int $id){
         
-        $sizes = Size::select('sizes.id as size_id','size_name')->get();
-        $colors = Color::select('colors.id as color_id','color_name')->get();
+        $sizes = Size::select('sizes.id as size_id','size_name')->distinct()->get();
+        $colors = Color::select('colors.id as color_id','color_name')->distinct()->get();
         $fashionDesigners = FashionDesigner::select('fashion_designers.id as fashion_designer_id','fashion_designers.name as name','fashion_designers.country as country')->get();
         $product = Product::find($id);
-        $sizesColorsProducts = SizeColorProduct::where('product_id',$id)->get();
+        $sizesColorsProducts = SizeColorProduct::where('product_id',$id)->distinct()->get();
         $selectedSizes = SizeColorProduct::join('sizes','sizes_colors_products.size_id','sizes.id')
         ->select('size_id','size_name')->where('product_id',$id)
-        ->whereNotNull('size_id')->get();
+        ->whereNotNull('size_id')->distinct()->get();
         $selectedColors = SizeColorProduct::join('colors','sizes_colors_products.color_id','colors.id')
-        ->select('color_id','color_name')->where('product_id',$id)->whereNotNull('color_id')->get();
+        ->select('color_id','color_name')->where('product_id',$id)->whereNotNull('color_id')->distinct()->get();
         $selectedFashionDesigners = Product::join('fashion_designers','products.created_by_fashion_designer_id','fashion_designers.id')
         ->select('created_by_fashion_designer_id as fashion_designer_id','name','country')
-        ->where('products.id',$id)->get();
+        ->where('products.id',$id)->distinct()->get();
         // Se hace un flatten para pasar de una coleccion multidimensional a una de 1 dimension
         // Despues del flatten, se hace un diff para quedarse solamente con los elementos que no estan elegidos
         $sizes = $sizes->flatten()->diff($selectedSizes->flatten());
@@ -204,16 +216,16 @@ class ProductsController extends Controller
     }
 
     public function edit(int $id){
-        $sizes = Size::select('sizes.id as size_id','size_name')->get();
-        $colors = Color::select('colors.id as color_id','color_name')->get();
+        $sizes = Size::select('sizes.id as size_id','size_name')->distinct()->get();
+        $colors = Color::select('colors.id as color_id','color_name')->distinct()->get();
         $fashionDesigners = FashionDesigner::select('fashion_designers.id as fashion_designer_id','fashion_designers.name as name','fashion_designers.country as country')->get();
         $product = Product::find($id);
-        $sizesColorsProducts = SizeColorProduct::where('product_id',$id)->get();
+        $sizesColorsProducts = SizeColorProduct::where('product_id',$id)->distinct()->get();
         $selectedSizes = SizeColorProduct::join('sizes','sizes_colors_products.size_id','sizes.id')
         ->select('size_id','size_name')->where('product_id',$id)
-        ->whereNotNull('size_id')->get();
+        ->whereNotNull('size_id')->distinct()->get();
         $selectedColors = SizeColorProduct::join('colors','sizes_colors_products.color_id','colors.id')
-        ->select('color_id','color_name')->where('product_id',$id)->whereNotNull('color_id')->get();
+        ->select('color_id','color_name')->where('product_id',$id)->whereNotNull('color_id')->distinct()->get();
         $selectedFashionDesigners = Product::join('fashion_designers','products.created_by_fashion_designer_id','fashion_designers.id')
         ->select('created_by_fashion_designer_id as fashion_designer_id','name','country')
         ->where('products.id',$id)->get();
@@ -383,6 +395,18 @@ class ProductsController extends Controller
                     'size_id' => null,
                 ]);
             }
+            else{
+                foreach ($request->colors as $colorKey => $colorValue){
+                    foreach ($request->sizes as $sizeKey => $sizeValue){
+                        SizeColorProduct::create([
+                            'product_id' => $product->id,
+                            'color_id' => $request->colors[$colorKey],
+                            'size_id' => $request->sizes[$sizeKey],
+                        ]);
+                    }
+                }
+            }
+            /*
             else if ($cont_sizes == $cont_colors){
                 // Se insertan tantos elementos como haya en tamaños y colores. Ninguno estará a null
                 for($num_elementos=0; $num_elementos<$cont_sizes; $num_elementos++){
@@ -428,7 +452,7 @@ class ProductsController extends Controller
                     ]);
                 }
             }
-    
+            */
 
         }
         return redirect()->to('/dashboard')->with('message', 'El producto '.$request->product_name. ' ha sido actualizado');
@@ -470,6 +494,10 @@ class ProductsController extends Controller
         } 
         $productName = $product->product_name;
         $sizesColorsProduct = SizeColorProduct::where('product_id',$id)->where('color_id',$color)->where('size_id',$size)->first();
+        // dump($id);
+        // dump($color);
+        // dump($size);
+        // dd($sizesColorsProduct);
         $sizesColorsProductId = $sizesColorsProduct->id;
         // dump($sizesColorsProduct->toArray());
         // dd($sizesColorsProductId);
@@ -483,7 +511,12 @@ class ProductsController extends Controller
             'sizes_colors_products_id' => $sizesColorsProductId,
             'status_id' => $statusId,
         ]);
-        return response()->json(['status' => 0, 'message' => "El producto ".$productName. " ha sido añadido al carrito"]);
+        $shipments = Shipment::where('client_id',$clientId)->get();
+        $numberOfShipments = 0;
+        if ($shipments){
+            $numberOfShipments = $shipments->count();
+        }
+        return response()->json(['status' => 0, 'message' => "El producto ".$productName. " ha sido añadido al carrito", 'numberOfShipments' => $numberOfShipments]);
 
     }
 
@@ -492,9 +525,9 @@ class ProductsController extends Controller
         $sizesColorsProducts = SizeColorProduct::where('product_id',$id)->get();
         $sizes = SizeColorProduct::join('sizes','sizes_colors_products.size_id','sizes.id')
         ->select('size_id','size_name')->where('product_id',$id)
-        ->whereNotNull('size_id')->get();
+        ->whereNotNull('size_id')->distinct()->get();
         $colors = SizeColorProduct::join('colors','sizes_colors_products.color_id','colors.id')
-        ->select('color_id','color_name')->where('product_id',$id)->whereNotNull('color_id')->get();
+        ->select('color_id','color_name')->where('product_id',$id)->whereNotNull('color_id')->distinct()->get();
         return view('products.showProductCartDetails', compact('product', 'sizesColorsProducts','sizes','colors'));
 
     }

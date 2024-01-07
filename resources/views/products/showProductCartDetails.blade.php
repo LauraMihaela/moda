@@ -53,7 +53,8 @@
 
             <div class="form-group float-right">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeModalCart">Cerrar</button>
-                <button type="submit" class="btn btn-primary cart-product-submit" id="saveModalCart"><i class="fa fa-save"></i>&ensp;Añadir producto al carrito</button>
+                {{-- <button type="submit" class="btn btn-primary cart-product-submit" id="saveModalCart"><i class="fa fa-save"></i>&ensp;Añadir producto al carrito</button> --}}
+                <button type="submit" class="btn btn-primary cart-product-submit" id="saveModalCart"><i class="fa fa-save"></i>&ensp;Comprar producto {{$product->product_name}}</button>
             </div>    
         </form>
 

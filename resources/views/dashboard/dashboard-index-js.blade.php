@@ -105,7 +105,7 @@ $(function() {
                     let contenedorDiv =  $('<div />').addClass("btn-group");
                     let enlanceVista = $('<a />').addClass("btn btn-default btn-xs").attr("href", _publicURL+'products/'+row.id).attr("title", "Visualizar producto");
                     let iconoVista = $('<i />').addClass("fa-solid fa-eye");
-                    let enlanceCarrito = $('<a />').addClass("btn btn-default btn-xs add-product-to-cart").attr("title", "Añadir producto al carrito").attr("data-name-product",row.product_name).attr("data-id-product",row.id);
+                    let enlanceCarrito = $('<a />').addClass("btn btn-default btn-xs add-product-to-cart").attr("title", "Comprar producto").attr("data-name-product",row.product_name).attr("data-id-product",row.id);
                     let iconoCarrito  = $('<i />').addClass("fa-solid fa-cart-plus");
                     enlanceVista = enlanceVista.append(iconoVista);
                     enlanceCarrito = enlanceCarrito.append(iconoCarrito);

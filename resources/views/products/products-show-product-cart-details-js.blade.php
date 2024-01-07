@@ -39,10 +39,10 @@
         */
         
         saveModalActionAjax(_publicURL+'products/'+productId+'/addToCart', formData, "POST", "json", function(res){
-            // El delete devuelve un json con una respuesta
+            // devuelve un json con una respuesta
             if(res.status == 0){
-                // Se muestra el mensaje que viene desde la respuesta del delete
                 showInlineMessage(res.message, 10);
+                $("#main-number-cart .elements-cart span").html(res.numberOfShipments);
             }
             else{
                 // Si la respuesta es un error, se muestra el mensaje de error

@@ -25,6 +25,11 @@ Route::get('/register', function () {
 
 Route::post('/login', 'App\Http\Controllers\LoginController@login');
 
+Route::post('/shipments/getNumberOfProducts', [
+    'as' => 'shipments.getNumberOfProducts',
+    'uses' => 'App\Http\Controllers\ShipmentController@getNumberOfProducts'
+]);
+
 // Usuario
 Route::post('/user/client/store', 'App\Http\Controllers\UserController@storeClient');
 // Vistas de usuario logueado
@@ -96,6 +101,9 @@ Route::group(['middleware'=>['isLogged']], function(){
 
     // Envíos
     Route::name('shipments')->get('/shipments', 'App\Http\Controllers\ShipmentController@index');
+    Route::resource('shipments','App\Http\Controllers\ShipmentController');
+    
+    
 
     // Categorías
     Route::get('/categories', 'App\Http\Controllers\CategoriesController@index');

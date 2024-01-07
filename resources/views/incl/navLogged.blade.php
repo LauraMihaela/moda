@@ -11,9 +11,11 @@
           <div class="logo">
             <h1>Moda</h1>
             @if(auth()->user()->role_id == config('constants.roles.client_role'))
-              <div onclick="window.location='{{url('/cart')}}'" class="nav-cart" title="Carrito de compra">
+              {{-- <div onclick="window.location='{{url('/cart')}}'" class="nav-cart" title="Carrito de compra"> --}}
+              <div class="nav-cart" title="Número de productos comprados" id="main-number-cart">
                 <div>
-                  <i class="fa-solid fa-cart-shopping"></i>
+                  {{-- <i class="fa-solid fa-cart-shopping"></i> --}}
+                  <i class="fa-solid fa-basket-shopping"></i>
                 </div>
                 <div class="elements-cart">
                     <span>0</span>
