@@ -9,7 +9,7 @@
     <div class="container">
         <div class="card bg-light">
             <article class="card-body mx-auto">
-                <h4 class="card-title mt-3 text-center">Edición del producto {{$product->product_name}}</h4>
+                <h4 class="card-title mt-3 text-center">Visión del producto {{$product->product_name}}</h4>
 
                 {{-- <form action="{{route('products.update',$product->id )}}" class="form-horizontal" enctype="multipart/form-data" method="POST"> 
                     @csrf
@@ -55,7 +55,7 @@
                         placeholder="Precio" value="{{$product->price}}"><span>&#8364;</span>
                     </div>
 
-                    @if (!$sizes->isEmpty())
+                    @if (!$initialSizes->isEmpty())
                         <div class="form-group input-group m-2">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"> <i class="fa-solid fa-up-right-and-down-left-from-center"></i> </span>
@@ -63,9 +63,11 @@
                             <select required id="sizes" name="sizes[]" data-live-search="true" multiple="multiple"
                             data-actions-box="true" data-header="Seleccione los tamaños del producto" title="Tamaños"
                             class="selectpicker form-control mb-1">
-                                @foreach ($selectedSizes as $selectedSize)
-                                    <option disabled selected="selected" value="{{$selectedSize->size_id}}">{{$selectedSize->size_name}}</option>
-                                @endforeach
+                                @if (!$selectedSizes->isEmpty())
+                                    @foreach ($selectedSizes as $selectedSize)
+                                        <option disabled selected="selected" value="{{$selectedSize->size_id}}">{{$selectedSize->size_name}}</option>
+                                    @endforeach
+                                @endif
                                 @foreach ($sizes as $size)
                                     <option disabled value="{{ $size->id }}">{{ $size->size_name }}</option>
                                 @endforeach
@@ -78,7 +80,7 @@
                         </div> 
                     @endif
 
-                    @if (!$colors->isEmpty())
+                    @if (!$initialColors->isEmpty())
                         <div class="form-group input-group m-2">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"> <i class="fa-solid fa-palette"></i> </span>
@@ -86,9 +88,11 @@
                             <select required id="colors" name="colors[]" data-live-search="true" multiple="multiple"
                             data-actions-box="true" data-header="Seleccione los colores del producto" title="Colores"
                             class="selectpicker form-control mb-1">
-                                @foreach ($selectedColors as $selectedColor)
-                                    <option disabled selected="selected" value="{{$selectedColor->scolor_id}}">{{$selectedColor->color_name}}</option>
-                                @endforeach
+                                @if (!$selectedColors->isEmpty())
+                                    @foreach ($selectedColors as $selectedColor)
+                                        <option disabled selected="selected" value="{{$selectedColor->scolor_id}}">{{$selectedColor->color_name}}</option>
+                                    @endforeach
+                                @endif
                                 @foreach ($colors as $color)
                                     <option disabled value="{{ $color->id }}">{{ $color->color_name }}</option>
                                 @endforeach
@@ -98,6 +102,32 @@
                         <div class="form-group input-group m-2">
                             <p>No hay colores disponibles. Puede crear uno nuevo desde aquí</p>
                             <button type="button" id="create-color" class="btn btn-secondary btn-sm ml-1 mr-2">Crear nuevo color</button>
+                        </div> 
+                    @endif
+
+                    {{-- Categorías --}}
+                    @if (!$initialCategories->isEmpty())
+                        <div class="form-group input-group m-2">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"> <i class="fa-solid fa-layer-group"></i> </span>
+                            </div>
+                            <select required id="categories" name="categories[]" data-live-search="true" multiple="multiple"
+                            data-actions-box="true" data-header="Seleccione las categorías del producto" title="Categorías"
+                            class="selectpicker form-control mb-1">
+                                @if (!$selectedCategories->isEmpty())
+                                    @foreach ($selectedCategories as $selectedCategory)
+                                        <option disabled selected="selected" value="{{$selectedCategory->category_id}}">{{$selectedCategory->category_name}}</option>
+                                    @endforeach
+                                @endif
+                                @foreach ($categories as $category)
+                                    <option disabled value="{{ $category->category_id }}">{{ $category->category_name }}</option>
+                                @endforeach
+                            </select>
+                        </div> 
+                    @else
+                        <div class="form-group input-group m-2">
+                            <p>No hay categorías disponibles. Puede crear una nuevo desde aquí</p>
+                            <button type="button" id="create-category" class="btn btn-secondary btn-sm ml-1 mr-2">Crear nuevo color</button>
                         </div> 
                     @endif
 
@@ -111,9 +141,11 @@
                             <select required id="fashionDesigner" name="fashionDesigner" data-live-search="true" 
                             data-actions-box="true" data-header="Seleccione el diseñador de moda del producto" title="Diseñadores de moda"
                             class="selectpicker form-control mb-1">
-                                @foreach ($selectedFashionDesigners as $selectedFashionDesigner)
-                                    <option selected="selected" value="{{$selectedFashionDesigner->fashion_designer_id}}">{{$selectedFashionDesigner->name}} ({{$selectedFashionDesigner->country}})</option>
-                                @endforeach
+                                @if (!$selectedFashionDesigners->isEmpty())
+                                    @foreach ($selectedFashionDesigners as $selectedFashionDesigner)
+                                        <option selected="selected" value="{{$selectedFashionDesigner->fashion_designer_id}}">{{$selectedFashionDesigner->name}} ({{$selectedFashionDesigner->country}})</option>
+                                    @endforeach
+                                @endif
                                 @foreach ($fashionDesigners as $fashionDesigner)
                                     <option disabled value="{{ $fashionDesigner->id }}">{{ $fashionDesigner->name }} ({{ $fashionDesigner->country}})</option>
                                 @endforeach

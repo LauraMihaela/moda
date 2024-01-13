@@ -102,11 +102,19 @@ Route::group(['middleware'=>['isLogged']], function(){
     // Envíos
     Route::name('shipments')->get('/shipments', 'App\Http\Controllers\ShipmentController@index');
     Route::resource('shipments','App\Http\Controllers\ShipmentController');
+    Route::match(array('GET', 'POST'),'/shipments/datatable', [
+        'as' => 'colors.datatable',
+        'uses' => 'App\Http\Controllers\ShipmentController@datatable'
+    ]);
     
     
-
     // Categorías
     Route::get('/categories', 'App\Http\Controllers\CategoriesController@index');
+    Route::resource('categories','App\Http\Controllers\CategoriesController');
+    Route::match(array('GET', 'POST'),'/categories/datatable', [
+        'as' => 'categories.datatable',
+        'uses' => 'App\Http\Controllers\CategoriesController@datatable'
+    ]);
 
     // Carrito
     Route::get('/cart', 'App\Http\Controllers\ProductsController@cartIndex');

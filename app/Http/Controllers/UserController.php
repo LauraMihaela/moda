@@ -54,8 +54,14 @@ class UserController extends Controller
             $address = $request->address;
         }
         // User_id que acaba de ser creado
-        $user_id = User::where('username',$request->username)->firstOrFail()->value('id');
-        
+        // $user_id = User::where('username',$request->username)->firstOrFail()->value('id');
+        $user = User::where('username',$request->username)
+        ->where('name',$request->name)
+        ->where('lastname',$request->lastname)
+        ->where('email',$request->email)
+        ->first();
+        $user_id = $user->id;
+
         Client::create([
             'address' => $address,
             'user_id' => $user_id

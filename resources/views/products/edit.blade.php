@@ -57,7 +57,7 @@
                         placeholder="Precio" value="{{$product->price}}"><span>&#8364;</span>
                     </div>
 
-                    @if (!$sizes->isEmpty())
+                    @if (!$initialSizes->isEmpty())
                         <div class="form-group input-group m-2">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"> <i class="fa-solid fa-up-right-and-down-left-from-center"></i> </span>
@@ -65,9 +65,11 @@
                             <select required id="sizes" name="sizes[]" data-live-search="true" multiple="multiple"
                             data-actions-box="true" data-header="Seleccione los tamaños del producto" title="Tamaños"
                             class="selectpicker form-control mb-1">
-                                @foreach ($selectedSizes as $selectedSize)
-                                    <option selected="selected" value="{{$selectedSize->size_id}}">{{$selectedSize->size_name}}</option>
-                                @endforeach
+                                @if (!$selectedSizes->isEmpty())
+                                    @foreach ($selectedSizes as $selectedSize)
+                                        <option selected="selected" value="{{$selectedSize->size_id}}">{{$selectedSize->size_name}}</option>
+                                    @endforeach
+                                @endif
                                 @foreach ($sizes as $size)
                                     <option value="{{ $size->size_id }}">{{ $size->size_name }}</option>
                                 @endforeach
@@ -80,7 +82,7 @@
                         </div> 
                     @endif
 
-                    @if (!$colors->isEmpty())
+                    @if (!$initialColors->isEmpty())
                         <div class="form-group input-group m-2">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"> <i class="fa-solid fa-palette"></i> </span>
@@ -88,9 +90,11 @@
                             <select required id="colors" name="colors[]" data-live-search="true" multiple="multiple"
                             data-actions-box="true" data-header="Seleccione los colores del producto" title="Colores"
                             class="selectpicker form-control mb-1">
-                                @foreach ($selectedColors as $selectedColor)
-                                    <option selected="selected" value="{{$selectedColor->color_id}}">{{$selectedColor->color_name}}</option>
-                                @endforeach
+                                @if (!$selectedColors->isEmpty())
+                                    @foreach ($selectedColors as $selectedColor)
+                                        <option selected="selected" value="{{$selectedColor->color_id}}">{{$selectedColor->color_name}}</option>
+                                    @endforeach
+                                @endif
                                 @foreach ($colors as $color)
                                     <option value="{{ $color->color_id }}">{{ $color->color_name }}</option>
                                 @endforeach
@@ -100,6 +104,32 @@
                         <div class="form-group input-group m-2">
                             <p>No hay colores disponibles. Puede crear uno nuevo desde aquí</p>
                             <button type="button" id="create-color" class="btn btn-secondary btn-sm ml-1 mr-2">Crear nuevo color</button>
+                        </div> 
+                    @endif
+
+                    {{-- Categorías --}}
+                    @if (!$initialCategories->isEmpty())
+                        <div class="form-group input-group m-2">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"> <i class="fa-solid fa-layer-group"></i> </span>
+                            </div>
+                            <select id="categories" name="categories[]" data-live-search="true" multiple="multiple"
+                            data-actions-box="true" data-header="Seleccione las categorías del producto" title="Categorías"
+                            class="selectpicker form-control mb-1">
+                                @if (!$selectedCategories->isEmpty())
+                                    @foreach ($selectedCategories as $selectedCategory)
+                                        <option selected="selected" value="{{$selectedCategory->category_id}}">{{$selectedCategory->category_name}}</option>
+                                    @endforeach
+                                @endif
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->category_id }}">{{ $category->category_name }}</option>
+                                @endforeach
+                            </select>
+                        </div> 
+                    @else
+                        <div class="form-group input-group m-2">
+                            <p>No hay categorías disponibles. Puede crear una nueva desde aquí</p>
+                            <button type="button" id="create-category" class="btn btn-secondary btn-sm ml-1 mr-2">Crear nueva categoría</button>
                         </div> 
                     @endif
 

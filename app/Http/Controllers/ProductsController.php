@@ -12,6 +12,8 @@ use App\Models\Size;
 use App\Models\Color;
 use App\Models\Shipment;
 use App\Models\Client;
+use App\Models\Category;
+use App\Models\CategoryProduct;
 use Monarobase\CountryList\CountryListFacade;
 use Illuminate\Support\Arr;
 use Illuminate\Validation\Rule;
@@ -50,11 +52,12 @@ class ProductsController extends Controller
         }
         $sizes = Size::all();
         $colors = Color::all();
+        $categories = Category::all();
 
         // dd($fashionDesigners->toArray());
            // 'fashionDesigners' es el nombre de la variable que se va a utilizar en view
         return view('products.create')->with('fashionDesigners',$fashionDesigners)
-        ->with('sizes',$sizes)->with('colors',$colors);
+        ->with('sizes',$sizes)->with('colors',$colors)->with('categories',$categories);
     }
 
     public function store(Request $request){
@@ -147,6 +150,20 @@ class ProductsController extends Controller
                 }
             }
         }
+
+        $cont_categories = 0;
+        if (!is_null($request->categories)){
+            $cont_categories = count($request->categories);
+        }  
+        if($cont_categories !== 0){
+            foreach ($request->categories as $categoryKey => $categoryValue){
+                CategoryProduct::create([
+                    'product_id' => $product->id,
+                    'category_id' => $request->categories[$categoryKey],
+                ]);
+            }
+        }
+        
         /*
         else if ($cont_sizes > $cont_colors){
             // Hay más tamaños que colores: se insertan los tamaños y colores, 
@@ -193,8 +210,9 @@ class ProductsController extends Controller
     
     public function show(int $id){
         
-        $sizes = Size::select('sizes.id as size_id','size_name')->distinct()->get();
-        $colors = Color::select('colors.id as color_id','color_name')->distinct()->get();
+        $initialSizes = Size::select('sizes.id as size_id','size_name')->distinct()->get();
+        $initialColors = Color::select('colors.id as color_id','color_name')->distinct()->get();
+        $initialCategories = Category::select('categories.id as category_id','category_name')->distinct()->get();
         $fashionDesigners = FashionDesigner::select('fashion_designers.id as fashion_designer_id','fashion_designers.name as name','fashion_designers.country as country')->get();
         $product = Product::find($id);
         $sizesColorsProducts = SizeColorProduct::where('product_id',$id)->distinct()->get();
@@ -206,18 +224,24 @@ class ProductsController extends Controller
         $selectedFashionDesigners = Product::join('fashion_designers','products.created_by_fashion_designer_id','fashion_designers.id')
         ->select('created_by_fashion_designer_id as fashion_designer_id','name','country')
         ->where('products.id',$id)->distinct()->get();
+        $selectedCategories = CategoryProduct::leftJoin('products','categories_products.product_id','products.id')
+        ->leftJoin('categories','categories_products.category_id','categories.id')
+        ->select('categories.id as category_id','categories.category_name as category_name')
+        ->where('categories_products.product_id',$id)->whereNotNull('categories_products.product_id')->distinct()->get();
         // Se hace un flatten para pasar de una coleccion multidimensional a una de 1 dimension
         // Despues del flatten, se hace un diff para quedarse solamente con los elementos que no estan elegidos
-        $sizes = $sizes->flatten()->diff($selectedSizes->flatten());
-        $colors = $colors->flatten()->diff($selectedColors->flatten()); 
+        $sizes = $initialSizes->flatten()->diff($selectedSizes->flatten());
+        $colors = $initialColors->flatten()->diff($selectedColors->flatten());
+        $categories = $initialCategories->flatten()->diff($selectedCategories->flatten());  
         $fashionDesigners = $fashionDesigners->flatten()->diff($selectedFashionDesigners->flatten());
 
-        return view('products.show', compact('product', 'sizesColorsProducts', 'sizes', 'colors', 'fashionDesigners','selectedSizes','selectedColors','selectedFashionDesigners'));
+        return view('products.show', compact('product', 'sizesColorsProducts', 'sizes', 'initialSizes', 'colors', 'initialColors', 'fashionDesigners','selectedSizes','selectedColors','selectedFashionDesigners','categories','selectedCategories','initialCategories'));
     }
 
     public function edit(int $id){
-        $sizes = Size::select('sizes.id as size_id','size_name')->distinct()->get();
-        $colors = Color::select('colors.id as color_id','color_name')->distinct()->get();
+        $initialSizes = Size::select('sizes.id as size_id','size_name')->distinct()->get();
+        $initialColors = Color::select('colors.id as color_id','color_name')->distinct()->get();
+        $initialCategories = Category::select('categories.id as category_id','category_name')->distinct()->get();
         $fashionDesigners = FashionDesigner::select('fashion_designers.id as fashion_designer_id','fashion_designers.name as name','fashion_designers.country as country')->get();
         $product = Product::find($id);
         $sizesColorsProducts = SizeColorProduct::where('product_id',$id)->distinct()->get();
@@ -229,10 +253,18 @@ class ProductsController extends Controller
         $selectedFashionDesigners = Product::join('fashion_designers','products.created_by_fashion_designer_id','fashion_designers.id')
         ->select('created_by_fashion_designer_id as fashion_designer_id','name','country')
         ->where('products.id',$id)->get();
+        $selectedCategories = CategoryProduct::leftJoin('products','categories_products.product_id','products.id')
+        ->leftJoin('categories','categories_products.category_id','categories.id')
+        ->select('categories.id as category_id','categories.category_name as category_name')
+        ->where('categories_products.product_id',$id)->whereNotNull('categories_products.product_id')->distinct()->get();
+        if ($selectedCategories->isEmpty()){
+        }
         // Se hace un flatten para pasar de una coleccion multidimensional a una de 1 dimension
         // Despues del flatten, se hace un diff para quedarse solamente con los elementos que no estan elegidos
-        $sizes = $sizes->flatten()->diff($selectedSizes->flatten());
-        $colors = $colors->flatten()->diff($selectedColors->flatten()); 
+        $sizes = $initialSizes->flatten()->diff($selectedSizes->flatten());
+        $colors = $initialColors->flatten()->diff($selectedColors->flatten()); 
+        $categories = $initialCategories->flatten()->diff($selectedCategories->flatten()); 
+
         $fashionDesigners = $fashionDesigners->flatten()->diff($selectedFashionDesigners->flatten());
         $selectedFashionDesigner = $selectedFashionDesigners->first();
         
@@ -269,7 +301,7 @@ class ProductsController extends Controller
         // dd($fashionDesigners);
         // dd($sizes->toArray());
         
-        return view('products.edit', compact('product', 'sizesColorsProducts', 'sizes', 'colors', 'fashionDesigners','selectedSizes','selectedColors','selectedFashionDesigner'));
+        return view('products.edit', compact('product', 'sizesColorsProducts', 'sizes', 'initialSizes', 'colors', 'initialColors', 'fashionDesigners','selectedSizes','selectedColors','selectedFashionDesigner','categories','selectedCategories','initialCategories'));
     }
 
     public function update(Request $request, int $id){
@@ -291,8 +323,6 @@ class ProductsController extends Controller
         if(empty($product)){
             return redirect()->back()->withErrors("No se ha encontrado el producto");
         }
-
-
 
         if($request->picture){
             // Si no existe la carpeta, se crea
@@ -379,7 +409,6 @@ class ProductsController extends Controller
                 $elem->save();
                 // dump($elem->toArray());
             }
-            // dd(1);
         }
         else{
             // Recorremos la tabla y la eliminamos
@@ -455,6 +484,46 @@ class ProductsController extends Controller
             */
 
         }
+
+        $existing_categories = CategoryProduct::where('product_id',$product->id)->get();
+        $count_existing_categories = $existing_categories->count();
+        $cont_categories = 0;
+        if (!is_null($request->categories)){
+            $cont_categories = count($request->categories);
+        }  
+        if($cont_categories == 0){
+            if ($count_existing_categories !== 0){
+                // Si hay elementos, se eliminan
+                foreach ($existing_categories as $index=>$elem){
+                    $elem->delete();
+                }
+            }
+        }
+        else{
+            if ($count_existing_categories == $cont_categories){
+                foreach ($existing_categories as $index=>$elem){
+                    // dump($elem->toArray());
+                    if(isset($request->categories[$index])){
+                        $elem->category_id = $request->categories[$index];
+                    }
+                    $elem->save();
+                    // dump($elem->toArray());
+                }
+            }
+            else{
+                // Eliminamos y creamos de nuevo las categorías
+                foreach ($existing_categories as $index=>$elem){
+                    $elem->delete();
+                }
+                foreach ($request->categories as $categoryKey => $categoryValue){
+                    CategoryProduct::create([
+                        'product_id' => $product->id,
+                        'category_id' => $request->categories[$categoryKey],
+                    ]);
+                }
+            }
+        }
+        
         return redirect()->to('/dashboard')->with('message', 'El producto '.$request->product_name. ' ha sido actualizado');
 
     }

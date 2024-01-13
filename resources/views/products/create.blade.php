@@ -91,6 +91,26 @@
                         </div> 
                     @endif
 
+                    @if (!$categories->isEmpty())
+                        <div class="form-group input-group m-2">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"> <i class="fa-solid fa-layer-group"></i> </span>
+                            </div>
+                            <select required id="categories" name="categories[]" data-live-search="true" multiple="multiple"
+                            data-actions-box="true" data-header="Seleccione las categorías del producto" title="Categorías"
+                            class="selectpicker form-control mb-1">
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}">{{ $category->category_name }}</option>
+                                @endforeach
+                            </select>
+                        </div> 
+                    @else
+                        <div class="form-group input-group m-2">
+                            <p>No hay categorías disponibles. Puede crear una nuevo desde aquí</p>
+                            <button type="button" id="create-category" class="btn btn-secondary btn-sm ml-1 mr-2">Crear nuevo color</button>
+                        </div> 
+                    @endif
+
                     {{-- Fashion designer --}}
                     @if(!is_null($fashionDesigners))
                         {{-- Select del fashion designer --}}
