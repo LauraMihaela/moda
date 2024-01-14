@@ -1,8 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\SizesController;
-use App\Http\Controllers\ColorsController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -122,7 +121,90 @@ Route::group(['middleware'=>['isLogged']], function(){
     // Usuarios
     Route::get('/users/clients/create', 'App\Http\Controllers\UserController@createClient');
     Route::get('/users', 'App\Http\Controllers\UserController@index');
+    // Route::resource('users','App\Http\Controllers\UserController');
+    // Route::match(array('GET', 'POST'),'/users/datatable', [
+    //     'as' => 'users.datatable',
+    //     'uses' => 'App\Http\Controllers\UserController@datatable'
+    // ]);
+    // Administradores
+    Route::get('/users/admins', 'App\Http\Controllers\UserAdminController@index');
+    Route::get('/users/admins/create', 'App\Http\Controllers\UserAdminController@create');
+    Route::post('/users/admins', 'App\Http\Controllers\UserAdminController@store');
+    Route::get('/users/admins/{id}', [
+        'as' => 'users.admins.show',
+        'uses' => 'App\Http\Controllers\UserAdminController@show'
+    ]);
+    Route::get('/users/admins/{id}/edit', [
+        'as' => 'users.admins.edit',
+        'uses' => 'App\Http\Controllers\UserAdminController@edit'
+    ]);
+    Route::put('/users/admins/{id}', [
+        'as' => 'users.admins.update',
+        'uses' => 'App\Http\Controllers\UserAdminController@update'
+    ]);
+    Route::delete('/users/admins/{id}', [
+        'as' => 'users.admins.destroy',
+        'uses' => 'App\Http\Controllers\UserAdminController@destroy'
+    ]);
+    Route::match(array('GET', 'POST'),'/users/admins/datatable', [
+        'as' => 'users.admins.datatable',
+        'uses' => 'App\Http\Controllers\UserAdminController@datatable'
+    ]);
+
+    // Route::resource('users.admins', 'App\Http\Controllers\UserAdminController')->shallow();
     
+    // Agents
+    // Route::resource('users.agents', 'App\Http\Controllers\UserAgentController')->shallow();
+    Route::get('/users/agents', 'App\Http\Controllers\UserAgentController@index');
+    Route::get('/users/agents/create', 'App\Http\Controllers\UserAgentController@create');
+    Route::post('/users/agents', 'App\Http\Controllers\UserAgentController@store');
+    Route::get('/users/agents/{id}', [
+        'as' => 'users.agents.show',
+        'uses' => 'App\Http\Controllers\UserAgentController@show'
+    ]);
+    Route::get('/users/agents/{id}/edit', [
+        'as' => 'users.agents.edit',
+        'uses' => 'App\Http\Controllers\UserAgentController@edit'
+    ]);
+    Route::put('/users/agents/{id}', [
+        'as' => 'users.agents.update',
+        'uses' => 'App\Http\Controllers\UserAgentController@update'
+    ]);
+    Route::delete('/users/agents/{id}', [
+        'as' => 'users.agents.destroy',
+        'uses' => 'App\Http\Controllers\UserAgentController@destroy'
+    ]);
+    Route::match(array('GET', 'POST'),'/users/agents/datatable', [
+        'as' => 'users.agents.datatable',
+        'uses' => 'App\Http\Controllers\UserAgentController@datatable'
+    ]);
+
+    // Clients
+    // Route::resource('users.clients', 'App\Http\Controllers\UserClientController')->shallow();
+    Route::get('/users/clients', 'App\Http\Controllers\UserClientController@index');
+    Route::get('/users/clients/create', 'App\Http\Controllers\UserClientController@create');
+    Route::post('/users/clients', 'App\Http\Controllers\UserClientController@store');
+    Route::get('/users/clients/{id}', [
+        'as' => 'users.clients.show',
+        'uses' => 'App\Http\Controllers\UserClientController@show'
+    ]);
+    Route::get('/users/clients/{id}/edit', [
+        'as' => 'users.clients.edit',
+        'uses' => 'App\Http\Controllers\UserClientController@edit'
+    ]);
+    Route::put('/users/clients/{id}', [
+        'as' => 'users.clients.update',
+        'uses' => 'App\Http\Controllers\UserClientController@update'
+    ]);
+    Route::delete('/users/clients/{id}', [
+        'as' => 'users.clients.destroy',
+        'uses' => 'App\Http\Controllers\UserClientController@destroy'
+    ]);
+    Route::match(array('GET', 'POST'),'/users/clients/datatable', [
+        'as' => 'users.clients.datatable',
+        'uses' => 'App\Http\Controllers\UserClientController@datatable'
+    ]);
+
     // Perfil de usuarios
     Route::get('/profile', 'App\Http\Controllers\UserController@profileIndex');
 
