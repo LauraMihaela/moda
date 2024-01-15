@@ -19,7 +19,9 @@
       <table class="table table-bordered changableTable" id="mainTableShipments">
             <thead class="text-center">
                 <tr class="text-center">
-                    <th class="bg-primary">Nombre de usuario</th>
+                    @if(auth()->user()->role_id !== config('constants.roles.client_role'))
+                        <th class="bg-primary">Nombre de usuario</th>
+                    @endif
                     <th class="bg-primary">Nombre del producto</th>
                     <th class="bg-primary">Estado del pedido</th>
                     <th class="bg-primary">Acciones</th>

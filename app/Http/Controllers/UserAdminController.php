@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Color;
 use App\Models\User;
 use App\Models\Client;
 use Illuminate\Support\Facades\Hash;
@@ -21,18 +20,6 @@ class UserAdminController extends Controller
     public function create(){
         return view('users.admin.create');
     }
-
-    // public function store(Request $request){
-    //     $validatedData = $request->validate([
-    //         'color_name' => 'required|string|max:250|unique:colors',
-    //     ]);
-       
-    //     Color::create([
-    //         'color_name' => $request->color_name,
-    //     ]);
-        
-    //     return redirect()->to('/colors')->with('message', 'El color '.$request->color_name. ' ha sido creado');
-    // }
 
     public function store(Request $request){
         // dd($request->all());

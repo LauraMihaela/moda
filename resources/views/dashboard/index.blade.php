@@ -12,7 +12,7 @@
     @endif
     {{-- {{ dd(config('constants.roles.client_role'))}} --}}
 
-    @if(auth()->user()->role_id == config('constants.roles.admin_role'))
+    @if(auth()->user()->role_id !== config('constants.roles.client_role'))
         <div class = "btn-group">
             <button type="button" id="create-product" class="create-product btn btn-primary btn-lg mr-2">Crear producto</button>
             <button type="button" id="see-sizes" class="see-sizes btn btn-primary btn-lg mr-2">Ver tamaños</button>

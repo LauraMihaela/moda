@@ -78,36 +78,41 @@
                     e.preventDefault();
                     // Se obtiene el id definido en el data del HTML
                     let adminId = $(this).data('id-user-admin');
+                    let loggedUserId = {{ auth()->user()->id }};
                     let adminUsername = decodeURIComponent($(this).data('username'));
                     let adminName = decodeURIComponent($(this).data('name'));
                     let adminLastname = decodeURIComponent($(this).data('lastname'));
                     let adminEmail = decodeURIComponent($(this).data('email'));
+                    if (adminId == loggedUserId){
+                        alert("No es posible eliminar el usuario con el que estás logueado");
+                    }
+                    else{
+                        showModal("¿Desea eliminar el administrador con nombre de usuario "+adminUsername+"?",
+                        "¿Realmente desea eliminar el usuario administrador con nombre de usuario "+adminUsername+", nombre "+adminName+", apellido(s) "+adminLastname+" e email "+adminEmail+"?",
+                        false, null, 'modal-xl', true, true, false, null, null, "No","Sí");
 
-                    showModal("¿Desea eliminar el administrador con nombre de usuario "+adminUsername+"?",
-                    "¿Realmente desea eliminar el usuario administrador con nombre de usuario "+adminUsername+", nombre "+adminName+", apellido(s) "+adminLastname+" e email "+adminEmail+"?",
-                    false, null, 'modal-xl', true, true, false, null, null, "No","Sí");
-
-                    $('#saveModal').on('click', function(e){
-                        // Se llama a una ruta para hacer el delete
-                        saveModalActionAjax(_publicURL+"users/admins/"+adminId, adminId, "DELETE", "json", function(res){
-                            // El delete devuelve un json con una respuesta
-                            if(res.status == 0){
-                                // Si la respuesta es 0, ha ido ok
-                                // Se recarga el DT mediante Ajax
-                                $('#mainTableAdmins').DataTable().ajax.reload();
-                                // Se muestra el mensaje que viene desde la respuesta del delete
-                                showInlineMessage(res.message, 10);
-                            }
-                            else{
-                                // Si la respuesta es un error, se muestra el mensaje de error
-                                showInlineError(res.message, 10);
-                            }
+                        $('#saveModal').on('click', function(e){
+                            // Se llama a una ruta para hacer el delete
+                            saveModalActionAjax(_publicURL+"users/admins/"+adminId, adminId, "DELETE", "json", function(res){
+                                // El delete devuelve un json con una respuesta
+                                if(res.status == 0){
+                                    // Si la respuesta es 0, ha ido ok
+                                    // Se recarga el DT mediante Ajax
+                                    $('#mainTableAdmins').DataTable().ajax.reload();
+                                    // Se muestra el mensaje que viene desde la respuesta del delete
+                                    showInlineMessage(res.message, 10);
+                                }
+                                else{
+                                    // Si la respuesta es un error, se muestra el mensaje de error
+                                    showInlineError(res.message, 10);
+                                }
+                            });
                         });
-                    });
-                    $('.icon_close, #closeModal').on('click', function(e){
-                        $('#generic-modal').modal('hide');
-                        $('#saveModal').off();
-                    });
+                        $('.icon_close, #closeModal').on('click', function(e){
+                            $('#generic-modal').modal('hide');
+                            $('#saveModal').off();
+                        });
+                    }
                 })
 
             }

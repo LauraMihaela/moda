@@ -80,7 +80,7 @@ $(function() {
             orderable: false,
             render: function(data, type, row, meta) {
 
-                @if(auth()->user()->role_id !== config('constants.roles.client_role'))
+                @if(auth()->user()->role_id == config('constants.roles.admin_role'))
 
                     let contenedorDiv =  $('<div />').addClass("btn-group");
                     let enlanceVista = $('<a />').addClass("btn btn-default btn-xs").attr("href", _publicURL+'products/'+row.id).attr("title", "Visualizar producto");
@@ -99,9 +99,24 @@ $(function() {
                     contenedorDiv = contenedorDiv.html();
 
                     return contenedorDiv;
-                @else
+                @elseif(auth()->user()->role_id == config('constants.roles.agent_role'))
+                    // Agente
 
-                        // .attr("href", _publicURL+'products/'+row.id+'/addToCart')                
+                    let contenedorDiv =  $('<div />').addClass("btn-group");
+                    let enlanceVista = $('<a />').addClass("btn btn-default btn-xs").attr("href", _publicURL+'products/'+row.id).attr("title", "Visualizar producto");
+                    let iconoVista = $('<i />').addClass("fa-solid fa-eye");
+                    let enlanceEditar = $('<a />').addClass("btn btn-default btn-xs").attr("href", _publicURL+'products/'+row.id+'/edit').attr("title", "Editar producto");
+                    let iconoEditar = $('<i />').addClass("fa-solid fa-pen-to-square");
+                    enlanceVista = enlanceVista.append(iconoVista);
+                    enlanceEditar = enlanceEditar.append(iconoEditar);
+
+                    contenedorDiv = contenedorDiv.append(enlanceVista);
+                    contenedorDiv = contenedorDiv.append(enlanceEditar);
+                    contenedorDiv = contenedorDiv.html();
+
+                    return contenedorDiv;
+                @else
+                    // Cliente
                     let contenedorDiv =  $('<div />').addClass("btn-group");
                     let enlanceVista = $('<a />').addClass("btn btn-default btn-xs").attr("href", _publicURL+'products/'+row.id).attr("title", "Visualizar producto");
                     let iconoVista = $('<i />').addClass("fa-solid fa-eye");
@@ -168,9 +183,14 @@ $(function() {
                 // let productName = $(this).data('name-product');
                 let productName = decodeURIComponent($(this).data('name-product'));
 
-                showModal("¿Desea añadir al carrito el producto con nombre "+productName+"?",
+                // showModal("¿Desea añadir al carrito el producto con nombre "+productName+"?",
+                // "",
+                // null, _publicURL+'products/'+productId+'/showProductCartDetails', 'modal-xl', true, true, false, null, null, "No","Sí",true);
+
+                showModal("¿Desea comprar el producto con nombre "+productName+"?",
                 "",
                 null, _publicURL+'products/'+productId+'/showProductCartDetails', 'modal-xl', true, true, false, null, null, "No","Sí",true);
+
 
                 $('#saveModal').on('click', function(e){
                     // Se llama a una ruta para hacer el delete

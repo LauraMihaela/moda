@@ -2,7 +2,7 @@
 
 {{-- En el section se mostrará la parte que se ha escrito en logged.blade con "yield" --}}
 @section('content')
-@if(auth()->user()->role_id == config('constants.roles.admin_role'))
+@if(auth()->user()->role_id !== config('constants.roles.client_role'))
   <div class = "btn-group">
     <button type="button" id="create-color" class="btn btn-primary btn-lg mr-2">Crear nuevo color</button>
     <button type="button" id="back-to-dashboard" class="btn btn-primary btn-lg mr-2">Volver a la página de inicio</button>

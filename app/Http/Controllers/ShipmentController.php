@@ -187,13 +187,26 @@ class ShipmentController extends Controller
     }
 
     public function datatable(Request $request){
-        $query = Shipment::leftJoin('clients','shipments.client_id','clients.id')
-        ->leftJoin('users','clients.user_id','users.id')
-        ->leftJoin('sizes_colors_products','shipments.sizes_colors_products_id','sizes_colors_products.id')
-        ->leftJoin('products','sizes_colors_products.product_id','products.id')
-        ->leftJoin('status','shipments.status_id','status.id')
-        ->select('shipments.id as id','users.username as username','products.product_name as product_name','status.status_name as status_name')
-        ->get();  
+        if(auth()->user()->role_id !== config('constants.roles.client_role')){
+            $query = Shipment::leftJoin('clients','shipments.client_id','clients.id')
+            ->leftJoin('users','clients.user_id','users.id')
+            ->leftJoin('sizes_colors_products','shipments.sizes_colors_products_id','sizes_colors_products.id')
+            ->leftJoin('products','sizes_colors_products.product_id','products.id')
+            ->leftJoin('status','shipments.status_id','status.id')
+            ->select('shipments.id as id','users.username as username','products.product_name as product_name','status.status_name as status_name')
+            ->get();  
+        }
+        else{
+            // El usuario logueado es un cliente
+            $query = Shipment::leftJoin('clients','shipments.client_id','clients.id')
+            ->leftJoin('users','clients.user_id','users.id')
+            ->leftJoin('sizes_colors_products','shipments.sizes_colors_products_id','sizes_colors_products.id')
+            ->leftJoin('products','sizes_colors_products.product_id','products.id')
+            ->leftJoin('status','shipments.status_id','status.id')
+            ->select('shipments.id as id','users.username as username','products.product_name as product_name','status.status_name as status_name')
+            ->where('users.id',auth()->user()->id)
+            ->get();  
+        }
 
         $totalData = $query->count();
 

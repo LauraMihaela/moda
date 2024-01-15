@@ -551,7 +551,9 @@ class ProductsController extends Controller
         if(empty($product)){
             // La función destroy devuelve un json; así se ha definido en la llamada ajax
             // El json tiene un campo estado (1: error o 0:ok) y un campo mensaje (con un texto)
-            return response()->json(['status' => 1, 'message' => "El producto no se ha añadido al carrito"]);
+            // return response()->json(['status' => 1, 'message' => "El producto no se ha añadido al carrito"]);
+            return response()->json(['status' => 1, 'message' => "El producto no ha podido ser comprado"]);
+
         }
         $color = null;
         if($request->colors){

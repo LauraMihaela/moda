@@ -44,7 +44,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text"> <i class="fa fa-user"></i> </span>
                     </div>
-                    <span>Apellidos</span>
+                    <span>Apellidos:</span>
                     <input required type="text" id="lastname" name="lastname" 
                     class="form-control" placeholder="Apellidos" 
                     value="{{$admin->lastname}}" readonly>
