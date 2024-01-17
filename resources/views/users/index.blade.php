@@ -4,9 +4,9 @@
 @section('content')
     @if(auth()->user()->role_id == config('constants.roles.admin_role'))
         <div class = "btn-group">
-            <button type="button" id="see-clients" class="see-clients btn btn-primary btn-lg mr-2">Usuarios de tipo cliente</button>
-            <button type="button" id="see-agents" class="see-agents btn btn-primary btn-lg mr-2">Usuarios de tipo agente</button>
-            <button type="button" id="see-admins" class="see-admins btn btn-primary btn-lg mr-2">Usuarios de tipo administrador</button>
+            <button type="button" id="see-clients" class="see-clients btn btn-primary btn-lg mr-2">@lang('messages.client-users')</button>
+            <button type="button" id="see-agents" class="see-agents btn btn-primary btn-lg mr-2">@lang('messages.agent-users')</button>
+            <button type="button" id="see-admins" class="see-admins btn btn-primary btn-lg mr-2">@lang('messages.admin-users')</button>
         </div>
     @endif  
 

@@ -23,8 +23,8 @@
           
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeModal">Cerrar</button>
-          <button type="submit" class="btn btn-primary" id="saveModal"><i class="fa fa-save"></i>&ensp;Guardar cambios</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeModal">@lang('messages.close')</button>
+          <button type="submit" class="btn btn-primary" id="saveModal"><i class="fa fa-save"></i>&ensp;@lang('messages.save-changes')</button>
         </div>     
       </div>
     </div>
@@ -55,8 +55,8 @@ aria-hidden="true">
          
        </div>
        <div class="modal-footer">
-         <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeConfirmModal">Cerrar</button>
-         <button type="submit" class="btn btn-primary" id="okConfirmModal"><i class="fa fa-save"></i>&ensp;Guardar cambios</button>
+         <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeConfirmModal">@lang('messages.close')</button>
+         <button type="submit" class="btn btn-primary" id="okConfirmModal"><i class="fa fa-save"></i>&ensp;@lang('messages.save-changes')</button>
        </div>     
      </div>
    </div>

@@ -17,6 +17,7 @@ use App\Models\CategoryProduct;
 use Monarobase\CountryList\CountryListFacade;
 use Illuminate\Support\Arr;
 use Illuminate\Validation\Rule;
+// use App\helpers;
 
 
 class ProductsController extends Controller
@@ -26,7 +27,17 @@ class ProductsController extends Controller
     }
 
     public function index(){
-        $products = Color::all();        
+        $products = Color::all();  
+        if(session()->has('lang')){
+            $language = session()->get('lang');
+        }
+        else{
+            $language = "es";
+        }   
+        $lang = getLang();
+        // dump($language);
+        // dd($lang);
+
         return view('dashboard.index')->with('products',$products);
     }
 

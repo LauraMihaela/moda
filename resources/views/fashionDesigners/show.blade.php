@@ -3,20 +3,20 @@
 {{-- En el section se mostrará la parte que se ha escrito en logged.blade con "yield" --}}
 @section('content')
     <div class="d-flex justify-content-center">
-        <button type="button" id="back-to-fashionDesigner-index" class="btn btn-primary btn-lg m-3">Volver a la visión global de diseñadores de moda</button>
+        <button type="button" id="back-to-fashionDesigner-index" class="btn btn-primary btn-lg m-3">@lang('messages.go-back-to-the-see-all-the-fashion-designers')</button>
     </div>   
 
     <div class="container">
         <div class="card bg-light">
             <article class="card-body mx-auto">
-                <h4 class="card-title mt-3 text-center">Diseñador de moda {{$fashionDesigner->name}}</h4>
+                <h4 class="card-title mt-3 text-center">@lang('messages.fashion-designer') {{$fashionDesigner->name}}</h4>
 
                     <div class="form-group input-group m-2">
                         <div class="input-group-prepend">
                             <span class="input-group-text"> <i class="fa-solid fa-user-tie"></i> </span>
                         </div>
                         <input required type="text" id="name" name="name" class="form-control" 
-                        placeholder="Nombre del diseñador de moda" value="{{$fashionDesigner->name}}"
+                        placeholder="@lang('messages.fashion-designer-name')" value="{{$fashionDesigner->name}}"
                         readonly>
                     </div>
 

@@ -11,7 +11,7 @@
         window.location.href = _publicURL+"users";
     });
 
-    let _longLang = "Spanish";
+    
 
     $(function() {
  
@@ -20,7 +20,7 @@
             responsive: true,
             paging: true,
             language:{
-                url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
+                url: _langDt,
             },
             pageLength: 5,
             ajax: {
@@ -51,11 +51,11 @@
                 render: function(data, type, row, meta) {
 
                         let contenedorDiv =  $('<div />').addClass("btn-group");
-                        let enlanceVista = $('<a />').addClass("btn btn-default btn-xs").attr("href", _publicURL+'users/admins/'+row.id).attr("title", "Visualizar usuarios de tipo administrador");
+                        let enlanceVista = $('<a />').addClass("btn btn-default btn-xs").attr("href", _publicURL+'users/admins/'+row.id).attr("title", "@lang('messages.view-admin-user')");
                         let iconoVista = $('<i />').addClass("fa-solid fa-eye");
-                        let enlanceEditar = $('<a />').addClass("btn btn-default btn-xs").attr("href", _publicURL+'users/admins/'+row.id+'/edit').attr("title", "Editar usuarios de tipo administrador");
+                        let enlanceEditar = $('<a />').addClass("btn btn-default btn-xs").attr("href", _publicURL+'users/admins/'+row.id+'/edit').attr("title", "@lang('messages.edit-admin-user')");
                         let iconoEditar = $('<i />').addClass("fa-solid fa-pen-to-square");
-                        let enlanceEliminar = $('<a />').addClass("btn btn-default btn-xs delete-admin").attr("title", "Eliminar usuarios de tipo administrador").attr("data-method","delete").attr("data-username",row.username).attr("data-name",row.name).attr("data-lastname",row.lastname).attr("data-email",row.email).attr("data-id-user-admin",row.id);
+                        let enlanceEliminar = $('<a />').addClass("btn btn-default btn-xs delete-admin").attr("title", "@lang('messages.delete-admin-user')").attr("data-method","delete").attr("data-username",row.username).attr("data-name",row.name).attr("data-lastname",row.lastname).attr("data-email",row.email).attr("data-id-user-admin",row.id);
                         let iconoEliminar = $('<i />').addClass("fa-solid fa-trash-can");
                         enlanceVista = enlanceVista.append(iconoVista);
                         enlanceEditar = enlanceEditar.append(iconoEditar);
@@ -87,9 +87,9 @@
                         alert("No es posible eliminar el usuario con el que estás logueado");
                     }
                     else{
-                        showModal("¿Desea eliminar el administrador con nombre de usuario "+adminUsername+"?",
-                        "¿Realmente desea eliminar el usuario administrador con nombre de usuario "+adminUsername+", nombre "+adminName+", apellido(s) "+adminLastname+" e email "+adminEmail+"?",
-                        false, null, 'modal-xl', true, true, false, null, null, "No","Sí");
+                        showModal("@lang('messages.would-you-like-to-delete-the-admin-whose-username-is')"+adminUsername+"?",
+                        "@lang('messages.are-you-sure-you-want-to-delete-the-admin')"+adminUsername+", "+"@lang('messages.name-lowercase')"+" "+adminName+", "+"@lang('messages.lastname-lowercase')"+" "+adminLastname+" "+"@lang('messages.and-email')"+" "+adminEmail+"?",
+                        false, null, 'modal-xl', true, true, false, null, null, "@lang('messages.no')","@lang('messages.yes')");
 
                         $('#saveModal').on('click', function(e){
                             // Se llama a una ruta para hacer el delete

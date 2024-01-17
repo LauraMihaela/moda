@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Session;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Pluralizer;
 
 class LoginController extends Controller
 {
@@ -65,5 +69,13 @@ class LoginController extends Controller
     public function logout(Request $request){
         Auth::logout();
         return redirect('/')->withErrors('Se ha cerrado la sesión.');
+    }
+
+    public function setLanguage(string $lang='es'){
+        session()->put('lang',$lang);
+        app()->setLocale($lang);
+        $longLanguage = getLangLongWithLanguages();
+        $languageMesage = Lang::get('messages.language-change');
+        return redirect()->back()->with('message', $languageMesage.$longLanguage);
     }
 }

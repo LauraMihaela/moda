@@ -26,9 +26,9 @@
                 {{ Form::open(array('url' => 'login', 'method' => 'POST', 'class' => 'form-horizontal')) }}          
                     {{-- csrf nos protege ante ataques tipo cross site request forgery --}}
                     @csrf
-                    <input type="text" required id="username-email-field" name="username" placeholder="Nombre de usuario o email" class="form-element" autocomplete="on"/>
-                    <input type="password" required id="password-field" placeholder="Contraseña" name="password" class="form-element" autocomplete="on"/>
-                    <button type="submit" class="btn btn-primary btn-lg form-control form-control-lg form-element" >Entrar en Moda</button>
+                    <input type="text" required id="username-email-field" name="username" placeholder="@lang('messages.username-or-email')" class="form-element" autocomplete="on"/>
+                    <input type="password" required id="password-field" placeholder="@lang('messages.password')" name="password" class="form-element" autocomplete="on"/>
+                    <button type="submit" class="btn btn-primary btn-lg form-control form-control-lg form-element" >@lang('messages.log-in-in-moda')</button>
                 {{ Form::close() }}
             </div>
             <div class="bottom">

@@ -11,7 +11,7 @@
         window.location.href = _publicURL+"dashboard";
     });
 
-    let _longLang = "Spanish";
+    
 
     $(function() {
  
@@ -20,7 +20,7 @@
             responsive: true,
             paging: true,
             language:{
-                url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
+                url: _langDt,
             },
             pageLength: 5,
             ajax: {
@@ -48,11 +48,11 @@
                 render: function(data, type, row, meta) {
 
                         let contenedorDiv =  $('<div />').addClass("btn-group");
-                        let enlanceVista = $('<a />').addClass("btn btn-default btn-xs").attr("href", _publicURL+'sizes/'+row.id).attr("title", "Visualizar tamaño");
+                        let enlanceVista = $('<a />').addClass("btn btn-default btn-xs").attr("href", _publicURL+'sizes/'+row.id).attr("title", "@lang('messages.view-size')");
                         let iconoVista = $('<i />').addClass("fa-solid fa-eye");
-                        let enlanceEditar = $('<a />').addClass("btn btn-default btn-xs").attr("href", _publicURL+'sizes/'+row.id+'/edit').attr("title", "Editar tamaño");
+                        let enlanceEditar = $('<a />').addClass("btn btn-default btn-xs").attr("href", _publicURL+'sizes/'+row.id+'/edit').attr("title", "@lang('messages.edit-size')");
                         let iconoEditar = $('<i />').addClass("fa-solid fa-pen-to-square");
-                        let enlanceEliminar = $('<a />').addClass("btn btn-default btn-xs delete-size").attr("title", "Eliminar tamaño").attr("data-method","delete").attr("data-name-size",row.size_name).attr("data-id-size",row.id);
+                        let enlanceEliminar = $('<a />').addClass("btn btn-default btn-xs delete-size").attr("title", "@lang('messages.delete-size')").attr("data-method","delete").attr("data-name-size",row.size_name).attr("data-id-size",row.id);
                         let iconoEliminar = $('<i />').addClass("fa-solid fa-trash-can");
                         enlanceVista = enlanceVista.append(iconoVista);
                         enlanceEditar = enlanceEditar.append(iconoEditar);
@@ -80,9 +80,9 @@
                     console.log(sizeId);
                     console.log(sizeName);
 
-                    showModal("¿Desea eliminar el tamaño con nombre "+sizeName+"?",
-                    "¿Realmente desea eliminar el tamaño con nombre "+sizeName+"?",
-                    false, null, 'modal-xl', true, true, false, null, null, "No","Sí");
+                    showModal("@lang('messages.would-you-like-to-delete-the-size')"+sizeName+"?",
+                    "@lang('messages.are-you-sure-you-want-to-delete-the-size')"+sizeName+"?",
+                    false, null, 'modal-xl', true, true, false, null, null, "@lang('messages.no')","@lang('messages.yes')");
 
                     $('#saveModal').on('click', function(e){
                         // Se llama a una ruta para hacer el delete

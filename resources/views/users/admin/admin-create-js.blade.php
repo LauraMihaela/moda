@@ -11,13 +11,13 @@
         let valorSegundoCon = $("#password_confirmation").val();
         if (valorPrimeraCon != "" && valorSegundoCon != "" 
         && valorPrimeraCon != valorSegundoCon){
-            showInlineError("Las contraseñas no coinciden",10);
+            showInlineError("@lang('messages.passwords-do-not-match')",10);
         }
         else if (valorPrimeraCon != "" && valorSegundoCon != "" 
         && valorPrimeraCon == valorSegundoCon){
             let pattern = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{7,20}$/
             if (!valorPrimeraCon.match(pattern)){
-                showInlineError("La contraseña debe tener al menos un dígito, una letra minúscula, una letra mayúscula, otro carácter, y debe tener entre 7 y 20 caraceteres de longitud",10);
+                showInlineError("@lang('messages.passwords-do-not-meet-the-requirements')",10);
             }
         }
     });

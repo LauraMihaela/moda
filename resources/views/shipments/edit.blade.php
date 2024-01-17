@@ -3,13 +3,13 @@
 {{-- En el section se mostrará la parte que se ha escrito en logged.blade con "yield" --}}
 @section('content')
     <div class="d-flex justify-content-center">
-        <button type="button" id="back-to-shipment-index" class="btn btn-primary btn-lg m-3">Volver a la visión global de envíos</button>
+        <button type="button" id="back-to-shipment-index" class="btn btn-primary btn-lg m-3">@lang('messages.go-back-to-the-see-all-the-categories')</button>
     </div>   
 
     <div class="container">
         <div class="card bg-light">
             <article class="card-body mx-auto">
-                <h4 class="card-title mt-3 text-center">Id del envío {{$shipment->id}}</h4>
+                <h4 class="card-title mt-3 text-center">@lang('messages.status-id') {{$shipment->id}}</h4>
 
                 <form action="{{route('shipments.update',$shipment->id )}}" class="form-horizontal" enctype="multipart/form-data" method="POST"> 
                     @csrf
@@ -19,9 +19,9 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text"> <i class="fa-solid fa-circle-user"></i> </span>
                         </div>
-                        <label>Nombre de usuario:</label>
+                        <label>@lang('messages.username-colon')</label>
                         <select id="client_id" name="client_id" data-live-search="true" 
-                        data-actions-box="true" data-header="Seleccione un nombre de usuario" 
+                        data-actions-box="true" data-header="@lang('messages.select-username')" 
                         title="{{$shipmentUser->username}}" class="form-control mb-1 selectpicker" 
                         selected="{{$shipmentUser->username}}" >
                             <option selected="selected" value="{{$shipmentUser->client_id}}">{{$shipmentUser->username}}</option>
@@ -34,14 +34,14 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text"> <i class="fa-solid fa-bag-shopping"></i> </span>
                         </div>
-                        <label>Producto comprado:</label>
+                        <label>@lang('messages.product-that-was-bought-colon')</label>
                         <select id="sizes_colors_products_id" name="sizes_colors_products_id" data-live-search="true" 
-                        data-actions-box="true" data-header="Seleccione un producto" 
-                        title="{{$selectedSizesColorsProducts->product_name}} (Color: {{$selectedSizesColorsProducts->color_name}}) (Tamaño: {{$selectedSizesColorsProducts->size_name}})" class="form-control mb-1 selectpicker" 
-                        selected="{{$selectedSizesColorsProducts->product_name}} (Color: {{$selectedSizesColorsProducts->color_name}}) (Tamaño: {{$selectedSizesColorsProducts->size_name}})">
-                            <option selected="selected" value="{{$selectedSizesColorsProducts->id}}">{{$selectedSizesColorsProducts->product_name}} (Color: {{$selectedSizesColorsProducts->color_name}}) (Tamaño: {{$selectedSizesColorsProducts->size_name}})</option>
+                        data-actions-box="true" data-header="@lang('messages.choose-a-product')" 
+                        title="{{$selectedSizesColorsProducts->product_name}} (@lang('messages.color-colon') {{$selectedSizesColorsProducts->color_name}}) (@lang('messages.size-colon') {{$selectedSizesColorsProducts->size_name}})" class="form-control mb-1 selectpicker" 
+                        selected="{{$selectedSizesColorsProducts->product_name}} ( {{$selectedSizesColorsProducts->color_name}}) (@lang('messages.size-colon') {{$selectedSizesColorsProducts->size_name}})">
+                            <option selected="selected" value="{{$selectedSizesColorsProducts->id}}">{{$selectedSizesColorsProducts->product_name}} (@lang('messages.color-colon') {{$selectedSizesColorsProducts->color_name}}) (@lang('messages.size-colon') {{$selectedSizesColorsProducts->size_name}})</option>
                             @foreach ($allSizesColorsProducts as $key => $pr)
-                                <option value="{{ $pr->id }}">{{$pr->product_name}} (Color: {{$pr->color_name}}) (Tamaño: {{$pr->size_name}})</option>
+                                <option value="{{ $pr->id }}">{{$pr->product_name}} @lang('messages.color-colon') {{$pr->color_name}}) (@lang('messages.size-colon') {{$pr->size_name}})</option>
                             @endforeach
                         </select>
                     </div>
@@ -50,9 +50,9 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text"> <i class="fa-solid fa-envelope-circle-check"></i> </span>
                         </div>
-                        <label>Estado del envío:</label>
+                        <label>@lang('messages.shipment-status-colon')</label>
                         <select id="status_id" name="status_id" data-live-search="true" 
-                        data-actions-box="true" data-header="Seleccione el nombre del estado del envío" 
+                        data-actions-box="true" data-header="@lang('messages.select-the-status-name')" 
                         title="{{$status->status_name}}" class="form-control mb-1 selectpicker" 
                         selected="{{$status->status_name}}" >
                             <option selected="selected" value="{{$status->status_id}}">{{$status->status_name}}</option>
@@ -64,7 +64,7 @@
 
 
                     <div class="form-group">
-                        <button type="submit" id="edit-shipment-submit" class="btn btn-primary btn-block">Editar envío</button>
+                        <button type="submit" id="edit-shipment-submit" class="btn btn-primary btn-block">@lang('messages.edit-shipment')</button>
                     </div>    
                 </form>
                 

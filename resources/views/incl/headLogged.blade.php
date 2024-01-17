@@ -20,6 +20,10 @@
     {{-- DataTables Buttons CSS --}}
     {{-- <link href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css" rel="stylesheet"> --}}
     {{-- Selectpicker: https://developer.snapappointments.com/bootstrap-select/ --}}
+    {{-- CDN banderas: https://github.com/lipis/flag-icons --}}
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.0.0/css/flag-icons.min.css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
     <link rel="stylesheet" href="{{ asset('css/application.css') }}">
     <link rel="stylesheet" href="{{ asset('css/menu.css') }}">

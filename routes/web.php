@@ -33,7 +33,7 @@ Route::post('/shipments/getNumberOfProducts', [
 Route::post('/user/client/store', 'App\Http\Controllers\UserController@storeClient');
 // Vistas de usuario logueado
 
-Route::group(['middleware'=>['isLogged']], function(){
+Route::group(['middleware'=>['isLogged','setLocale']], function(){
     // Route::get('/dashboard', function () {
     //     return view('dashboard.index');
     // });
@@ -207,6 +207,13 @@ Route::group(['middleware'=>['isLogged']], function(){
 
     // Perfil de usuarios
     Route::get('/profile', 'App\Http\Controllers\UserController@profileIndex');
+    // A este update no se le pasa el id porque el id siempre será el del usuario logueado
+    Route::put('/users/profile', [
+        'as' => 'users.profile.update',
+        'uses' => 'App\Http\Controllers\UserController@profileUpdate'
+    ]);
+
+    Route::get('/setLanguage/{lang?}', 'App\Http\Controllers\LoginController@setLanguage');
 
     // Logout
     Route::get('/logout', 'App\Http\Controllers\LoginController@logout');

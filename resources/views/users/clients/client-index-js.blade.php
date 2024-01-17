@@ -11,7 +11,7 @@
         window.location.href = _publicURL+"users";
     });
 
-    let _longLang = "Spanish";
+    
 
     $(function() {
  
@@ -20,7 +20,7 @@
             responsive: true,
             paging: true,
             language:{
-                url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
+                url: _langDt,
             },
             pageLength: 5,
             ajax: {
@@ -51,11 +51,11 @@
                 render: function(data, type, row, meta) {
 
                         let contenedorDiv =  $('<div />').addClass("btn-group");
-                        let enlanceVista = $('<a />').addClass("btn btn-default btn-xs").attr("href", _publicURL+'users/clients/'+row.id).attr("title", "Visualizar clientes");
+                        let enlanceVista = $('<a />').addClass("btn btn-default btn-xs").attr("href", _publicURL+'users/clients/'+row.id).attr("title", "@lang('messages.view-client')");
                         let iconoVista = $('<i />').addClass("fa-solid fa-eye");
-                        let enlanceEditar = $('<a />').addClass("btn btn-default btn-xs").attr("href", _publicURL+'users/clients/'+row.id+'/edit').attr("title", "Editar clientes");
+                        let enlanceEditar = $('<a />').addClass("btn btn-default btn-xs").attr("href", _publicURL+'users/clients/'+row.id+'/edit').attr("title", "@lang('messages.edit-client')");
                         let iconoEditar = $('<i />').addClass("fa-solid fa-pen-to-square");
-                        let enlanceEliminar = $('<a />').addClass("btn btn-default btn-xs delete-client").attr("title", "Eliminar cliente").attr("data-method","delete").attr("data-username",row.username).attr("data-name",row.name).attr("data-lastname",row.lastname).attr("data-email",row.email).attr("data-id-user-client",row.id);
+                        let enlanceEliminar = $('<a />').addClass("btn btn-default btn-xs delete-client").attr("title", "@lang('messages.delete-client')").attr("data-method","delete").attr("data-username",row.username).attr("data-name",row.name).attr("data-lastname",row.lastname).attr("data-email",row.email).attr("data-id-user-client",row.id);
                         let iconoEliminar = $('<i />').addClass("fa-solid fa-trash-can");
                         enlanceVista = enlanceVista.append(iconoVista);
                         enlanceEditar = enlanceEditar.append(iconoEditar);
@@ -83,9 +83,9 @@
                     let clientName = decodeURIComponent($(this).data('name'));
                     let clientLastname = decodeURIComponent($(this).data('lastname'));
                     let clientEmail = decodeURIComponent($(this).data('email'));
-                    showModal("¿Desea eliminar el cliente con nombre de usuario "+clientUsername+"?",
-                    "¿Realmente desea eliminar el usuario cliente con nombre de usuario "+clientUsername+", nombre "+clientName+", apellido(s) "+clientLastname+" e email "+clientEmail+"?",
-                    false, null, 'modal-xl', true, true, false, null, null, "No","Sí");
+                    showModal("@lang('messages.would-you-like-to-delete-the-client-whose-username-is')"+clientUsername+"?",
+                    "@lang('messages.are-you-sure-you-want-to-delete-the-client')"+clientUsername+", "+"@lang('messages.name-lowercase')"+" "+clientName+", "+"@lang('messages.lastname-lowercase')"+" "+clientLastname+" "+"@lang('messages.and-email')"+" "+clientEmail+"?",
+                    false, null, 'modal-xl', true, true, false, null, null, "@lang('messages.no')","@lang('messages.yes')");
 
                     $('#saveModal').on('click', function(e){
                         // Se llama a una ruta para hacer el delete

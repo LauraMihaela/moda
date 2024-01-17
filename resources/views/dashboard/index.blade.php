@@ -6,23 +6,23 @@
 
 
     @if(empty(auth()->user()))
-        <p>Hola </p>
+        <p>@lang('messages.hello')</p>
     @else
-        <p>Hola {{ auth()->user()->username }} </p>
+        <p>@lang('messages.hello') {{ auth()->user()->username }} </p>
     @endif
     {{-- {{ dd(config('constants.roles.client_role'))}} --}}
 
     @if(auth()->user()->role_id !== config('constants.roles.client_role'))
         <div class = "btn-group">
-            <button type="button" id="create-product" class="create-product btn btn-primary btn-lg mr-2">Crear producto</button>
-            <button type="button" id="see-sizes" class="see-sizes btn btn-primary btn-lg mr-2">Ver tamaños</button>
-            <button type="button" id="see-colors" class="see-colors btn btn-primary btn-lg mr-2">Ver colores</button>
+            <button type="button" id="create-product" class="create-product btn btn-primary btn-lg mr-2">@lang('messages.create-product')</button>
+            <button type="button" id="see-sizes" class="see-sizes btn btn-primary btn-lg mr-2">@lang('messages.see-sizes')</button>
+            <button type="button" id="see-colors" class="see-colors btn btn-primary btn-lg mr-2">@lang('messages.see-colors')</button>
         </div>
     @endif  
 
     <div class="card shadow mb-4" id="mainCardShadow">
         <div class="card-header py-3">
-          <h4 class="m-0 font-weight-bold text-primary text-center">Lista de productos</h4>
+          <h4 class="m-0 font-weight-bold text-primary text-center">@lang('messages.products-list')</h4>
         </div>
     
         <div class="card-body" id="mainCardBody">
@@ -30,10 +30,10 @@
           <table class="table table-bordered changableTable" id="mainTableProducts">
                 <thead class="text-center">
                     <tr class="text-center">
-                        <th class="bg-primary">Nombre del producto</th>
-                        <th class="bg-primary">Foto</th>
-                        <th class="bg-primary">Precio</th>
-                        <th class="bg-primary">Acciones</th>
+                        <th class="bg-primary">@lang('messages.product-name')</th>
+                        <th class="bg-primary">@lang('messages.picture')</th>
+                        <th class="bg-primary">@lang('messages.price')</th>
+                        <th class="bg-primary">@lang('messages.actions')</th>
                     </tr>
                 </thead>
                 <tbody>

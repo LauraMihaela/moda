@@ -4,14 +4,14 @@
 @section('content')
 @if(auth()->user()->role_id == config('constants.roles.admin_role'))
   <div class = "btn-group">
-    <button type="button" id="create-category" class="btn btn-primary btn-lg mr-2">Crear nueva categoría</button>
-    {{-- <button type="button" id="back-to-dashboard" class="btn btn-primary btn-lg mr-2">Volver a la página de inicio</button> --}}
+    <button type="button" id="create-category" class="btn btn-primary btn-lg mr-2">@lang('messages.create-new-category')</button>
+    {{-- <button type="button" id="back-to-dashboard" class="btn btn-primary btn-lg mr-2">@lang('messages.go-back-to-the-dashboard')</button> --}}
   </div>
 @endif
 
 <div class="card shadow mb-4" id="mainCardShadow">
     <div class="card-header py-3">
-      <h4 class="m-0 font-weight-bold text-primary text-center">Lista de categorías</h4>
+      <h4 class="m-0 font-weight-bold text-primary text-center">@lang('messages.categories-list')</h4>
     </div>
 
     <div class="card-body" id="mainCardBody">
@@ -19,8 +19,8 @@
       <table class="table table-bordered changableTable" id="mainTableCategories">
             <thead class="text-center">
                 <tr class="text-center">
-                    <th class="bg-primary">Nombre de la categoría</th>
-                    <th class="bg-primary">Acciones</th>
+                    <th class="bg-primary">@lang('messages.category-name')</th>
+                    <th class="bg-primary">@lang('messages.actions')</th>
                 </tr>
             </thead>
             <tbody>

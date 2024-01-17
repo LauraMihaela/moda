@@ -11,7 +11,7 @@
         window.location.href = _publicURL+"users";
     });
 
-    let _longLang = "Spanish";
+    
 
     $(function() {
  
@@ -20,7 +20,7 @@
             responsive: true,
             paging: true,
             language:{
-                url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
+                url: _langDt,
             },
             pageLength: 5,
             ajax: {
@@ -50,21 +50,21 @@
                 orderable: false,
                 render: function(data, type, row, meta) {
 
-                        let contenedorDiv =  $('<div />').addClass("btn-group");
-                        let enlanceVista = $('<a />').addClass("btn btn-default btn-xs").attr("href", _publicURL+'users/agents/'+row.id).attr("title", "Visualizar usuarios de tipo agente");
-                        let iconoVista = $('<i />').addClass("fa-solid fa-eye");
-                        let enlanceEditar = $('<a />').addClass("btn btn-default btn-xs").attr("href", _publicURL+'users/agents/'+row.id+'/edit').attr("title", "Editar usuarios de tipo agente");
-                        let iconoEditar = $('<i />').addClass("fa-solid fa-pen-to-square");
-                        let enlanceEliminar = $('<a />').addClass("btn btn-default btn-xs delete-agent").attr("title", "Eliminar usuarios de tipo agente").attr("data-method","delete").attr("data-username",row.username).attr("data-name",row.name).attr("data-lastname",row.lastname).attr("data-email",row.email).attr("data-id-user-agent",row.id);
-                        let iconoEliminar = $('<i />').addClass("fa-solid fa-trash-can");
-                        enlanceVista = enlanceVista.append(iconoVista);
-                        enlanceEditar = enlanceEditar.append(iconoEditar);
-                        enlanceEliminar = enlanceEliminar.append(iconoEliminar);
-    
-                        contenedorDiv = contenedorDiv.append(enlanceVista);
-                        contenedorDiv = contenedorDiv.append(enlanceEditar);
-                        contenedorDiv = contenedorDiv.append(enlanceEliminar);
-                        contenedorDiv = contenedorDiv.html();
+                    let contenedorDiv =  $('<div />').addClass("btn-group");
+                    let enlanceVista = $('<a />').addClass("btn btn-default btn-xs").attr("href", _publicURL+'users/agents/'+row.id).attr("title", "@lang('messages.view-agent-user')");
+                    let iconoVista = $('<i />').addClass("fa-solid fa-eye");
+                    let enlanceEditar = $('<a />').addClass("btn btn-default btn-xs").attr("href", _publicURL+'users/agents/'+row.id+'/edit').attr("title", "@lang('messages.edit-agent-user')");
+                    let iconoEditar = $('<i />').addClass("fa-solid fa-pen-to-square");
+                    let enlanceEliminar = $('<a />').addClass("btn btn-default btn-xs delete-agent").attr("title", "@lang('messages.delete-agent-user')").attr("data-method","delete").attr("data-username",row.username).attr("data-name",row.name).attr("data-lastname",row.lastname).attr("data-email",row.email).attr("data-id-user-agent",row.id);
+                    let iconoEliminar = $('<i />').addClass("fa-solid fa-trash-can");
+                    enlanceVista = enlanceVista.append(iconoVista);
+                    enlanceEditar = enlanceEditar.append(iconoEditar);
+                    enlanceEliminar = enlanceEliminar.append(iconoEliminar);
+
+                    contenedorDiv = contenedorDiv.append(enlanceVista);
+                    contenedorDiv = contenedorDiv.append(enlanceEditar);
+                    contenedorDiv = contenedorDiv.append(enlanceEliminar);
+                    contenedorDiv = contenedorDiv.html();
 
                     return contenedorDiv;
 
@@ -83,9 +83,10 @@
                     let agentName = decodeURIComponent($(this).data('name'));
                     let agentLastname = decodeURIComponent($(this).data('lastname'));
                     let agentEmail = decodeURIComponent($(this).data('email'));
-                    showModal("¿Desea eliminar el agente con nombre de usuario "+agentUsername+"?",
-                    "¿Realmente desea eliminar el usuario agente con nombre de usuario "+agentUsername+", nombre "+agentName+", apellido(s) "+agentLastname+" e email "+agentEmail+"?",
-                    false, null, 'modal-xl', true, true, false, null, null, "No","Sí");
+                    showModal("@lang('messages.would-you-like-to-delete-the-agent-whose-username-is')"+agentUsername+"?",
+                    "@lang('messages.are-you-sure-you-want-to-delete-the-agent')"+agentUsername+", "+"@lang('messages.name-lowercase')"+" "+agentName+", "+"@lang('messages.lastname-lowercase')"+" "+agentLastname+" "+"@lang('messages.and-email')"+" "+agentEmail+"?",
+                    false, null, 'modal-xl', true, true, false, null, null, "@lang('messages.no')","@lang('messages.yes')");
+
 
                     $('#saveModal').on('click', function(e){
                         // Se llama a una ruta para hacer el delete

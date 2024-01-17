@@ -4,14 +4,14 @@
 @section('content')
 @if(auth()->user()->role_id !== config('constants.roles.client_role'))
   <div class = "btn-group">
-    <button type="button" id="create-size" class="btn btn-primary btn-lg mr-2">Crear nuevo tamaño</button>
-    <button type="button" id="back-to-dashboard" class="btn btn-primary btn-lg mr-2">Volver a la página de inicio</button>
+    <button type="button" id="create-size" class="btn btn-primary btn-lg mr-2">@lang('messages.create-size')</button>
+    <button type="button" id="back-to-dashboard" class="btn btn-primary btn-lg mr-2">@lang('messages.go-back-to-the-dashboard')</button>
   </div>
 @endif
 
 <div class="card shadow mb-4" id="mainCardShadow">
     <div class="card-header py-3">
-      <h4 class="m-0 font-weight-bold text-primary text-center">Lista de tamaños</h4>
+      <h4 class="m-0 font-weight-bold text-primary text-center">@lang('messages.sizes-list')</h4>
     </div>
 
     <div class="card-body" id="mainCardBody">
@@ -19,8 +19,8 @@
       <table class="table table-bordered changableTable" id="mainTableSizes">
             <thead class="text-center">
                 <tr class="text-center">
-                    <th class="bg-primary">Nombre del tamaño</th>
-                    <th class="bg-primary">Acciones</th>
+                    <th class="bg-primary">@lang('messages.size-name')</th>
+                    <th class="bg-primary">@lang('messages.actions')</th>
                 </tr>
             </thead>
             <tbody>

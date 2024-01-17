@@ -23,6 +23,23 @@
     transform: scale(3); 
 }
 
+.nav-link {
+    display: block;
+    padding: 0.5rem 1rem;
+}
+
+.nav-link:hover{
+    text-decoration: none;
+}
+
+#languagesDropdown:hover{
+    opacity: 0.7;
+}
+
+#list-languages{
+    margin-top: -1em;
+}
+
 /* No se muestra el file input original, en su lugar se hace con un label */
 /* #picture {
     display: none;

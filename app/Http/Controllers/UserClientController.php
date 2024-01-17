@@ -123,7 +123,7 @@ class UserClientController extends Controller
         $user->lastname = $request->lastname;
         $user->email = $request->email;
         $user->save();
-
+        
         $address = null;
         if ($request->address){
             $address = $request->address;
@@ -134,7 +134,7 @@ class UserClientController extends Controller
         }
         $client->address = $address;
         $client->user_id = $id;
-        $user->save();
+        $client->save();
 
         return redirect()->to('/users/clients')->with('message', 'El usuario de tipo cliente '.$request->username. ' ha sido actualizado');
 

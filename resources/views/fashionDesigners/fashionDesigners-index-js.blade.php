@@ -6,7 +6,7 @@
         // window.location.href = {{ url('/fashionDesigners/create') }};
     });
 
-    let _longLang = "Spanish";
+    
 
     $(function() {
  
@@ -15,7 +15,7 @@
             responsive: true,
             paging: true,
             language:{
-                url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
+                url: _langDt,
             },
             pageLength: 5,
             ajax: {
@@ -45,21 +45,21 @@
                 orderable: false,
                 render: function(data, type, row, meta) {
 
-                        let contenedorDiv =  $('<div />').addClass("btn-group");
-                        let enlanceVista = $('<a />').addClass("btn btn-default btn-xs").attr("href", _publicURL+'fashionDesigners/'+row.id).attr("title", "Visualizar diseñador de moda");
-                        let iconoVista = $('<i />').addClass("fa-solid fa-eye");
-                        let enlanceEditar = $('<a />').addClass("btn btn-default btn-xs").attr("href", _publicURL+'fashionDesigners/'+row.id+'/edit').attr("title", "Editar diseñador de moda");
-                        let iconoEditar = $('<i />').addClass("fa-solid fa-pen-to-square");
-                        let enlanceEliminar = $('<a />').addClass("btn btn-default btn-xs delete-designer").attr("title", "Eliminar diseñador de moda").attr("data-method","delete").attr("data-name-designer",row.name).attr("data-id-designer",row.id).attr("href", "#");
-                        let iconoEliminar = $('<i />').addClass("fa-solid fa-trash-can");
-                        enlanceVista = enlanceVista.append(iconoVista);
-                        enlanceEditar = enlanceEditar.append(iconoEditar);
-                        enlanceEliminar = enlanceEliminar.append(iconoEliminar);
-    
-                        contenedorDiv = contenedorDiv.append(enlanceVista);
-                        contenedorDiv = contenedorDiv.append(enlanceEditar);
-                        contenedorDiv = contenedorDiv.append(enlanceEliminar);
-                        contenedorDiv = contenedorDiv.html();
+                    let contenedorDiv =  $('<div />').addClass("btn-group");
+                    let enlanceVista = $('<a />').addClass("btn btn-default btn-xs").attr("href", _publicURL+'fashionDesigners/'+row.id).attr("title", "@lang('messages.see-fashion-designer')");
+                    let iconoVista = $('<i />').addClass("fa-solid fa-eye");
+                    let enlanceEditar = $('<a />').addClass("btn btn-default btn-xs").attr("href", _publicURL+'fashionDesigners/'+row.id+'/edit').attr("title", "@lang('messages.edit-the-fashion-designer')");
+                    let iconoEditar = $('<i />').addClass("fa-solid fa-pen-to-square");
+                    let enlanceEliminar = $('<a />').addClass("btn btn-default btn-xs delete-designer").attr("title", "@lang('messages.delete-fashion-designer')").attr("data-method","delete").attr("data-name-designer",row.name).attr("data-id-designer",row.id).attr("href", "#");
+                    let iconoEliminar = $('<i />').addClass("fa-solid fa-trash-can");
+                    enlanceVista = enlanceVista.append(iconoVista);
+                    enlanceEditar = enlanceEditar.append(iconoEditar);
+                    enlanceEliminar = enlanceEliminar.append(iconoEliminar);
+
+                    contenedorDiv = contenedorDiv.append(enlanceVista);
+                    contenedorDiv = contenedorDiv.append(enlanceEditar);
+                    contenedorDiv = contenedorDiv.append(enlanceEliminar);
+                    contenedorDiv = contenedorDiv.html();
 
                     return contenedorDiv;
 
@@ -76,9 +76,9 @@
                     // let designerName = $(this).data('name-designer');
                     let designerName = decodeURIComponent($(this).data('name-designer'));
 
-                    showModal("¿Desea eliminar el diseñador de moda con nombre "+designerName+"?",
-                    "¿Realmente desea eliminar el diseñador de moda con nombre "+designerName+"?",
-                    false, null, 'modal-xl', true, true, false, null, null, "No","Sí");
+                    showModal("@lang('messages.would-you-like-to-delete-the-fashion-designer-whose-name-is')"+designerName+"?",
+                    "@lang('messages.are-you-sure-you-want-to-delete-the-fashion-designer')"+designerName+"?",
+                    false, null, 'modal-xl', true, true, false, null, null, "@lang('messages.no')","@lang('messages.yes')");
 
                     $('#saveModal').on('click', function(e){
                         // Se llama a una ruta para hacer el delete

@@ -3,13 +3,13 @@
 {{-- En el section se mostrará la parte que se ha escrito en logged.blade con "yield" --}}
 @section('content')
     <div class="d-flex justify-content-center">
-        <button type="button" id="back-to-product-index" class="btn btn-primary btn-lg m-3">Volver a la pantalla principal</button>
+        <button type="button" id="back-to-product-index" class="btn btn-primary btn-lg m-3">@lang('messages.go-back-to-the-dashboard')</button>
     </div>   
 
     <div class="container">
         <div class="card bg-light">
             <article class="card-body mx-auto">
-                <h4 class="card-title mt-3 text-center">Visión del producto {{$product->product_name}}</h4>
+                <h4 class="card-title mt-3 text-center">@lang('messages.view-the-product') {{$product->product_name}}</h4>
 
                 {{-- <form action="{{route('products.update',$product->id )}}" class="form-horizontal" enctype="multipart/form-data" method="POST"> 
                     @csrf
@@ -20,7 +20,7 @@
                             <span class="input-group-text"> <i class="fa-solid fa-shirt"></i> </span>
                         </div>
                         <input type="text" id="product_name" name="product_name" 
-                        class="form-control" placeholder="Nombre de producto" value="{{$product->product_name}}" readonly>
+                        class="form-control" placeholder="@lang('messages.product-name')" value="{{$product->product_name}}" readonly>
                     </div>
 
                     {{-- Foto --}}
@@ -28,7 +28,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text"> <i class="fa-solid fa-image"></i> </span>
                         </div>
-                        <img src="{{asset('img/'.$product->picture)}}" alt="Imagen de producto" class="main-product-image">
+                        <img src="{{asset('img/'.$product->picture)}}" alt="@lang('messages.product-image')" class="main-product-image">
                     </div>
 
                     <div class="form-group input-group m-2">
@@ -36,7 +36,7 @@
                             <span class="input-group-text"> <i class="fa-solid fa-comment-medical"></i> </span>
                         </div>
                         <textarea readonly id="description" name="description" class="form-control" 
-                        placeholder="Descripción">{{$product->description}}</textarea>
+                        placeholder="@lang('messages.description')">{{$product->description}}</textarea>
                     </div> 
 
                     <div class="form-group input-group m-2">
@@ -44,7 +44,7 @@
                             <span class="input-group-text"> <i class="fa-solid fa-arrow-down-1-9"></i> </span>
                         </div>
                         <input readonly type="number" id="units" name="units" class="form-control" 
-                        placeholder="Unidades" value="{{$product->units}}">
+                        placeholder="@lang('messages.units')" value="{{$product->units}}">
                     </div>
 
                     <div class="form-group input-group m-2">
@@ -52,7 +52,7 @@
                             <span class="input-group-text"> <i class="fa-solid fa-tag"></i> </span>
                         </div>
                         <input readonly type="number" step="0.01" id="price" name="price" class="form-control" 
-                        placeholder="Precio" value="{{$product->price}}"><span>&#8364;</span>
+                        placeholder="@lang('messages.price')" value="{{$product->price}}"><span>&#8364;</span>
                     </div>
 
                     @if (!$initialSizes->isEmpty())
@@ -61,7 +61,7 @@
                                 <span class="input-group-text"> <i class="fa-solid fa-up-right-and-down-left-from-center"></i> </span>
                             </div>
                             <select required id="sizes" name="sizes[]" data-live-search="true" multiple="multiple"
-                            data-actions-box="true" data-header="Seleccione los tamaños del producto" title="Tamaños"
+                            data-actions-box="true" data-header="@lang('messages.select-the-product-sizes')" title="@lang('messages.sizes')"
                             class="selectpicker form-control mb-1">
                                 @if (!$selectedSizes->isEmpty())
                                     @foreach ($selectedSizes as $selectedSize)
@@ -75,8 +75,8 @@
                         </div> 
                     @else
                         <div class="form-group input-group m-2">
-                            <p>No hay tamaños disponibles. Puede crear uno nuevo desde aquí</p>
-                            <button type="button" id="create-size" class="btn btn-secondary btn-sm ml-1 mr-2">Crear nuevo tamaño</button>
+                            <p>@lang('messages.there-are-no-sizes-available')</p>
+                            <button type="button" id="create-size" class="btn btn-secondary btn-sm ml-1 mr-2">@lang('messages.create-size')</button>
                         </div> 
                     @endif
 
@@ -86,7 +86,7 @@
                                 <span class="input-group-text"> <i class="fa-solid fa-palette"></i> </span>
                             </div>
                             <select required id="colors" name="colors[]" data-live-search="true" multiple="multiple"
-                            data-actions-box="true" data-header="Seleccione los colores del producto" title="Colores"
+                            data-actions-box="true" data-header="@lang('messages.select-the-product-colors')" title="@lang('messages.colors')"
                             class="selectpicker form-control mb-1">
                                 @if (!$selectedColors->isEmpty())
                                     @foreach ($selectedColors as $selectedColor)
@@ -100,8 +100,8 @@
                         </div> 
                     @else
                         <div class="form-group input-group m-2">
-                            <p>No hay colores disponibles. Puede crear uno nuevo desde aquí</p>
-                            <button type="button" id="create-color" class="btn btn-secondary btn-sm ml-1 mr-2">Crear nuevo color</button>
+                            <p>@lang('messages.there-are-no-colors-available')</p>
+                            <button type="button" id="create-color" class="btn btn-secondary btn-sm ml-1 mr-2">@lang('messages.create-new-color')</button>
                         </div> 
                     @endif
 
@@ -112,7 +112,7 @@
                                 <span class="input-group-text"> <i class="fa-solid fa-layer-group"></i> </span>
                             </div>
                             <select required id="categories" name="categories[]" data-live-search="true" multiple="multiple"
-                            data-actions-box="true" data-header="Seleccione las categorías del producto" title="Categorías"
+                            data-actions-box="true" data-header="@lang('messages.select-the-product-categories')" title="@lang('messages.categories')"
                             class="selectpicker form-control mb-1">
                                 @if (!$selectedCategories->isEmpty())
                                     @foreach ($selectedCategories as $selectedCategory)
@@ -126,8 +126,8 @@
                         </div> 
                     @else
                         <div class="form-group input-group m-2">
-                            <p>No hay categorías disponibles. Puede crear una nuevo desde aquí</p>
-                            <button type="button" id="create-category" class="btn btn-secondary btn-sm ml-1 mr-2">Crear nuevo color</button>
+                            <p>@lang('messages.there-are-no-categories-available')</p>
+                            <button type="button" id="create-category" class="btn btn-secondary btn-sm ml-1 mr-2">@lang('messages.create-new-color')</button>
                         </div> 
                     @endif
 
@@ -139,7 +139,7 @@
                                 <span class="input-group-text"> <i class="fa-solid fa-user-tie"></i> </span>
                             </div>
                             <select required id="fashionDesigner" name="fashionDesigner" data-live-search="true" 
-                            data-actions-box="true" data-header="Seleccione el diseñador de moda del producto" title="Diseñadores de moda"
+                            data-actions-box="true" data-header="@lang('messages.select-the-product-fashion-designer')" title="@lang('messages.fashion-designers')"
                             class="selectpicker form-control mb-1">
                                 @if (!$selectedFashionDesigners->isEmpty())
                                     @foreach ($selectedFashionDesigners as $selectedFashionDesigner)
@@ -153,14 +153,14 @@
                         </div>
                     @else
                         <div class="form-group input-group m-2">
-                            <p>No hay diseñadores de moda disponibles. Puede crear uno nuevo desde aquí</p>
-                            <button type="button" id="create-fashion-designer" class="btn btn-secondary btn-sm ml-1 mr-2">Crear nuevo diseñador de moda</button>
+                            <p>@lang('messages.there-are-no-fashion-designers-available')</p>
+                            <button type="button" id="create-fashion-designer" class="btn btn-secondary btn-sm ml-1 mr-2">@lang('messages.create-new-fashion-designer')</button>
                         </div> 
                     @endif
 
 
                     {{-- <div class="form-group">
-                        <button type="submit" id="edit-product-submit" class="btn btn-primary btn-block">Editar producto</button>
+                        <button type="submit" id="edit-product-submit" class="btn btn-primary btn-block">@lang('messages.edit-product')</button>
                     </div>    
                 </form> --}}
                 

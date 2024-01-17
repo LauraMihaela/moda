@@ -1,5 +1,6 @@
 $(function() {
-    
+    $(".languages-flag span").removeClass("fi fi-es").removeClass("fi-"+_langFlag);
+    $(".languages-flag span").addClass("fi fi-"+_langFlag);
     saveModalActionAjax(_publicURL+'shipments/getNumberOfProducts', null, "POST", "json", function(res){
         if(res.status == 0){
             // showInlineMessage(res.message, 10);
@@ -363,4 +364,26 @@ function dragElement(elmnt) {
         document.onmouseup = null;
         document.onmousemove = null;
     }
+}
+
+function getLanguageDate(date){
+    let myDate = new Date(date);
+    let publishedDate;
+
+    switch(_lang){
+        case "es":
+          publishedDate = new Intl.DateTimeFormat('es-ES', { dateStyle: 'full', timeStyle: 'long' }).format(mydate);
+          break;
+        case "en":
+          publishedDate = new Intl.DateTimeFormat('en-GB', { dateStyle: 'full', timeStyle: 'long' }).format(mydate);
+          break;
+        case "ro":
+          publishedDate = new Intl.DateTimeFormat('ro-RO', { dateStyle: 'full', timeStyle: 'long' }).format(mydate);
+          break;
+        default:
+          publishedDate = new Intl.DateTimeFormat('es-ES', { dateStyle: 'full', timeStyle: 'long' }).format(mydate);
+          break;
+      }
+      publishedDate = publishedDate.substring(0, publishedDate.length-8);
+      return publishedDate;
 }

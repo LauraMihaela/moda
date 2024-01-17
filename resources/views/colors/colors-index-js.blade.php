@@ -11,7 +11,7 @@
         window.location.href = _publicURL+"dashboard";
     });
 
-    let _longLang = "Spanish";
+    
 
     $(function() {
  
@@ -20,7 +20,7 @@
             responsive: true,
             paging: true,
             language:{
-                url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
+                url: _langDt,
             },
             pageLength: 5,
             ajax: {
@@ -47,21 +47,21 @@
                 orderable: false,
                 render: function(data, type, row, meta) {
 
-                        let contenedorDiv =  $('<div />').addClass("btn-group");
-                        let enlanceVista = $('<a />').addClass("btn btn-default btn-xs").attr("href", _publicURL+'colors/'+row.id).attr("title", "Visualizar color");
-                        let iconoVista = $('<i />').addClass("fa-solid fa-eye");
-                        let enlanceEditar = $('<a />').addClass("btn btn-default btn-xs").attr("href", _publicURL+'colors/'+row.id+'/edit').attr("title", "Editar color");
-                        let iconoEditar = $('<i />').addClass("fa-solid fa-pen-to-square");
-                        let enlanceEliminar = $('<a />').addClass("btn btn-default btn-xs delete-color").attr("title", "Eliminar color").attr("data-method","delete").attr("data-name-color",row.color_name).attr("data-id-color",row.id);
-                        let iconoEliminar = $('<i />').addClass("fa-solid fa-trash-can");
-                        enlanceVista = enlanceVista.append(iconoVista);
-                        enlanceEditar = enlanceEditar.append(iconoEditar);
-                        enlanceEliminar = enlanceEliminar.append(iconoEliminar);
-    
-                        contenedorDiv = contenedorDiv.append(enlanceVista);
-                        contenedorDiv = contenedorDiv.append(enlanceEditar);
-                        contenedorDiv = contenedorDiv.append(enlanceEliminar);
-                        contenedorDiv = contenedorDiv.html();
+                    let contenedorDiv =  $('<div />').addClass("btn-group");
+                    let enlanceVista = $('<a />').addClass("btn btn-default btn-xs").attr("href", _publicURL+'colors/'+row.id).attr("title", "@lang('messages.see-color')");
+                    let iconoVista = $('<i />').addClass("fa-solid fa-eye");
+                    let enlanceEditar = $('<a />').addClass("btn btn-default btn-xs").attr("href", _publicURL+'colors/'+row.id+'/edit').attr("title", "@lang('messages.edit-color')");
+                    let iconoEditar = $('<i />').addClass("fa-solid fa-pen-to-square");
+                    let enlanceEliminar = $('<a />').addClass("btn btn-default btn-xs delete-color").attr("title", "@lang('messages.delete-color')").attr("data-method","delete").attr("data-name-color",row.color_name).attr("data-id-color",row.id);
+                    let iconoEliminar = $('<i />').addClass("fa-solid fa-trash-can");
+                    enlanceVista = enlanceVista.append(iconoVista);
+                    enlanceEditar = enlanceEditar.append(iconoEditar);
+                    enlanceEliminar = enlanceEliminar.append(iconoEliminar);
+
+                    contenedorDiv = contenedorDiv.append(enlanceVista);
+                    contenedorDiv = contenedorDiv.append(enlanceEditar);
+                    contenedorDiv = contenedorDiv.append(enlanceEliminar);
+                    contenedorDiv = contenedorDiv.html();
 
                     return contenedorDiv;
 
@@ -78,9 +78,9 @@
                     // let colorName = $(this).data('name-color');
                     let colorName = decodeURIComponent($(this).data('name-color'));
 
-                    showModal("¿Desea eliminar el color con nombre "+colorName+"?",
-                    "¿Realmente desea eliminar el color con nombre "+colorName+"?",
-                    false, null, 'modal-xl', true, true, false, null, null, "No","Sí");
+                    showModal("@lang('messages.would-you-like-to-delete-the-color')"+colorName+"?",
+                    "@lang('messages.are-you-sure-you-want-to-delete-the-color')"+colorName+"?",
+                    false, null, 'modal-xl', true, true, false, null, null, "@lang('messages.no')","@lang('messages.yes')");
 
                     $('#saveModal').on('click', function(e){
                         // Se llama a una ruta para hacer el delete

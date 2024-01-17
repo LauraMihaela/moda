@@ -11,7 +11,7 @@
         window.location.href = _publicURL+"dashboard";
     });
 
-    let _longLang = "Spanish";
+    
 
     $(function() {
  
@@ -20,7 +20,7 @@
             responsive: true,
             paging: true,
             language:{
-                url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
+                url: _langDt,
             },
             pageLength: 5,
             ajax: {
@@ -56,11 +56,11 @@
                 render: function(data, type, row, meta) {
                     @if(auth()->user()->role_id !== config('constants.roles.client_role'))
                         let contenedorDiv =  $('<div />').addClass("btn-group");
-                        let enlanceVista = $('<a />').addClass("btn btn-default btn-xs").attr("href", _publicURL+'shipments/'+row.id).attr("title", "Visualizar envío");
+                        let enlanceVista = $('<a />').addClass("btn btn-default btn-xs").attr("href", _publicURL+'shipments/'+row.id).attr("title", "@lang('messages.view-shipment')");
                         let iconoVista = $('<i />').addClass("fa-solid fa-eye");
-                        let enlanceEditar = $('<a />').addClass("btn btn-default btn-xs").attr("href", _publicURL+'shipments/'+row.id+'/edit').attr("title", "Editar envío");
+                        let enlanceEditar = $('<a />').addClass("btn btn-default btn-xs").attr("href", _publicURL+'shipments/'+row.id+'/edit').attr("title", "@lang('messages.edit-shipment')");
                         let iconoEditar = $('<i />').addClass("fa-solid fa-pen-to-square");
-                        let enlanceEliminar = $('<a />').addClass("btn btn-default btn-xs delete-shipment").attr("title", "Eliminar envío").attr("data-method","delete").attr("data-name-shipment",row.username).attr("data-name-product",row.product_name).attr("data-id-shipment",row.id);
+                        let enlanceEliminar = $('<a />').addClass("btn btn-default btn-xs delete-shipment").attr("title", "@lang('messages.delete-shipment')").attr("data-method","delete").attr("data-name-shipment",row.username).attr("data-name-product",row.product_name).attr("data-id-shipment",row.id);
                         let iconoEliminar = $('<i />').addClass("fa-solid fa-trash-can");
                         enlanceVista = enlanceVista.append(iconoVista);
                         enlanceEditar = enlanceEditar.append(iconoEditar);
@@ -75,7 +75,7 @@
                     @else
                         // Es cliente
                         let contenedorDiv =  $('<div />').addClass("btn-group");
-                        let enlanceVista = $('<a />').addClass("btn btn-default btn-xs").attr("href", _publicURL+'shipments/'+row.id).attr("title", "Visualizar envío");
+                        let enlanceVista = $('<a />').addClass("btn btn-default btn-xs").attr("href", _publicURL+'shipments/'+row.id).attr("title", "@lang('messages.view-shipment')");
                         let iconoVista = $('<i />').addClass("fa-solid fa-eye");
                         
                         enlanceVista = enlanceVista.append(iconoVista);
@@ -100,9 +100,9 @@
                     let shipmentName = decodeURIComponent($(this).data('name-shipment'));
                     let shipmentProduct = decodeURIComponent($(this).data('name-product'));
 
-                    showModal("¿Desea eliminar el envío del producto "+shipmentProduct +" realizado por el usuario "+shipmentName+"?",
-                    "¿Realmente desea eliminar el envío del producto "+shipmentProduct +" realizado por el usuario "+shipmentName+"?",
-                    false, null, 'modal-xl', true, true, false, null, null, "No","Sí");
+                    showModal("@lang('messages.would-you-like-to-delete-the-shipment')"+shipmentProduct +" "+"@lang('messages.made-by-the-user')"+" "+shipmentName+"?",
+                    "@lang('messages.are-you-sure-you-want-to-delete-the-shipment')"+shipmentProduct +" "+"@lang('messages.made-by-the-user')"+" "+shipmentName+"?",
+                    false, null, 'modal-xl', true, true, false, null, null, "@lang('messages.no')","@lang('messages.yes')");
 
                     $('#saveModal').on('click', function(e){
                         // Se llama a una ruta para hacer el delete

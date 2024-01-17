@@ -11,7 +11,7 @@
         window.location.href = _publicURL+"dashboard";
     });
 
-    let _longLang = "Spanish";
+    
 
     $(function() {
  
@@ -20,7 +20,7 @@
             responsive: true,
             paging: true,
             language:{
-                url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
+                url: _langDt,
             },
             pageLength: 5,
             ajax: {
@@ -48,11 +48,11 @@
                 render: function(data, type, row, meta) {
 
                         let contenedorDiv =  $('<div />').addClass("btn-group");
-                        let enlanceVista = $('<a />').addClass("btn btn-default btn-xs").attr("href", _publicURL+'categories/'+row.id).attr("title", "Visualizar categoría");
+                        let enlanceVista = $('<a />').addClass("btn btn-default btn-xs").attr("href", _publicURL+'categories/'+row.id).attr("title", "@lang('messages.see-category')");
                         let iconoVista = $('<i />').addClass("fa-solid fa-eye");
-                        let enlanceEditar = $('<a />').addClass("btn btn-default btn-xs").attr("href", _publicURL+'categories/'+row.id+'/edit').attr("title", "Editar categoría");
+                        let enlanceEditar = $('<a />').addClass("btn btn-default btn-xs").attr("href", _publicURL+'categories/'+row.id+'/edit').attr("title", "@lang('messages.edit-category')");
                         let iconoEditar = $('<i />').addClass("fa-solid fa-pen-to-square");
-                        let enlanceEliminar = $('<a />').addClass("btn btn-default btn-xs delete-category").attr("title", "Eliminar categoría").attr("data-method","delete").attr("data-name-category",row.category_name).attr("data-id-category",row.id);
+                        let enlanceEliminar = $('<a />').addClass("btn btn-default btn-xs delete-category").attr("title", "@lang('messages.delete-category')").attr("data-method","delete").attr("data-name-category",row.category_name).attr("data-id-category",row.id);
                         let iconoEliminar = $('<i />').addClass("fa-solid fa-trash-can");
                         enlanceVista = enlanceVista.append(iconoVista);
                         enlanceEditar = enlanceEditar.append(iconoEditar);
@@ -78,9 +78,9 @@
                     // let categoryName = $(this).data('name-category');
                     let categoryName = decodeURIComponent($(this).data('name-category'));
 
-                    showModal("¿Desea eliminar la categoría con nombre "+categoryName+"?",
-                    "¿Realmente desea eliminar la categoría con nombre "+categoryName+"?",
-                    false, null, 'modal-xl', true, true, false, null, null, "No","Sí");
+                    showModal("@lang('messages.would-you-like-to-delete-the-category-whose-name-is')"+categoryName+"?",
+                    "@lang('messages.are-you-sure-you-want-to-delete-the-category')"+categoryName+"?",
+                    false, null, 'modal-xl', true, true, false, null, null, "@lang('messages.no')","@lang('messages.yes')");
 
                     $('#saveModal').on('click', function(e){
                         // Se llama a una ruta para hacer el delete

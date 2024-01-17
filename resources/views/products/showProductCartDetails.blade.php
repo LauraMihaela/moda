@@ -16,9 +16,9 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text"> <i class="fa-solid fa-up-right-and-down-left-from-center"></i> </span>
                     </div>
-                    <span class="ml-1 mr-1">Tamaño:</span>
+                    <span class="ml-1 mr-1">@lang('messages.size-colon')</span>
                     <select required id="sizes" name="sizes" data-live-search="true"
-                    data-actions-box="true" data-header="Seleccione los tamaños del producto" title="Tamaños"
+                    data-actions-box="true" data-header="@lang('messages.select-the-product-sizes')" title="@lang('messages.sizes')"
                     class="form-control mb-1">
                         @foreach ($sizes as $size)
                             <option value="{{ $size->size_id }}">{{ $size->size_name }}</option>
@@ -27,7 +27,7 @@
                 </div> 
             @else
                 <div class="form-group input-group m-2">
-                    <p>El producto no tiene tamaños disponibles.</p>
+                    <p>@lang('messages.the-product-does-not-have-sizes-available')</p>
                 </div> 
             @endif
 
@@ -36,9 +36,9 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text"> <i class="fa-solid fa-palette"></i> </span>
                     </div>
-                    <span class="ml-1 mr-1">Color:</span>
+                    <span class="ml-1 mr-1">@lang('messages.color-colon')</span>
                     <select required id="colors" name="colors" data-live-search="true" 
-                    data-actions-box="true" data-header="Seleccione el color del producto" title="Colores"
+                    data-actions-box="true" data-header="@lang('messages.select-a-color-in-the-product')" title="@lang('messages.colors')"
                     class="form-control mb-1">
                         @foreach ($colors as $color)
                             <option value="{{ $color->color_id }}">{{ $color->color_name }}</option>
@@ -47,14 +47,14 @@
                 </div> 
             @else
                 <div class="form-group input-group m-2">
-                    <p>El producto no tiene colores disponibles.</p>
+                    <p>@lang('messages.the-product-does-not-have-colors-available')</p>
                 </div> 
             @endif
 
             <div class="form-group float-right">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeModalCart">Cerrar</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeModalCart">@lang('messages.close')</button>
                 {{-- <button type="submit" class="btn btn-primary cart-product-submit" id="saveModalCart"><i class="fa fa-save"></i>&ensp;Añadir producto al carrito</button> --}}
-                <button type="submit" class="btn btn-primary cart-product-submit" id="saveModalCart"><i class="fa fa-save"></i>&ensp;Comprar producto {{$product->product_name}}</button>
+                <button type="submit" class="btn btn-primary cart-product-submit" id="saveModalCart"><i class="fa fa-save"></i>&ensp;@lang('messages.buy-product') {{$product->product_name}}</button>
             </div>    
         </form>
 
