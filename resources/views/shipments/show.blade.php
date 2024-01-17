@@ -3,7 +3,7 @@
 {{-- En el section se mostrará la parte que se ha escrito en logged.blade con "yield" --}}
 @section('content')
     <div class="d-flex justify-content-center">
-        <button type="button" id="back-to-shipment-index" class="btn btn-primary btn-lg m-3">@lang('messages.go-back-to-the-see-all-the-categories')</button>
+        <button type="button" id="back-to-shipment-index" class="btn btn-primary btn-lg m-3">@lang('messages.go-back-to-see-all-the-shipments')</button>
     </div>   
 
     <div class="container">

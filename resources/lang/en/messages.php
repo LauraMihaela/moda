@@ -76,7 +76,7 @@ return [
 
     'color' => 'Color',
 
-    'go-back-to-the-see-all-the-categories' => 'Go back to see all the categories',
+    'go-back-to-see-all-the-categories' => 'Go back to see all the categories',
 
     'go-back-to-the-dashboard' => 'Go back to the dashboard',
     'create-new-category' => 'Create new category',
@@ -165,7 +165,7 @@ return [
     'repeat-new-password' => 'Repeat the new password',
     'update-profile' => 'Update the profile',
 
-    'go-back-to-the-see-all-the-categories' => 'Go back to the see all the categories',
+    'go-back-to-see-all-the-shipments' => 'Go back to the see all the shipments',
     'create-a-shipment' => 'Create a shipment',
     'username-colon' => 'Username:',
     'product-to-be-bought-colon' => 'Product to be bought:',
@@ -174,7 +174,7 @@ return [
     'select-the-status-name' => 'Select the status name',
     'create-shipment' => 'Create a shipment',
     'select-username' => 'Select username',
-    'status-id' => 'Status id',
+    'shipment-id' => 'Shipment id',
     'product-that-was-bought-colon' => 'Product that was bought:',
     'shipment-status-colon' => 'Shipment status:',
     'edit-shipment' => 'Edit shipment',
@@ -250,6 +250,12 @@ return [
     'go-back-to-the-log-in-site' => 'Go back to log-in',
     'create-a-new-user' => 'Create a new user',
     'create-new-account' => 'Create a new account',
-    
+
     'language-change' => 'The application language has been changed to ',
+
+    'initial' => 'Initial',
+    'sent' => 'Sent',
+    'in-progress' => 'In progress',
+    'rejected' => 'Rejected',
+    'completed' => 'Completed',
 ];

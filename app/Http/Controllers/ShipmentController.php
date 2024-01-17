@@ -89,6 +89,8 @@ class ShipmentController extends Controller
         ->select('shipments.id as shipment_id','status.id as status_id','status.status_name as status_name')
         ->where('shipments.id',$id)->first();
 
+        $status->status_name = changeShipmentStatus($status->status_name);
+
         return view('shipments.show', compact('shipment','shipmentUser','sizes_colors_products','status'));
     }
 
@@ -140,15 +142,28 @@ class ShipmentController extends Controller
         $status = Shipment::leftJoin('status','shipments.status_id','status.id')
         ->select('status.id as status_id','status.status_name as status_name')
         ->where('shipments.id',$id)->first();
+        $status->status_name = changeShipmentStatus($status->status_name);
+        // dd(changeShipmentStatus($status->status_name));
+        
 
         $allStatus = Status::select('status.id as status_id','status.status_name as status_name')
         ->get();
 
-        foreach ($allStatus as $index=>$elem){
+        // foreach ($allStatus as $index=>$elem){
+        //     if ($elem->status_id == $status->status_id){
+        //         $allStatus->forget($index);
+        //     }
+        // }
+        // dd($allStatus->toArray());
+        $allStatus->map(function ($elem, int $index) use($status,$allStatus){
             if ($elem->status_id == $status->status_id){
                 $allStatus->forget($index);
             }
-        }
+            $elem->status_name = changeShipmentStatus($elem->status_name);
+            // dump($elem->toArray());
+        });
+
+        // dd($allStatus->toArray());
 
         return view('shipments.edit', compact('shipment','shipmentUser','allClients','selectedSizesColorsProducts','allSizesColorsProducts','status','allStatus'));
 
@@ -207,6 +222,9 @@ class ShipmentController extends Controller
             ->where('users.id',auth()->user()->id)
             ->get();  
         }
+        $query->map(function ($elem, int $index){
+            $elem->status_name = changeShipmentStatus($elem->status_name);
+        });
 
         $totalData = $query->count();
 

@@ -3,13 +3,13 @@
 {{-- En el section se mostrará la parte que se ha escrito en logged.blade con "yield" --}}
 @section('content')
     <div class="d-flex justify-content-center">
-        <button type="button" id="back-to-shipment-index" class="btn btn-primary btn-lg m-3">@lang('messages.go-back-to-the-see-all-the-categories')</button>
+        <button type="button" id="back-to-shipment-index" class="btn btn-primary btn-lg m-3">@lang('messages.go-back-to-see-all-the-shipments')</button>
     </div>   
 
     <div class="container">
         <div class="card bg-light">
             <article class="card-body mx-auto">
-                <h4 class="card-title mt-3 text-center">@lang('messages.status-id') {{$shipment->id}}</h4>
+                <h4 class="card-title mt-3 text-center">@lang('messages.shipment-id') {{$shipment->id}}</h4>
 
                 <form action="{{route('shipments.update',$shipment->id )}}" class="form-horizontal" enctype="multipart/form-data" method="POST"> 
                     @csrf

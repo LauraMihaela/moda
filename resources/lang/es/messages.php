@@ -76,7 +76,7 @@ return [
 
     'color' => 'Color',
 
-    'go-back-to-the-see-all-the-categories' => 'Volver a la visión global de categorías',
+    'go-back-to-see-all-the-categories' => 'Volver a la visión global de categorías',
 
     'go-back-to-the-dashboard' => 'Volver a la página de inicio',
     'create-new-category' => 'Crear nueva categoría',
@@ -165,7 +165,7 @@ return [
     'repeat-new-password' => 'Repetir contraseña nueva',
     'update-profile' => 'Actualizar perfil',
 
-    'go-back-to-the-see-all-the-categories' => 'Volver a la visión global de envíos',
+    'go-back-to-see-all-the-shipments' => 'Volver a la visión global de pedidos (envíos)',
     'create-a-shipment' => 'Creación de un envío',
     'username-colon' => 'Nombre de usuario:',
     'product-to-be-bought-colon' => 'Producto a comprar:',
@@ -174,7 +174,7 @@ return [
     'select-the-status-name' => 'Seleccione el nombre del estado del envío',
     'create-shipment' => 'Crear envío',
     'select-username' => 'Seleccione un nombre de usuario',
-    'status-id' => 'Id del envío',
+    'shipment-id' => 'Id del envío',
     'product-that-was-bought-colon' => 'Producto comprado:',
     'shipment-status-colon' => 'Estado del envío:',
     'edit-shipment' => 'Editar envío',
@@ -252,4 +252,10 @@ return [
     'create-new-account' => 'Crear cuenta',
 
     'language-change' => 'El idioma de la aplicación ha sido cambiado a ',
+
+    'initial' => 'Inicial',
+    'sent' => 'Enviado',
+    'in-progress' => 'En progreso',
+    'rejected' => 'Rechazado',
+    'completed' => 'Completado',
 ];
