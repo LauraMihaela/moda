@@ -34,11 +34,11 @@ Route::post('/user/client/store', 'App\Http\Controllers\UserController@storeClie
 // Vistas de usuario logueado
 
 Route::group(['middleware'=>['isLogged','setLocale']], function(){
+
+    Route::get('/dashboard', 'App\Http\Controllers\ProductsController@index');
     // Route::get('/dashboard', function () {
     //     return view('dashboard.index');
     // });
-    Route::get('/dashboard', 'App\Http\Controllers\ProductsController@index');
-
 
     // Products
     // Route::get('/products/create', 'App\Http\Controllers\ProductsController@create');
