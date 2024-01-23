@@ -226,6 +226,9 @@ class ProductsController extends Controller
         $initialCategories = Category::select('categories.id as category_id','category_name')->distinct()->get();
         $fashionDesigners = FashionDesigner::select('fashion_designers.id as fashion_designer_id','fashion_designers.name as name','fashion_designers.country as country')->get();
         $product = Product::find($id);
+        if (!$product) {
+            abort(404); // handle the case when the product is not found
+        }
         $sizesColorsProducts = SizeColorProduct::where('product_id',$id)->distinct()->get();
         $selectedSizes = SizeColorProduct::join('sizes','sizes_colors_products.size_id','sizes.id')
         ->select('size_id','size_name')->where('product_id',$id)
