@@ -1,10 +1,10 @@
 $(function() {
     $(".languages-flag span").removeClass("fi fi-es").removeClass("fi-"+_langFlag);
     $(".languages-flag span").addClass("fi fi-"+_langFlag);
-    saveModalActionAjax(_publicURL+'shipments/getNumberOfProducts', null, "POST", "json", function(res){
+    saveModalActionAjax(_publicURL+'cart/getNumberOfProducts', null, "POST", "json", function(res){
         if(res.status == 0){
             // showInlineMessage(res.message, 10);
-            $("#main-number-cart .elements-cart span").html(res.numberOfShipments);
+            $("#main-number-cart .elements-cart span").html(res.numberOfProductsInCart);
         }
         else{
             // showInlineError(res.message, 10);

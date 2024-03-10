@@ -258,4 +258,7 @@ return [
     'in-progress' => 'In progress',
     'rejected' => 'Rejected',
     'completed' => 'Completed',
+
+    'would-you-like-to-add-the-product-to-the-cart' => 'Would you like to add the product to the cart ',
+    'add-product-to-cart' => 'Add product to cart',
 ];

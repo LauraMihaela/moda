@@ -258,4 +258,7 @@ return [
     'in-progress' => 'En progreso',
     'rejected' => 'Rechazado',
     'completed' => 'Completado',
+
+    'would-you-like-to-add-the-product-to-the-cart' => '¿Le gustaría añadir el producto al carrito de compras ',
+    'add-product-to-cart' => 'Añadir al carrito el producto ',
 ];

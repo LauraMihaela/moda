@@ -24,9 +24,15 @@ Route::get('/register', function () {
 
 Route::post('/login', 'App\Http\Controllers\LoginController@login');
 
+/*
 Route::post('/shipments/getNumberOfProducts', [
     'as' => 'shipments.getNumberOfProducts',
     'uses' => 'App\Http\Controllers\ShipmentController@getNumberOfProducts'
+]);
+*/
+Route::post('/cart/getNumberOfProducts', [
+    'as' => 'cart.getNumberOfProducts',
+    'uses' => 'App\Http\Controllers\CartController@getNumberOfProducts'
 ]);
 
 // Usuario
@@ -116,7 +122,12 @@ Route::group(['middleware'=>['isLogged','setLocale']], function(){
     ]);
 
     // Carrito
-    Route::get('/cart', 'App\Http\Controllers\ProductsController@cartIndex');
+    Route::get('/cart', 'App\Http\Controllers\CartController@index');
+    Route::resource('cart','App\Http\Controllers\CartController');
+    Route::match(array('GET', 'POST'),'/cart/datatable', [
+        'as' => 'cart.datatable',
+        'uses' => 'App\Http\Controllers\CartController@datatable'
+    ]);
 
     // Usuarios
     Route::get('/users/clients/create', 'App\Http\Controllers\UserController@createClient');

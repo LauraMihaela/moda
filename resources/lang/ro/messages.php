@@ -258,4 +258,7 @@
         'in-progress' => 'In progres',
         'rejected' => 'Respins',
         'completed' => 'Completat',
+
+        'would-you-like-to-add-the-product-to-the-cart' => 'Doresti sa adaugi produsul in caruciorul de cumparaturi?',
+        'add-product-to-cart' => 'Adauga produsul in caruciorul de cumparaturi',
     ];

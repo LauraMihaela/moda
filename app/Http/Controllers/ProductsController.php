@@ -11,6 +11,7 @@ use App\Models\FashionDesigner;
 use App\Models\Size;
 use App\Models\Color;
 use App\Models\Shipment;
+use App\Models\Cart;
 use App\Models\Client;
 use App\Models\Category;
 use App\Models\CategoryProduct;
@@ -226,9 +227,9 @@ class ProductsController extends Controller
         $initialCategories = Category::select('categories.id as category_id','category_name')->distinct()->get();
         $fashionDesigners = FashionDesigner::select('fashion_designers.id as fashion_designer_id','fashion_designers.name as name','fashion_designers.country as country')->get();
         $product = Product::find($id);
-        if (!$product) {
-            abort(404); // handle the case when the product is not found
-        }
+        // if (!$product) {
+        //     abort(404); // handle the case when the product is not found
+        // }
         $sizesColorsProducts = SizeColorProduct::where('product_id',$id)->distinct()->get();
         $selectedSizes = SizeColorProduct::join('sizes','sizes_colors_products.size_id','sizes.id')
         ->select('size_id','size_name')->where('product_id',$id)
@@ -565,9 +566,8 @@ class ProductsController extends Controller
         if(empty($product)){
             // La función destroy devuelve un json; así se ha definido en la llamada ajax
             // El json tiene un campo estado (1: error o 0:ok) y un campo mensaje (con un texto)
-            // return response()->json(['status' => 1, 'message' => "El producto no se ha añadido al carrito"]);
-            return response()->json(['status' => 1, 'message' => "El producto no ha podido ser comprado"]);
-
+            return response()->json(['status' => 1, 'message' => "El producto no se ha añadido al carrito"]);
+            // return response()->json(['status' => 1, 'message' => "El producto no ha podido ser comprado"]);
         }
         $color = null;
         if($request->colors){
@@ -591,6 +591,7 @@ class ProductsController extends Controller
         $clientId = $client->id;
         // Estado inicial
         $statusId = 1;
+        /*
         Shipment::create([
             'client_id' => $clientId,
             'sizes_colors_products_id' => $sizesColorsProductId,
@@ -600,8 +601,17 @@ class ProductsController extends Controller
         $numberOfShipments = 0;
         if ($shipments){
             $numberOfShipments = $shipments->count();
+        }*/
+        Cart::create([
+            'client_id' => $clientId,
+            'sizes_colors_products_id' => $sizesColorsProductId,
+        ]);
+        $productsInCart = Cart::where('client_id',$clientId)->get();
+        $numberOfProductsInCart = 0;
+        if ($productsInCart){
+            $numberOfProductsInCart = $productsInCart->count();
         }
-        return response()->json(['status' => 0, 'message' => "El producto ".$productName. " ha sido añadido al carrito", 'numberOfShipments' => $numberOfShipments]);
+        return response()->json(['status' => 0, 'message' => "El producto ".$productName. " ha sido añadido al carrito", 'numberOfProductsInCart' => $numberOfProductsInCart]);
 
     }
 

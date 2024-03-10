@@ -63,10 +63,11 @@
             </li>
             @if(auth()->user()->role_id == config('constants.roles.client_role'))
               {{-- <div onclick="window.location='{{url('/cart')}}'" class="nav-cart" title="@lang('messages.shopping-cart')"> --}}
-              <div class="nav-cart" title="@lang('messages.number-of-bought-products')" id="main-number-cart">
+              <div class="nav-cart" title="@lang('messages.number-of-bought-products')" 
+              id="main-number-cart" onclick="window.location='{{url('/cart')}}'">
                 <div>
-                  {{-- <i class="fa-solid fa-cart-shopping"></i> --}}
-                  <i class="fa-solid fa-basket-shopping"></i>
+                  <i class="fa-solid fa-cart-shopping"></i>
+                  {{-- <i class="fa-solid fa-basket-shopping"></i> --}}
                 </div>
                 <div class="elements-cart">
                     <span>0</span>

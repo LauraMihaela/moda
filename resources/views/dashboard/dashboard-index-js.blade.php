@@ -187,7 +187,7 @@ $(function() {
                 // "",
                 // null, _publicURL+'products/'+productId+'/showProductCartDetails', 'modal-xl', true, true, false, null, null, "No","Sí",true);
 
-                showModal("@lang('messages.would-you-like-to-buy-the-product')"+productName+"?",
+                showModal("@lang('messages.would-you-like-to-add-the-product-to-the-cart')"+productName+"?",
                 "",
                 null, _publicURL+'products/'+productId+'/showProductCartDetails', 'modal-xl', true, true, false, null, null, "@lang('messages.no')","@lang('messages.yes')",true);
 

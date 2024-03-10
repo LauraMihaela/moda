@@ -42,7 +42,7 @@
             // devuelve un json con una respuesta
             if(res.status == 0){
                 showInlineMessage(res.message, 10);
-                $("#main-number-cart .elements-cart span").html(res.numberOfShipments);
+                $("#main-number-cart .elements-cart span").html(res.numberOfProductsInCart);
             }
             else{
                 // Si la respuesta es un error, se muestra el mensaje de error
