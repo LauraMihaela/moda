@@ -128,6 +128,10 @@ Route::group(['middleware'=>['isLogged','setLocale']], function(){
         'as' => 'cart.datatable',
         'uses' => 'App\Http\Controllers\CartController@datatable'
     ]);
+    Route::match(array('GET', 'POST'),'/cart/{id}/buy/{units}', [
+        'as' => 'cart.buyProduct',
+        'uses' => 'App\Http\Controllers\CartController@buyProduct'
+    ]);
 
     // Usuarios
     Route::get('/users/clients/create', 'App\Http\Controllers\UserController@createClient');

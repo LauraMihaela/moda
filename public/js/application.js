@@ -1,15 +1,7 @@
 $(function() {
     $(".languages-flag span").removeClass("fi fi-es").removeClass("fi-"+_langFlag);
     $(".languages-flag span").addClass("fi fi-"+_langFlag);
-    saveModalActionAjax(_publicURL+'cart/getNumberOfProducts', null, "POST", "json", function(res){
-        if(res.status == 0){
-            // showInlineMessage(res.message, 10);
-            $("#main-number-cart .elements-cart span").html(res.numberOfProductsInCart);
-        }
-        else{
-            // showInlineError(res.message, 10);
-        }
-    },true, true);
+    updateNumberOfProducts();
     
 });
 // url: https://getbootstrap.com/docs/4.0/components/modal/
@@ -386,4 +378,16 @@ function getLanguageDate(date){
       }
       publishedDate = publishedDate.substring(0, publishedDate.length-8);
       return publishedDate;
+}
+
+function updateNumberOfProducts(){
+    saveModalActionAjax(_publicURL+'cart/getNumberOfProducts', null, "POST", "json", function(res){
+        if(res.status == 0){
+            // showInlineMessage(res.message, 10);
+            $("#main-number-cart .elements-cart span").html(res.numberOfProductsInCart);
+        }
+        else{
+            // showInlineError(res.message, 10);
+        }
+    },true, true);
 }

@@ -40,6 +40,7 @@ class CartController extends Controller
     }
 
     public function index(){
+ 
         return view('cart.index');
     }
 
@@ -86,16 +87,14 @@ class CartController extends Controller
     }
 
     public function destroy(int $id){
-        $size = Size::find($id);
-        $sizeName = $size->size_name;
-        if(empty($size)){
+        $cartItem = Cart::find($id);
+        if(empty($cartItem)){
             // La función destroy devuelve un json; así se ha definido en la llamada ajax
             // El json tiene un campo estado (1: error o 0:ok) y un campo mensaje (con un texto)
-            return response()->json(['status' => 1, 'message' => "El tamaño no se ha encontrado"]);
+            return response()->json(['status' => 1, 'message' => "No se ha encontrado el producto del carrito"]);
         }
-        $size->delete($id);
-        // return $this->jsonResponse(0, "El tamaño ".$sizeName. " ha sido eliminado");
-        return response()->json(['status' => 0, 'message' => "El tamaño ".$sizeName. " ha sido eliminado"]);
+        $cartItem->delete($id);
+        return response()->json(['status' => 0, 'message' => "Producto eliminado del carrito"]);
     }
 
     public function datatable(Request $request){
@@ -109,6 +108,7 @@ class CartController extends Controller
         ->join('sizes','sizes_colors_products.size_id','sizes.id')
 
         ->select(
+            'cart.id as id',
             'cart.client_id as client_id','cart.sizes_colors_products_id as sizes_colors_products_id',
             'products.id as product_id','products.product_name as product_name',
             'products.picture as picture','products.price as price', 
@@ -119,7 +119,13 @@ class CartController extends Controller
         ->distinct()
         ->get();
 
-       
+        // Se obtienen los valores únicos en la colección mediante unique. 
+        // Se eliminan los números de cada iteracción que devuelve unique mediante value
+        $query = $query->unique(function ($item)
+        {
+            return $item['product_name'] . $item['color_name'] . $item['size_name'];
+        })->values();
+        
         $totalData = $query->count();
 
         $start = $request->input('start');
@@ -133,6 +139,62 @@ class CartController extends Controller
             'recordsFiltered' => $totalData,
             'data' => $query
         ]);
+    }
+
+    public function buyProduct(int $id, int $units){
+        $cartProdcuct = Cart::find($id);
+        if(empty($cartProdcuct)){
+            return response()->json(['status' => 1, 'message' => "No se ha encontrado el producto del carrito"]);
+        }
+        if ($units < 1){
+            return response()->json(['status' => 1, 'message' => "Unidades inválidas"]);
+        }
+        else if ($units == 1){
+            $initialStatus = 1;
+            Shipment::create([
+                'client_id' => $cartProdcuct->client_id,
+                'sizes_colors_products_id' => $cartProdcuct->sizes_colors_products_id,
+                'status_id' => $initialStatus
+            ]);
+    
+            $cartProdcuct->delete($id);
+        }
+        else{
+            /*
+            $query = Cart::join('sizes_colors_products','cart.sizes_colors_products_id','sizes_colors_products.id')
+            ->join('products','sizes_colors_products.product_id','products.id')
+            ->select(
+                'cart.id',
+                'cart.client_id as client_id','cart.sizes_colors_products_id as sizes_colors_products_id',
+                'products.id as product_id','products.product_name as product_name',
+                DB::raw('COUNT(sizes_colors_products_id) OVER (PARTITION BY sizes_colors_products_id) as number_of_units')
+            )
+            ->where('cart.id',$id)
+            // ->distinct()
+            ->first();
+            dd($query->toArray());
+            $dbUnits = $query->number_of_units;
+            // Comprobamos el número de unidades para asegurarnos de que no se han escrito más de las que existen
+            if ($units > $dbUnits){
+                return response()->json(['status' => 1, 'message' => "Unidades inválidas"]);
+            }
+            else{
+                */
+                $initialStatus = 1;
+                for($i=1; $i<=$units; $i++){
+                    Shipment::create([
+                        'client_id' => $cartProdcuct->client_id,
+                        'sizes_colors_products_id' => $cartProdcuct->sizes_colors_products_id,
+                        'status_id' => $initialStatus
+                    ]);
+                    $cartProdcuct->delete($id);
+                }
+                
+            // }
+
+        }
+        
+        return response()->json(['status' => 0, 'message' => "Felicidades, gracias por comprar el producto. Puedes visualizar su estado desde los pedidos."]);
     }
    
 }

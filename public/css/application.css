@@ -40,6 +40,11 @@
     margin-top: -1em;
 }
 
+.btn-icons{
+    width: fit-content !important;
+    height: fit-content !important;
+}
+
 /* No se muestra el file input original, en su lugar se hace con un label */
 /* #picture {
     display: none;

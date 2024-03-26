@@ -33,6 +33,10 @@
         </table>
       </div>
     </div>
+
+    <button type="button" id="buy-all-products" class="btn btn-primary btn-lg m-3">Buy all products</button>
+
+
   </div>
 
 @section('customScripts')
